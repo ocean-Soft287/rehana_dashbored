@@ -1,0 +1,122 @@
+import 'package:flutter/material.dart' hide DataCell;
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rehana_dashboared/core/const/widget/table/headercell.dart';
+import 'package:rehana_dashboared/core/const/widget/table/data_cell.dart';
+import 'package:rehana_dashboared/core/utils/colors/colors.dart';
+import 'package:rehana_dashboared/generated/l10n.dart';
+import '../../../../../core/const/paginationcontrols.dart';
+import '../../manger/homeinvitation_cubit.dart';
+
+class TabletHome extends StatefulWidget {
+  const TabletHome({super.key});
+
+  @override
+  State<TabletHome> createState() => _TabletHomeState();
+}
+
+class _TabletHomeState extends State<TabletHome> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<HomeinvitationCubit>().getinvitationpage(
+      context.read<HomeinvitationCubit>().currentPage,
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<HomeinvitationCubit, HomeinvitationState>(
+      builder: (context, state) {
+        final homeinvitation = context.read<HomeinvitationCubit>();
+
+        return Padding(
+          padding: const EdgeInsets.all(24.0),
+          child: Material(
+            elevation: 5,
+            borderRadius: BorderRadius.circular(16),
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: CustomScrollView(
+                slivers: [
+                  // Header
+                  SliverToBoxAdapter(
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Appcolors.kprimary,
+                        borderRadius: const BorderRadius.vertical(
+                          top: Radius.circular(16),
+                        ),
+                      ),
+                      child: Row(
+                        children: [
+                          HeaderCell(text: S.of(context).villanumber, flex: 2),
+                          HeaderCell(text: S.of(context).name),
+                          HeaderCell(text: S.of(context).time),
+                          HeaderCell(text: S.of(context).reasonforvisit),
+                          HeaderCell(text: S.of(context).status),
+                        ],
+                      ),
+                    ),
+                  ),
+
+                  // Data rows
+                  if (state is Invitationsuccful)
+                    SliverList.separated(
+                      itemCount: state.paginatedVisitInvitations.items.length,
+                      itemBuilder: (context, index) {
+                        final item = state.paginatedVisitInvitations.items[index];
+                        final timeRange = "${item.dateFrom} - ${item.dateTo}";
+                        final bgColor = index.isOdd
+                            ? const Color(0xFFF6F9ED)
+                            : Colors.white;
+
+                        return Container(
+                          color: bgColor,
+                          child: Row(
+                            children: [
+                              DataCell(
+                                text: item.memberVillaNumber.toString(),
+                                flex: 2,
+
+                              ),
+                              DataCell(text: item.memberUserName,
+                                ),
+                              DataCell(text: timeRange,
+                                ),
+                              DataCell(text: item.reasonForVisit,
+                            ),
+                              DataCell(text: item.status,
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                      separatorBuilder: (context, index) => const Divider(
+                        height: 0,
+                        color: Color(0xFFE2E2E2),
+                      ),
+                    ),
+
+                  SliverToBoxAdapter(child: SizedBox(height: 50)),
+
+                  // Pagination
+                  if (state is Invitationsuccful)
+
+                    PaginationControls(
+                      currentPage: homeinvitation.currentPage,
+                      totalPages: state.paginatedVisitInvitations.totalPages,
+                      onNext: homeinvitation.nextPage,
+                      onPrevious: homeinvitation.previousPage,
+                    )
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
