@@ -12,15 +12,29 @@ import 'package:rehana_dashboared/l10n/app_localizations.dart';
 import '../../../../bar_navigation/manger/bar_cubit.dart';
 import '../../manger/person_cubit.dart';
 
-class MembersAccountStatementTablet extends StatelessWidget {
+class MembersAccountStatementTablet extends StatefulWidget {
   const MembersAccountStatementTablet({super.key});
+
+  @override
+  State<MembersAccountStatementTablet> createState() => _MembersAccountStatementTabletState();
+}
+
+class _MembersAccountStatementTabletState extends State<MembersAccountStatementTablet> {
+  late final PersonCubit _personCubit;
+
+  @override
+  void initState() {
+    super.initState();
+    _personCubit = context.read<PersonCubit>();
+    // Load data only once when screen first opens
+    _personCubit.getallmemberaccounts(_personCubit.currentPage);
+  }
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<PersonCubit, PersonState>(
       builder: (context, state) {
-        final personCubit = context.read<PersonCubit>();
-        personCubit.getallmemberaccounts(personCubit.currentPage);
+        // ❌ REMOVED: personCubit.getallmemberaccounts(personCubit.currentPage);
 
         return Padding(
           padding: const EdgeInsets.all(24.0),
@@ -73,50 +87,47 @@ class MembersAccountStatementTablet extends StatelessWidget {
                               Expanded(
                                 flex: 10, // 2+2+2+2+2
                                 child: BlocConsumer<BottomCubit,BottomState>(
-  listener: (context,state){
-  if(  state is Changevillanumber){
-    context.read<BottomCubit>().changefinnaceAndItem(4,5);
-
-  }
-  },
-                                  builder: (context, state) {
-                                    final bottomcubitbottomcubit=context.read<BottomCubit>();
-
-
-    return GestureDetector(
-                                  behavior: HitTestBehavior.opaque,
-                                  onTap: () {
-                                    bottomcubitbottomcubit.changevillanumber(row.villaNumber);
+                                  listener: (context,state){
+                                    if(state is Changevillanumber){
+                                      context.read<BottomCubit>().changefinnaceAndItem(4,5);
+                                    }
                                   },
-                                  child: Container(
-                                    color: bgColor,
-                                    child: Row(
-                                      textDirection: TextDirection.rtl,
-                                      children: [
-                                        DataCell(text: row.fullName, flex: 2),
-                                        DataCell(text: row.phoneNumber, flex: 2),
-                                        DataCell(text: row.address, flex: 2),
-                                        DataCell(
-                                          text: row.isMarried == true
-                                              ?AppLocalizations.of(context)!.married
-                                              :AppLocalizations.of(context)!.single,
-                                          flex: 2,
+                                  builder: (context, state) {
+                                    final bottomcubit = context.read<BottomCubit>();
+
+                                    return GestureDetector(
+                                      behavior: HitTestBehavior.opaque,
+                                      onTap: () {
+                                        bottomcubit.changevillanumber(row.villaNumber);
+                                      },
+                                      child: Container(
+                                        color: bgColor,
+                                        child: Row(
+                                          textDirection: TextDirection.rtl,
+                                          children: [
+                                            DataCell(text: row.fullName, flex: 2),
+                                            DataCell(text: row.phoneNumber, flex: 2),
+                                            DataCell(text: row.address, flex: 2),
+                                            DataCell(
+                                              text: row.isMarried == true
+                                                  ? AppLocalizations.of(context)!.married
+                                                  : AppLocalizations.of(context)!.single,
+                                              flex: 2,
+                                            ),
+                                            DataCell(text: row.villaNumber.toString(), flex: 2),
+                                          ],
                                         ),
-                                        DataCell(text: row.villaNumber.toString(), flex: 2),
-                                        // StatusCell خارج التفاعل
-                                      ],
-                                    ),
-                                  ),
-                                );
-  },
-),
+                                      ),
+                                    );
+                                  },
+                                ),
                               ),
 
                               Expanded(
                                 flex: 3,
                                 child: StatusCell(
-                                  accept:AppLocalizations.of(context)!.edit,
-                                  refuse:AppLocalizations.of(context)!.delete,
+                                  accept: AppLocalizations.of(context)!.edit,
+                                  refuse: AppLocalizations.of(context)!.delete,
                                   onAccept: () {
                                     showDialog(
                                       context: context,
@@ -132,7 +143,7 @@ class MembersAccountStatementTablet extends StatelessWidget {
                                     );
                                   },
                                   onReject: () {
-                                    personCubit.deleteid(row.id);
+                                    _personCubit.deleteid(row.id);
                                   },
                                 ),
                               ),
@@ -145,12 +156,14 @@ class MembersAccountStatementTablet extends StatelessWidget {
                     ),
 
                     PaginationControls(
-                      currentPage: personCubit.currentPage,
+                      currentPage: _personCubit.currentPage,
                       totalPages: state.personPageSize.totalPages,
-                      onNext: personCubit.nextPage,
-                      onPrevious: personCubit.previousPage,
+                      onNext: _personCubit.nextPage,
+                      onPrevious: _personCubit.previousPage,
                     ),
                   ],
+
+
                 ],
               ),
             ),
@@ -158,5 +171,10 @@ class MembersAccountStatementTablet extends StatelessWidget {
         );
       },
     );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 }

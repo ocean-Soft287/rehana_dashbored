@@ -160,5 +160,7 @@
   "receipt": "سند قبض",
   "invalid_email_password": "البريد الإلكتروني أو كلمة المرور غير صحيحة",
   "hello": "مرحبا",
-  "enter_villa_number": "أدخل رقم الفيلا"
+  "enter_villa_number": "أدخل رقم الفيلا",
+  "login_successfully":"تم تسجيل الدخول بنجاح",
+   "add_user_successfully": "تم إضافة المستخدم بنجاح"
 }

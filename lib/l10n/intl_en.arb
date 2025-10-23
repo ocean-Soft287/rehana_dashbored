@@ -160,5 +160,8 @@
   "receipt": "Receipt Bond",
   "invalid_email_password": "Invalid Email or Password",
   "hello": "Hello",
-  "enter_villa_number": "Enter villa number"
+  "enter_villa_number": "Enter villa number",
+  "login_successfully": "Login successfully",
+   "add_user_successfully": "User added successfully"
+
 }

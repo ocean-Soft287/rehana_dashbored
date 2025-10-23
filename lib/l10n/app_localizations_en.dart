@@ -512,4 +512,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get enter_villa_number => 'Enter villa number';
+
+  @override
+  String get login_successfully => 'Login successfully';
+
+  @override
+  String get add_user_successfully => 'User added successfully';
 }

@@ -2,16 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rehana_dashboared/core/utils/appstyle/app_styles.dart';
 import 'package:rehana_dashboared/core/utils/font/fonts.dart';
+import 'package:rehana_dashboared/core/widgets/custom_snack_bar.dart';
 import 'package:rehana_dashboared/feature/Auth/presentation/manger/auth_cubit.dart';
+import 'package:rehana_dashboared/l10n/app_localizations.dart';
 
 import '../../../../../core/const/widget/custom_button.dart';
 import '../../../../../core/utils/colors/colors.dart';
 import '../../../../../core/utils/image/images.dart';
 import '../../../../../core/utils/route/approutes.dart';
-import 'package:rehana_dashboared/l10n/app_localizations.dart';
 import '../../../../bar_navigation/presentation/screen/custom_column_slider.dart';
-
-
 
 class TabletLoginScreen extends StatefulWidget {
   const TabletLoginScreen({
@@ -29,7 +28,7 @@ class TabletLoginScreen extends StatefulWidget {
 
 class _TabletLoginScreenState extends State<TabletLoginScreen> {
   final _formKey = GlobalKey<FormState>();
-  bool isobsecure=true;
+  bool isobsecure = true;
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +70,9 @@ class _TabletLoginScreenState extends State<TabletLoginScreen> {
                   child: Center(
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 100, vertical: 50),
+                        horizontal: 100,
+                        vertical: 50,
+                      ),
                       child: Form(
                         key: _formKey,
                         child: Column(
@@ -79,7 +80,7 @@ class _TabletLoginScreenState extends State<TabletLoginScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                             AppLocalizations.of(context)!.login,
+                              AppLocalizations.of(context)!.login,
                               style: AppStyles.styletitlelogin(context),
                             ),
                             const SizedBox(height: 30),
@@ -87,15 +88,19 @@ class _TabletLoginScreenState extends State<TabletLoginScreen> {
                               controller: widget.emailController,
                               textAlign: TextAlign.right,
                               decoration: InputDecoration(
-                                labelText:AppLocalizations.of(context)!.email,
+                                labelText: AppLocalizations.of(context)!.email,
                                 labelStyle: TextStyle(
-                                    fontFamily: Fonts.font,
-                                    color: Colors.grey[700]),
+                                  fontFamily: Fonts.font,
+                                  color: Colors.grey[700],
+                                ),
                                 hintText:
-                               AppLocalizations.of(context)!.please_enter_your_email,
+                                    AppLocalizations.of(
+                                      context,
+                                    )!.please_enter_your_email,
                                 hintStyle: TextStyle(
-                                    fontFamily: Fonts.font,
-                                    color: Colors.grey[400]),
+                                  fontFamily: Fonts.font,
+                                  color: Colors.grey[400],
+                                ),
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(8),
                                 ),
@@ -105,8 +110,9 @@ class _TabletLoginScreenState extends State<TabletLoginScreen> {
                                   return AppLocalizations.of(context)!.please;
                                 }
                                 if (!value.contains('@')) {
-                                  return AppLocalizations.of(context)!
-                                      .invalid_email; // ضيف الترجمة دى عندك
+                                  return AppLocalizations.of(
+                                    context,
+                                  )!.invalid_email; // ضيف الترجمة دى عندك
                                 }
                                 return null;
                               },
@@ -117,25 +123,35 @@ class _TabletLoginScreenState extends State<TabletLoginScreen> {
                               obscureText: isobsecure,
                               textAlign: TextAlign.right,
                               decoration: InputDecoration(
-                                labelText:AppLocalizations.of(context)!.password,
+                                labelText:
+                                    AppLocalizations.of(context)!.password,
                                 labelStyle: TextStyle(
-                                    fontFamily: Fonts.font,
-                                    color: Colors.grey[700]),
+                                  fontFamily: Fonts.font,
+                                  color: Colors.grey[700],
+                                ),
                                 hintText:
-                               AppLocalizations.of(context)!.please_enter_your_password,
+                                    AppLocalizations.of(
+                                      context,
+                                    )!.please_enter_your_password,
                                 hintStyle: TextStyle(
-                                    fontFamily: Fonts.font,
-                                    color: Colors.grey[400]),
+                                  fontFamily: Fonts.font,
+                                  color: Colors.grey[400],
+                                ),
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(8),
                                 ),
-                                suffixIcon:  GestureDetector(onTap: (){
-                                  setState(() {
-
-                                    isobsecure=!isobsecure;
-                                  });
-
-                                },child: Icon(isobsecure==true ?Icons.visibility_off:Icons.visibility)),
+                                suffixIcon: GestureDetector(
+                                  onTap: () {
+                                    setState(() {
+                                      isobsecure = !isobsecure;
+                                    });
+                                  },
+                                  child: Icon(
+                                    isobsecure == true
+                                        ? Icons.visibility_off
+                                        : Icons.visibility,
+                                  ),
+                                ),
                               ),
                               validator: (value) {
                                 if (value == null || value.trim().isEmpty) {
@@ -148,45 +164,66 @@ class _TabletLoginScreenState extends State<TabletLoginScreen> {
                             Align(
                               alignment: Alignment.centerRight,
                               child: TextButton(
-                                onPressed: () => Navigator.pushNamed(
-                                    context, Routes.forgetPassword),
+                                onPressed:
+                                    () => Navigator.pushNamed(
+                                      context,
+                                      Routes.forgetPassword,
+                                    ),
                                 child: Text(
-                                 AppLocalizations.of(context)!.did_you_forget_your_password,
+                                  AppLocalizations.of(
+                                    context,
+                                  )!.did_you_forget_your_password,
                                   style: TextStyle(
-                                      fontFamily: Fonts.font,
-                                      color: Colors.grey),
+                                    fontFamily: Fonts.font,
+                                    color: Colors.grey,
+                                  ),
                                 ),
                               ),
                             ),
                             const SizedBox(height: 20),
-                            Row(children: [
-                              Checkbox(
-                                value: true,
-                                onChanged: (_) {},
-                                activeColor: Appcolors.kprimary,
-                              ),
-                              Text(
-                               AppLocalizations.of(context)!.remember_me,
-                                style: TextStyle(
+                            Row(
+                              children: [
+                                Checkbox(
+                                  value: true,
+                                  onChanged: (_) {},
+                                  activeColor: Appcolors.kprimary,
+                                ),
+                                Text(
+                                  AppLocalizations.of(context)!.remember_me,
+                                  style: TextStyle(
                                     fontFamily: Fonts.font,
-                                    color: Colors.black),
-                              ),
-                            ]),
+                                    color: Colors.black,
+                                  ),
+                                ),
+                              ],
+                            ),
                             const SizedBox(height: 20),
                             BlocConsumer<AuthCubit, AuthState>(
                               listener: (context, state) {
                                 if (state is AuthSuccess) {
+                                  showCustomSnackBar(
+                                    context,
+                                    AppLocalizations.of(
+                                      context,
+                                    )!.login_successfully,
+                                  );
                                   Navigator.pushAndRemoveUntil(
                                     context,
-                                    MaterialPageRoute(builder: (_) => const SidebarMenu()),
-                                        (route) => false,
+                                    MaterialPageRoute(
+                                      builder: (_) => const SidebarMenu(),
+                                    ),
+                                    (route) => false,
                                   );
                                 }
 
                                 if (state is AuthFailure) {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
-                                      content: Text(AppLocalizations.of(context)!.invalid_email_password),
+                                      content: Text(
+                                        AppLocalizations.of(
+                                          context,
+                                        )!.invalid_email_password,
+                                      ),
                                       backgroundColor: Colors.red,
                                     ),
                                   );
@@ -194,18 +231,25 @@ class _TabletLoginScreenState extends State<TabletLoginScreen> {
                               },
 
                               builder: (context, state) {
+                                if (state is AuthLoading) {
+                                  return const Center(
+                                    child: CircularProgressIndicator(),
+                                  );
+                                }
                                 final auth = context.read<AuthCubit>();
                                 return SizedBox(
                                   width: double.infinity,
                                   child: CustomButton(
-                                    name:AppLocalizations.of(context)!.login,
+                                    name: AppLocalizations.of(context)!.login,
                                     textcolor: Appcolors.kprimary,
                                     onTap: () {
                                       if (_formKey.currentState!.validate()) {
                                         auth.login(
                                           email:
-                                          widget.emailController.text.trim(),
-                                          password: widget.passwordController.text,
+                                              widget.emailController.text
+                                                  .trim(),
+                                          password:
+                                              widget.passwordController.text,
                                         );
                                       }
                                     },

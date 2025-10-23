@@ -509,4 +509,10 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get enter_villa_number => 'أدخل رقم الفيلا';
+
+  @override
+  String get login_successfully => 'تم تسجيل الدخول بنجاح';
+
+  @override
+  String get add_user_successfully => 'تم إضافة المستخدم بنجاح';
 }

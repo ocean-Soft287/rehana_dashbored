@@ -147,6 +147,7 @@ class AdduserCubit extends Cubit<AdduserState> {
    required String phoneNumber,
    required String gateNumber,
  })async{
+    emit(AdduserLoading());
    MultipartFile? imagePart;
    if (kIsWeb && _pickedBytes != null) {
      imagePart = MultipartFile.fromBytes(

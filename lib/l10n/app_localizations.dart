@@ -1069,6 +1069,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Enter villa number'**
   String get enter_villa_number;
+
+  /// No description provided for @login_successfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Login successfully'**
+  String get login_successfully;
+
+  /// No description provided for @add_user_successfully.
+  ///
+  /// In en, this message translates to:
+  /// **'User added successfully'**
+  String get add_user_successfully;
 }
 
 class _AppLocalizationsDelegate

@@ -26,6 +26,7 @@ class _TabletHomeState extends State<TabletHome> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<HomeinvitationCubit, HomeinvitationState>(
+      buildWhen: (previous, current) => current is HomeinvitationInitial,
       builder: (context, state) {
         final homeinvitation = context.read<HomeinvitationCubit>();
 

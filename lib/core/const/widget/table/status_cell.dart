@@ -24,7 +24,7 @@ class StatusCell extends StatelessWidget {
         ElevatedButton(
           style: ElevatedButton.styleFrom(
             backgroundColor: const Color(0xFFB5CC6D),
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
             tapTargetSize: MaterialTapTargetSize.shrinkWrap,
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
             elevation: 0,
@@ -33,17 +33,19 @@ class StatusCell extends StatelessWidget {
           child: Text(
             accept ??AppLocalizations.of(context)!.accept,
             style: TextStyle(
+              fontSize: 12,
               fontFamily: Fonts.font,
               color: Colors.white,
               fontWeight: FontWeight.w600,
             ),
           ),
         ),
-        const SizedBox(width: 8),
+        const SizedBox(width: 4),
         ElevatedButton(
+
           style: ElevatedButton.styleFrom(
             backgroundColor: const Color(0xFFE74A3B),
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
             tapTargetSize: MaterialTapTargetSize.shrinkWrap,
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
             elevation: 0,
@@ -52,6 +54,7 @@ class StatusCell extends StatelessWidget {
           child: Text(
             refuse ??AppLocalizations.of(context)!.refuse,
             style: TextStyle(
+              fontSize: 12,
               fontFamily: Fonts.font,
               color: Colors.white,
               fontWeight: FontWeight.w600,

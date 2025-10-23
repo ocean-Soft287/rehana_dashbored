@@ -26,6 +26,7 @@ class HomeinvitationCubit extends Cubit<HomeinvitationState> {
   }
 
   Future<void> getinvitationpage(int page) async {
+    emit(HomeinvitationInitial());
     final response = await invitationrepo.getinvitation(page, pageSize);
     response.fold(
           (failure) {

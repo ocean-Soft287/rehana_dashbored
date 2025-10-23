@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rehana_dashboared/core/utils/colors/colors.dart';
+
 import '../../manger/bar_cubit.dart';
 import '../../manger/bar_state.dart';
 import 'buildsidebar.dart';
@@ -19,10 +20,7 @@ class _SidebarMenuState extends State<SidebarMenu> {
 
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery
-        .of(context)
-        .size
-        .width;
+    double width = MediaQuery.of(context).size.width;
     bool isMobile = width < 800;
 
     return BlocProvider(
@@ -30,27 +28,29 @@ class _SidebarMenuState extends State<SidebarMenu> {
       child: Scaffold(
         key: _scaffoldKey,
         appBar:
-        isMobile
-            ? AppBar(
-          leading: IconButton(
-            icon: const Icon(Icons.menu),
-            onPressed: () => _scaffoldKey.currentState?.openDrawer(),
-          ),
-        )
-            : null,
+            isMobile
+                ? AppBar(
+                  leading: IconButton(
+                    icon: const Icon(Icons.menu),
+                    onPressed: () => _scaffoldKey.currentState?.openDrawer(),
+                  ),
+                )
+                : null,
         drawer:
-        isMobile
-            ? Drawer(backgroundColor: Appcolors.kprimary, child: Sidebar())
-            : null,
+            isMobile
+                ? Drawer(backgroundColor: Appcolors.kprimary, child: Sidebar())
+                : null,
 
         body: Builder(
           builder: (context) {
             return BlocBuilder<BottomCubit, BottomState>(
+              buildWhen: (previous, current) => current is BottomItemSelected,
               builder: (context, state) {
-                final selectedIndex = state is BottomItemSelected ? state.index : 0;
-BottomCubit bottomCubit=context.read<BottomCubit>();
+                final selectedIndex =
+                    state is BottomItemSelected ? state.index : 0;
+                BottomCubit bottomCubit = context.read<BottomCubit>();
                 return Directionality(
-                  textDirection:TextDirection.rtl,
+                  textDirection: TextDirection.rtl,
                   child: CustomScrollView(
                     slivers: [
                       SliverFillRemaining(
@@ -66,7 +66,10 @@ BottomCubit bottomCubit=context.read<BottomCubit>();
                                 flex: 3,
                                 child: AnimatedSwitcher(
                                   duration: const Duration(milliseconds: 300),
-                                  transitionBuilder: (Widget child, Animation<double> animation) {
+                                  transitionBuilder: (
+                                    Widget child,
+                                    Animation<double> animation,
+                                  ) {
                                     return FadeTransition(
                                       opacity: animation,
                                       child: SlideTransition(
@@ -81,7 +84,8 @@ BottomCubit bottomCubit=context.read<BottomCubit>();
                                   key: ValueKey<int>(selectedIndex),
                                   child: bottomCubit.screens[selectedIndex],
                                 ),
-                              ),                    ],
+                              ),
+                            ],
                           ),
                         ),
                       ),

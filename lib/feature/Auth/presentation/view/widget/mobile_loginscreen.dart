@@ -8,6 +8,7 @@ import '../../../../../core/utils/font/fonts.dart';
 import '../../../../../core/utils/image/images.dart';
 import '../../../../../core/utils/route/approutes.dart';
 import 'package:rehana_dashboared/l10n/app_localizations.dart';
+import '../../../../../core/widgets/custom_snack_bar.dart';
 import '../../../../bar_navigation/presentation/screen/custom_column_slider.dart';
 import '../../manger/auth_cubit.dart';
 class MobileLoginScreen extends StatefulWidget {
@@ -122,6 +123,12 @@ bool isobsecure=true;
                       BlocConsumer<AuthCubit, AuthState>(
                         listener: (context, state) {
                           if (state is AuthSuccess) {
+                            showCustomSnackBar(
+                              context,
+                              AppLocalizations.of(
+                                context,
+                              )!.login_successfully,
+                            );
                             Navigator.pushAndRemoveUntil(
                               context,
                               MaterialPageRoute(builder: (_) => const SidebarMenu()),
@@ -130,16 +137,21 @@ bool isobsecure=true;
                           }
 
                           if (state is AuthFailure) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: Text(AppLocalizations.of(context)!.invalid_email_password),
-                                backgroundColor: Colors.red,
-                              ),
+                            showCustomSnackBar(
+                              context,
+                              AppLocalizations.of(
+                                context,
+                              )!.invalid_email_password,
                             );
                           }
                         },
 
                         builder: (context, state) {
+                          if (state is AuthLoading) {
+                            return const Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          }
                           final auth = context.read<AuthCubit>();
                           return SizedBox(
                             width: double.infinity,

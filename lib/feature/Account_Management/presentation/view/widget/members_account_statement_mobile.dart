@@ -11,15 +11,30 @@ import 'package:rehana_dashboared/l10n/app_localizations.dart';
 import '../../../../bar_navigation/manger/bar_cubit.dart';
 import '../../../../bar_navigation/manger/bar_state.dart';
 
-class MembersAccountStatementMobile extends StatelessWidget {
+class MembersAccountStatementMobile extends StatefulWidget {
   const MembersAccountStatementMobile({super.key});
+
+  @override
+  State<MembersAccountStatementMobile> createState() => _MembersAccountStatementMobileState();
+}
+
+class _MembersAccountStatementMobileState extends State<MembersAccountStatementMobile> {
+  late final PersonCubit _personCubit;
+
+  @override
+  void initState() {
+    super.initState();
+    _personCubit = context.read<PersonCubit>();
+    // Load data only once when screen first opens
+    _personCubit.getallmemberaccounts(_personCubit.currentPage);
+  }
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<PersonCubit, PersonState>(
       builder: (context, state) {
-        final personCubit = context.read<PersonCubit>();
-        personCubit.getallmemberaccounts(personCubit.currentPage);
+        // ❌ REMOVED: personCubit.getallmemberaccounts(personCubit.currentPage);
+
         if (state is Allmemberssuccful) {
           final items = state.personPageSize.items;
 
@@ -57,7 +72,7 @@ class MembersAccountStatementMobile extends StatelessWidget {
                         },
                         builder: (context, state) {
                           final bottomcubitbottomcubit =
-                              context.read<BottomCubit>();
+                          context.read<BottomCubit>();
 
                           return GestureDetector(
                             onTap: () {
@@ -69,26 +84,26 @@ class MembersAccountStatementMobile extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [
                                 RowItem(
-                                  label:AppLocalizations.of(context)!.name,
+                                  label: AppLocalizations.of(context)!.name,
                                   value: row.fullName.toString(),
                                 ),
                                 RowItem(
-                                  label:AppLocalizations.of(context)!.phone,
+                                  label: AppLocalizations.of(context)!.phone,
                                   value: row.phoneNumber.toString(),
                                 ),
                                 RowItem(
-                                  label:AppLocalizations.of(context)!.address,
+                                  label: AppLocalizations.of(context)!.address,
                                   value: row.address.toString(),
                                 ),
                                 RowItem(
-                                  label:AppLocalizations.of(context)!.status,
+                                  label: AppLocalizations.of(context)!.status,
                                   value:
-                                      row.isMarried == true
-                                          ?AppLocalizations.of(context)!.married
-                                          :AppLocalizations.of(context)!.single,
+                                  row.isMarried == true
+                                      ? AppLocalizations.of(context)!.married
+                                      : AppLocalizations.of(context)!.single,
                                 ),
                                 RowItem(
-                                  label:AppLocalizations.of(context)!.villa_number,
+                                  label: AppLocalizations.of(context)!.villa_number,
                                   value: row.villaNumber.toString(),
                                 ),
                                 const SizedBox(height: 8),
@@ -96,32 +111,32 @@ class MembersAccountStatementMobile extends StatelessWidget {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     MobileButton(
-                                      text:AppLocalizations.of(context)!.edit,
+                                      text: AppLocalizations.of(context)!.edit,
                                       color: const Color(0xFFB5CC6D),
                                       onPressed: () {
                                         showDialog(
                                           context: context,
                                           builder:
                                               (
-                                                context,
+                                              context,
                                               ) => UpdateMemberAccountDialog(
-                                                id: row.id.toString(),
-                                                phoneNumber: row.phoneNumber,
-                                                isMarried: row.isMarried,
-                                                address: row.address,
-                                                villaNumber: row.villaNumber,
-                                                fullName: row.fullName,
-                                                date: row.date.toUtc(),
-                                              ),
+                                            id: row.id.toString(),
+                                            phoneNumber: row.phoneNumber,
+                                            isMarried: row.isMarried,
+                                            address: row.address,
+                                            villaNumber: row.villaNumber,
+                                            fullName: row.fullName,
+                                            date: row.date.toUtc(),
+                                          ),
                                         );
                                       },
                                     ),
                                     const SizedBox(width: 10),
                                     MobileButton(
-                                      text:AppLocalizations.of(context)!.delete,
+                                      text: AppLocalizations.of(context)!.delete,
                                       color: const Color(0xFFE74A3B),
                                       onPressed: () {
-                                        personCubit.deleteid(row.id);
+                                        _personCubit.deleteid(row.id);
                                       },
                                     ),
                                   ],
@@ -136,22 +151,29 @@ class MembersAccountStatementMobile extends StatelessWidget {
                 },
               ),
               PaginationControls(
-                currentPage: personCubit.currentPage,
+                currentPage: _personCubit.currentPage,
                 totalPages: state.personPageSize.totalPages,
                 onNext: () {
-                  personCubit.nextPage();
-                  personCubit.getallmemberaccounts(personCubit.currentPage);
+                  _personCubit.nextPage();
+                  _personCubit.getallmemberaccounts(_personCubit.currentPage);
                 },
                 onPrevious: () {
-                  personCubit.previousPage();
-                  personCubit.getallmemberaccounts(personCubit.currentPage);
+                  _personCubit.previousPage();
+                  _personCubit.getallmemberaccounts(_personCubit.currentPage);
                 },
               ),
             ],
           );
         }
 
-        return const Center();
+        // Handle loading state
+        if (state is PersonLoading || state is PersonInitial) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+
+        return const Center(child: CircularProgressIndicator());
       },
     );
   }
