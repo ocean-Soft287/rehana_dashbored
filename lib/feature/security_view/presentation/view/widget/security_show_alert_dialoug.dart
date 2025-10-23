@@ -5,7 +5,7 @@ import 'package:rehana_dashboared/feature/add_users/data/model/securitygardmodel
 import 'package:rehana_dashboared/feature/security_view/presentation/view/widget/secuirtyimage.dart';
 import '../../../../../core/const/widget/table/status_cell.dart';
 import '../../../../../core/const/widget/textformcrud.dart';
-import '../../../../../generated/l10n.dart';
+import 'package:rehana_dashboared/l10n/app_localizations.dart';
 import '../../manger/security_cubit.dart';
 
 final _formKey = GlobalKey<FormState>();
@@ -35,7 +35,7 @@ class SecurityEditAlertDialog extends StatelessWidget {
         builder: (context, state) {
           return AlertDialog(
             title: Text(
-              S.of(context).edit_security_guard_title,
+             AppLocalizations.of(context)!.edit_security_guard_title,
               style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.blue),
             ),
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
@@ -54,8 +54,8 @@ class SecurityEditAlertDialog extends StatelessWidget {
                       Secuirtyimage(image: imageName.toString()),
                       Textformcrud(
                         controller: usernameController,
-                        name: S.of(context).name,
-                        nameinfo: S.of(context).please_entre_name,
+                        name:AppLocalizations.of(context)!.name,
+                        nameinfo:AppLocalizations.of(context)!.please_enter_name,
                         validator: (value) {
 
                           return null;
@@ -64,14 +64,14 @@ class SecurityEditAlertDialog extends StatelessWidget {
                       const SizedBox(height: 10),
                       Textformcrud(
                         controller: emailController,
-                        name: S.of(context).email,
-                        nameinfo: S.of(context).email_hint,
+                        name:AppLocalizations.of(context)!.email,
+                        nameinfo:AppLocalizations.of(context)!.email_hint,
                         keyboardType: TextInputType.emailAddress,
                         validator: (value) {
                           if (value != null &&
                               value.isNotEmpty &&
                               !RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value)) {
-                            return S.of(context).invalid_email;
+                            return AppLocalizations.of(context)!.invalid_email;
                           }
                           return null;
                         },
@@ -79,22 +79,22 @@ class SecurityEditAlertDialog extends StatelessWidget {
                       const SizedBox(height: 10),
                       Textformcrud(
                         controller: passwordController,
-                        name: S.of(context).password,
-                        nameinfo: S.of(context).password_hint,
+                        name:AppLocalizations.of(context)!.password,
+                        nameinfo:AppLocalizations.of(context)!.password_hint,
                         keyboardType: TextInputType.visiblePassword,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return S.of(context).password_required;
+                            return AppLocalizations.of(context)!.password_required;
                           }
                           if (value.length < 8) {
-                            return S.of(context).password_too_short;
+                            return AppLocalizations.of(context)!.password_too_short;
                           }
 
                             const pattern =
                                 r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#\$&*~]).{8,}$';
 
                             if (!RegExp(pattern).hasMatch(value)) {
-                              return S.of(context).password_complexity_error;
+                              return AppLocalizations.of(context)!.password_complexity_error;
 
                             }
 
@@ -104,14 +104,14 @@ class SecurityEditAlertDialog extends StatelessWidget {
                       const SizedBox(height: 10),
                       Textformcrud(
                         controller: phoneController,
-                        name: S.of(context).phone_number,
-                        nameinfo: S.of(context).phone_number_hint,
+                        name:AppLocalizations.of(context)!.phone_number,
+                        nameinfo:AppLocalizations.of(context)!.phone_number_hint,
                         keyboardType: TextInputType.phone,
                         validator: (value) {
                           if (value != null &&
                               value.isNotEmpty &&
                               !RegExp(r'^\d{10,15}$').hasMatch(value)) {
-                            return S.of(context).invalid_phone_number;
+                            return AppLocalizations.of(context)!.invalid_phone_number;
                           }
                           return null;
                         },
@@ -120,14 +120,14 @@ class SecurityEditAlertDialog extends StatelessWidget {
                       const SizedBox(height: 10),
                       Textformcrud(
                         controller: gateController,
-                        name: S.of(context).gate_number,
-                        nameinfo: S.of(context).gate_number_hint,
+                        name:AppLocalizations.of(context)!.gate_number,
+                        nameinfo:AppLocalizations.of(context)!.gate_number,
                         keyboardType: TextInputType.number,
                         validator: (value) {
                           if (value != null &&
                               value.isNotEmpty &&
                               !RegExp(r'^\d+$').hasMatch(value)) {
-                            return S.of(context).invalid_gate_number;
+                            return AppLocalizations.of(context)!.invalid_gate_number;
                           }
                           return null;
                         },
@@ -140,8 +140,8 @@ class SecurityEditAlertDialog extends StatelessWidget {
             ),
             actions: [
               StatusCell(
-                accept: S.of(context).edit,
-                refuse: S.of(context).cancel,
+                accept:AppLocalizations.of(context)!.edit,
+                refuse:AppLocalizations.of(context)!.cancel,
                 onAccept: () {
                   if (_formKey.currentState!.validate()) {
                     final cubit = BlocProvider.of<SecurityCubit>(context);

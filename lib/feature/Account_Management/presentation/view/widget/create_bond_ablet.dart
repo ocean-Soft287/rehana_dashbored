@@ -5,7 +5,7 @@ import '../../../../../core/const/widget/custom_button.dart';
 import '../../../../../core/const/widget/custom_drop_down_menu.dart';
 import '../../../../../core/const/widget/textformcrud.dart';
 import '../../../../../core/utils/colors/colors.dart';
-import '../../../../../generated/l10n.dart';
+import 'package:rehana_dashboared/l10n/app_localizations.dart';
 
 
 class CreateBondTablet extends StatefulWidget {
@@ -39,7 +39,7 @@ class _CreateBondTabletState extends State<CreateBondTablet> {
 
   @override
   Widget build(BuildContext context) {
-    final s = S.of(context);
+    final s =AppLocalizations.of(context)!;
 
     return SingleChildScrollView(
       child: Padding(
@@ -71,7 +71,7 @@ class _CreateBondTabletState extends State<CreateBondTablet> {
                   borderRadius: BorderRadius.circular(12),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withOpacity(0.1),
+                      color: Colors.black.withValues( alpha:0.1),
                       blurRadius: 6,
                     ),
                   ],
@@ -189,8 +189,8 @@ class _CreateBondTabletState extends State<CreateBondTablet> {
                           Expanded(
                             child: Textformcrud(
                               controller: widget.villaNumberController,
-                              name: s.villanumber,
-                              nameinfo: s.entrevillanumber,
+                              name: s.villa_number,
+                              nameinfo: s.villa_number,
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
                                   return s.please_enter_villa_number;
@@ -213,12 +213,12 @@ class _CreateBondTabletState extends State<CreateBondTablet> {
                             listener: (context, state) {
 if(state is CreateBondFail){
   ScaffoldMessenger.of(context).showSnackBar(
-    SnackBar(content: Text(S.of(context).villa_number_not_found)),
+    SnackBar(content: Text(AppLocalizations.of(context)!.villa_number_not_found)),
 
   );}
 if(state is CreateBondSuccess){
   ScaffoldMessenger.of(context).showSnackBar(
-    SnackBar(content: Text(S.of(context).bond_created_successfully)),
+    SnackBar(content: Text(AppLocalizations.of(context)!.bond_created_successfully)),
 
   );
   selectedBondType=null;
@@ -243,7 +243,7 @@ if(state is CreateBondSuccess){
                                       ScaffoldMessenger.of(context).showSnackBar(
                                         SnackBar(
                                           content:
-                                          Text(S.of(context).please_select_bond_type_and_currency),
+                                          Text(AppLocalizations.of(context)!.please_select_bond_type_and_currency),
                                         ),
                                       );
                                       return;

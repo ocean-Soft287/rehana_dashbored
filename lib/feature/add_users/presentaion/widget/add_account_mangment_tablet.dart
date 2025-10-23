@@ -6,8 +6,7 @@ import '../../../../core/const/dropdownformcrud.dart';
 import '../../../../core/const/widget/custom_button.dart';
 import '../../../../core/const/widget/textformcrud.dart';
 import '../../../../core/utils/colors/colors.dart';
-import '../../../../generated/l10n.dart';
-
+import '../../../../l10n/app_localizations.dart';
 
 final _formKey = GlobalKey<FormState>();
 
@@ -49,7 +48,7 @@ class _AddAccountMangmentTabletState extends State<AddAccountMangmentTablet> {
           borderRadius: BorderRadius.circular(16),
           boxShadow: [
             BoxShadow(
-              color: CupertinoColors.systemGrey.withOpacity(0.1),
+              color: CupertinoColors.systemGrey.withValues( alpha:0.1),
               blurRadius: 12,
               spreadRadius: 2,
               offset: const Offset(0, 4),
@@ -67,10 +66,10 @@ class _AddAccountMangmentTabletState extends State<AddAccountMangmentTablet> {
                     flex: 2,
                     child: Textformcrud(
                       controller: widget.name,
-                      name: S.of(context).name,
-                      nameinfo: S.of(context).name,
+                      name:AppLocalizations.of(context)!.name,
+                      nameinfo:AppLocalizations.of(context)!.name,
                       validator: (val) =>
-                      val == null || val.isEmpty ? S.of(context).enter_name : null,
+                      val == null || val.isEmpty ?AppLocalizations.of(context)!.enter_name : null,
                     ),
                   ),
                   const Spacer(),
@@ -78,14 +77,14 @@ class _AddAccountMangmentTabletState extends State<AddAccountMangmentTablet> {
                     flex: 2,
                     child: Textformcrud(
                       controller: widget.phone,
-                      name: S.of(context).phone,
-                      nameinfo: S.of(context).phone,
+                      name:AppLocalizations.of(context)!.phone,
+                      nameinfo:AppLocalizations.of(context)!.phone,
                       validator: (val) {
                         if (val == null || val.isEmpty) {
-                          return S.of(context).enter_phone;
+                          return AppLocalizations.of(context)!.enter_phone;
                         }
                         if (!RegExp(r'^\d{10,}$').hasMatch(val)) {
-                          return S.of(context).enter_valid_phone_number;
+                          return AppLocalizations.of(context)!.enter_valid_phone_number;
                         }
                         return null;
                       },
@@ -100,23 +99,23 @@ class _AddAccountMangmentTabletState extends State<AddAccountMangmentTablet> {
                     flex: 2,
                     child: Textformcrud(
                       controller: widget.address,
-                      name: S.of(context).villa_address,
-                      nameinfo: S.of(context).enter_villa_address,
+                      name:AppLocalizations.of(context)!.villa_address,
+                      nameinfo:AppLocalizations.of(context)!.enter_villa_address,
                       validator: (val) =>
-                      val == null || val.isEmpty ? S.of(context).enter_address : null,
+                      val == null || val.isEmpty ?AppLocalizations.of(context)!.enter_address : null,
                     ),
                   ),
                   const Spacer(),
                   Expanded(
                     flex: 2,
-                    child: DropdownFormCrud(name: S.of(context).status, hint:S.of(context).status, items: [S.of(context).single,S.of(context).married],
+                    child: DropdownFormCrud(name:AppLocalizations.of(context)!.status, hint:AppLocalizations.of(context)!.status, items: [AppLocalizations.of(context)!.single,AppLocalizations.of(context)!.married],
                       value: _selectedstatus?.toString(),
                       onChanged: (val) => setState(() {
                         _selectedstatus = (val ?? '');
                         widget.status.text = val ?? '';
                       }),
                       validator: (val) =>
-                      val == null ?  S.of(context).enter_status: null,
+                      val == null ? AppLocalizations.of(context)!.enter_status: null,
                     ),
                   ),
                 ],
@@ -128,14 +127,14 @@ class _AddAccountMangmentTabletState extends State<AddAccountMangmentTablet> {
                     flex: 2,
                     child: Textformcrud(
                       controller: widget.numofvila,
-                      name: S.of(context).villanumber,
-                      nameinfo: S.of(context).villanumber,
+                      name:AppLocalizations.of(context)!.villa_number,
+                      nameinfo:AppLocalizations.of(context)!.villa_number,
                       validator: (val) {
                         if (val == null || val.isEmpty) {
-                          return S.of(context).enter_villa_number;
+                          return AppLocalizations.of(context)!.enter_villa_number;
                         }
                         if (!RegExp(r'^\d+$').hasMatch(val)) {
-                          return S.of(context).please_enter_numbers_only;
+                          return AppLocalizations.of(context)!.please_enter_numbers_only;
                         }
                         return null;
                       },
@@ -167,14 +166,14 @@ class _AddAccountMangmentTabletState extends State<AddAccountMangmentTablet> {
                     final addUserCubit = context.read<AdduserCubit>();
 
                     return CustomButton(
-                      name: S.of(context).create_account,
+                      name:AppLocalizations.of(context)!.create_account,
                       colors: Appcolors.brown,
                       width: MediaQuery.of(context).size.width * .2,
                       onTap: () {
                         if (_formKey.currentState!.validate()) {
                           addUserCubit.adduserperson(fullName: widget.name.text,
                               phoneNumber: widget.phone.text,
-                              isMarried: _selectedstatus==S.of(context).married?true:false,
+                              isMarried: _selectedstatus==AppLocalizations.of(context)!.married?true:false,
                               address: widget.address.text,
                               date: DateTime.now().toUtc().toIso8601String(),
                               villaNumber: int.parse(widget.numofvila.text));

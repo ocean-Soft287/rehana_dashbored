@@ -8,7 +8,7 @@ import '../../../../../core/const/dropdownformcrud.dart';
 import '../../../../../core/const/widget/custom_button.dart';
 import '../../../../../core/const/widget/textformcrud.dart';
 import '../../../../../core/utils/colors/colors.dart';
-import '../../../../../generated/l10n.dart';
+import 'package:rehana_dashboared/l10n/app_localizations.dart';
 import '../../manger/securityonetime_cubit.dart';
 import 'custom_date_picker.dart';
 final formKey = GlobalKey<FormState>();
@@ -64,7 +64,7 @@ class _CreateInviteTabletState extends State<CreateInviteTablet> {
                     borderRadius: BorderRadius.circular(12),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.black.withOpacity(.2),
+                        color: Colors.black.withValues( alpha:.2),
                         spreadRadius: 2,
                         blurRadius: 5,
                         offset: const Offset(0, 3),
@@ -82,10 +82,10 @@ class _CreateInviteTabletState extends State<CreateInviteTablet> {
                               Expanded(
                                 child: Textformcrud(
                                   controller: widget.name,
-                                  name: '${S.of(context).name} *',
-                                  nameinfo: S.of(context).please_entre_name,
+                                  name: '${AppLocalizations.of(context)!.name} *',
+                                  nameinfo:AppLocalizations.of(context)!.please_enter_name,
                                   validator: (v) => (v == null || v.trim().isEmpty)
-                                      ? S.of(context).please_entre_name
+                                      ?AppLocalizations.of(context)!.please_enter_name
                                       : null,
                                 ),
                               ),
@@ -93,15 +93,15 @@ class _CreateInviteTabletState extends State<CreateInviteTablet> {
                               Expanded(
                                 child: Textformcrud(
                                   controller: widget.phone,
-                                  name: '${S.of(context).phone} *',
-                                  nameinfo: S.of(context).enter_phone_number,
+                                  name: '${AppLocalizations.of(context)!.phone} *',
+                                  nameinfo:AppLocalizations.of(context)!.enter_phone_number,
                                   keyboardType: TextInputType.phone,
                                   validator: (v) {
                                     if (v == null || v.trim().isEmpty) {
-                                      return S.of(context).enter_phone_number;
+                                      return AppLocalizations.of(context)!.enter_phone_number;
                                     }
                                     if (!RegExp(r'^\+?\d{10,15}$').hasMatch(v)) {
-                                      return S.of(context).enter_phone_number;
+                                      return AppLocalizations.of(context)!.enter_phone_number;
                                     }
                                     return null;
                                   },
@@ -122,7 +122,7 @@ class _CreateInviteTabletState extends State<CreateInviteTablet> {
                                       _villaNumbers = state.villaNumbers;
                                     }
                                     return DropdownFormCrud(
-                                      name: S.of(context).villanumber,
+                                      name:AppLocalizations.of(context)!.villa_number,
                                       hint: 'اختار رقم الفيلا',
                                       items: _villaNumbers
                                           .map((e) => e.toString())
@@ -142,10 +142,10 @@ class _CreateInviteTabletState extends State<CreateInviteTablet> {
                               Expanded(
                                 child: Textformcrud(
                                   controller: widget.reasonofvisit,
-                                  name: '${S.of(context).reasonforvisit} *',
-                                  nameinfo: S.of(context).reasonforvisit,
+                                  name: '${AppLocalizations.of(context)!.reason_for_visit} *',
+                                  nameinfo:AppLocalizations.of(context)!.reason_for_visit,
                                   validator: (v) => (v == null || v.trim().isEmpty)
-                                      ? S.of(context).please_enter_reason_for_visit
+                                      ?AppLocalizations.of(context)!.please_enter_reason_for_visit
                                       : null,
                                 ),
                               ),
@@ -239,7 +239,7 @@ class _CreateInviteTabletState extends State<CreateInviteTablet> {
                               }
                             },
                             builder: (context, state) => CustomButton(
-                              name: S.of(context).create_invitation,
+                              name:AppLocalizations.of(context)!.create_invitation,
                               colors: Appcolors.kBlack,
                               width: MediaQuery.of(context).size.width * .15,
                               onTap: () {
@@ -251,7 +251,7 @@ class _CreateInviteTabletState extends State<CreateInviteTablet> {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
                                       content: Text(
-                                        S.of(context).pleaseSelectDateAndTime,
+                                       AppLocalizations.of(context)!.please_select_date_and_time,
                                       ),
                                     ),
                                   );

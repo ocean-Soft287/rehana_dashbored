@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../core/const/widget/custom_button.dart';
 import '../../../../../core/utils/appstyle/app_styles.dart';
 import '../../../../../core/utils/colors/colors.dart';
-import '../../../../../generated/l10n.dart';
+import 'package:rehana_dashboared/l10n/app_localizations.dart';
 import '../../manger/auth_cubit.dart';
 import 'mobile_loginscreen.dart';
 
@@ -34,18 +34,18 @@ class _ChangePasswordMobileState extends State<ChangePasswordMobile> {
 
   String? _validateEmail(String? value) {
     if (value == null || value.isEmpty) {
-      return S.of(context).emailisrequired;
+      return AppLocalizations.of(context)!.email_is_required;
     }
     final emailRegex = RegExp(r"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$");
     if (!emailRegex.hasMatch(value)) {
-      return S.of(context).invalidemail;
+      return AppLocalizations.of(context)!.invalid_email;
     }
     return null;
   }
 
   String? _validateToken(String? value) {
     if (value == null || value.isEmpty) {
-      return S.of(context).tokenisrequired;
+      return AppLocalizations.of(context)!.token_is_required;
     }
     // You can add more validation for token if needed
     return null;
@@ -53,12 +53,12 @@ class _ChangePasswordMobileState extends State<ChangePasswordMobile> {
 
   String? _validatePassword(String? value) {
     if (value == null || value.isEmpty) {
-      return S.of(context).passwordisrequired;
+      return AppLocalizations.of(context)!.password_is_required;
     }
     final passwordPattern =
         r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#\$&*~%^_])[A-Za-z\d!@#\$&*~%^_]{8,}$';
     if (!RegExp(passwordPattern).hasMatch(value)) {
-      return S.of(context).password_validation_message;
+      return AppLocalizations.of(context)!.password_validation_message;
     }
     return null;
   }
@@ -80,7 +80,7 @@ class _ChangePasswordMobileState extends State<ChangePasswordMobile> {
                 borderRadius: BorderRadius.circular(10),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.1),
+                    color: Colors.black.withValues( alpha:0.1),
                     spreadRadius: 2,
                     blurRadius: 5,
                     offset: const Offset(0, 3),
@@ -92,7 +92,7 @@ class _ChangePasswordMobileState extends State<ChangePasswordMobile> {
                 child: Column(
                   children: [
                     Text(
-                      S.of(context).confirmchangepassword,
+                     AppLocalizations.of(context)!.confirm_change_password,
                       style: AppStyles.styleLogin(context),
                     ),
                     const SizedBox(height: 20),
@@ -103,7 +103,7 @@ class _ChangePasswordMobileState extends State<ChangePasswordMobile> {
                       keyboardType: TextInputType.emailAddress,
                       validator: _validateEmail,
                       decoration: InputDecoration(
-                        labelText: S.of(context).email,
+                        labelText:AppLocalizations.of(context)!.email,
                         labelStyle: AppStyles.textformfieldstyle(context),
                         border: const OutlineInputBorder(),
                       ),
@@ -116,7 +116,7 @@ class _ChangePasswordMobileState extends State<ChangePasswordMobile> {
                       keyboardType: TextInputType.number,
                       validator: _validateToken,
                       decoration: InputDecoration(
-                        labelText: S.of(context).token,
+                        labelText:AppLocalizations.of(context)!.token,
                         labelStyle: AppStyles.textformfieldstyle(context),
                         border: const OutlineInputBorder(),
                       ),
@@ -129,7 +129,7 @@ class _ChangePasswordMobileState extends State<ChangePasswordMobile> {
                       obscureText: _obscurePassword,
                       validator: _validatePassword,
                       decoration: InputDecoration(
-                        labelText: S.of(context).newpassword,
+                        labelText:AppLocalizations.of(context)!.new_password,
                         labelStyle: AppStyles.textformfieldstyle(context),
                         border: const OutlineInputBorder(),
                         suffixIcon: IconButton(

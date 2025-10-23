@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rehana_dashboared/core/utils/colors/colors.dart';
 import '../../../../../core/utils/font/fonts.dart';
-import '../../../../../generated/l10n.dart';
+import 'package:rehana_dashboared/l10n/app_localizations.dart';
 
 
 class FromtoWidget extends StatefulWidget {
@@ -70,28 +70,28 @@ class _FromtoWidgetState extends State<FromtoWidget> {
 
     if (isFrom) {
       if (isToday && (_compareTimeOfDay(picked, nowOfDay) < 0)) {
-        _showInvalidTimeWarning(S.of(context).from_time_required);
+        _showInvalidTimeWarning(AppLocalizations.of(context)!.from_time_required);
         return;
       }
       if (_localTo != null && !_isValidTimeRange(picked, _localTo!)) {
-        _showInvalidTimeWarning(S.of(context).from_before_to);
+        _showInvalidTimeWarning(AppLocalizations.of(context)!.from_before_to);
         return;
       }
       _localFrom = picked;
     } else {
       if (isToday && (_compareTimeOfDay(picked, nowOfDay) <= 0) && _localFrom == null) {
-        _showInvalidTimeWarning(S.of(context).to_after_now);
+        _showInvalidTimeWarning(AppLocalizations.of(context)!.to_after_now);
         return;
       }
       if (isToday && _localFrom != null) {
         final baseline = _compareTimeOfDay(_localFrom!, nowOfDay) < 0 ? nowOfDay : _localFrom!;
         if (_compareTimeOfDay(picked, baseline) <= 0) {
-          _showInvalidTimeWarning(S.of(context).to_after_from_or_now);
+          _showInvalidTimeWarning(AppLocalizations.of(context)!.to_after_from_or_now);
           return;
         }
       }
       if (!isToday && _localFrom != null && !_isValidTimeRange(_localFrom!, picked)) {
-        _showInvalidTimeWarning(S.of(context).to_after_from);
+        _showInvalidTimeWarning(AppLocalizations.of(context)!.to_after_from);
         return;
       }
       _localTo = picked;
@@ -149,7 +149,7 @@ class _FromtoWidgetState extends State<FromtoWidget> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                S.of(context).From,
+               AppLocalizations.of(context)!.from,
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
@@ -186,7 +186,7 @@ class _FromtoWidgetState extends State<FromtoWidget> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                S.of(context).To,
+               AppLocalizations.of(context)!.to,
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,

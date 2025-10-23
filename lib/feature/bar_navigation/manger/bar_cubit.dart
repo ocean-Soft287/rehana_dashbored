@@ -6,7 +6,7 @@ import 'package:rehana_dashboared/feature/Account_Management/presentation/view/s
 import 'package:rehana_dashboared/feature/add_users/presentaion/screen/responsive_add_security.dart';
 import 'package:rehana_dashboared/feature/add_users/presentaion/screen/responsive_add_user.dart';
 import 'package:rehana_dashboared/feature/bar_navigation/manger/bar_state.dart';
-import '../../../generated/l10n.dart';
+import '../../../l10n/app_localizations.dart';
 import '../../Account_Management/presentation/view/screen/account_mangment_choose.dart';
 import '../../Account_Management/presentation/view/screen/create_receipt_bond_for_compound_responsive.dart';
 import '../../Account_Management/presentation/view/screen/summarybondbyyear_statement_responsive.dart'
@@ -29,7 +29,7 @@ class BottomCubit extends Cubit<BottomState> {
       BlocProvider.of<BottomCubit>(context);
 
   int finnance = 0;
-int villanumber=0;
+int villa_number=0;
   void changeItem(int index) {
     emit(BottomItemSelected(index));
   }
@@ -52,7 +52,7 @@ int villanumber=0;
     emit(BottomItemSelected(index));
   }
   void changevillanumber(int value){
-    villanumber=value;
+    villa_number=value;
     emit(Changevillanumber());
   }
 
@@ -84,15 +84,15 @@ int villanumber=0;
   ];
 
   List<MenuEntry> menuItems(BuildContext context) => [
-    MenuEntry(S.of(context).invitations, Icons.groups),
-    MenuEntry(S.of(context).create_invitation, Icons.grid_view_rounded),
-    MenuEntry(S.of(context).add_mamber, Icons.edit),
-    MenuEntry(S.of(context).add_security_guard, Icons.security),
-    MenuEntry(S.of(context).security, Icons.lock),
+    MenuEntry(AppLocalizations.of(context)!.invitations, Icons.groups),
+    MenuEntry(AppLocalizations.of(context)!.create_invitation, Icons.grid_view_rounded),
+    MenuEntry(AppLocalizations.of(context)!.add_member, Icons.edit),
+    MenuEntry(AppLocalizations.of(context)!.add_security_guard, Icons.security),
+    MenuEntry(AppLocalizations.of(context)!.security, Icons.lock),
 
-    MenuEntry(S.of(context).accountmanagement, Icons.settings),
-    MenuEntry(S.of(context).user_mangment, Icons.supervised_user_circle),
-    MenuEntry(S.of(context).chat, Icons.chat_bubble_outline),
+    MenuEntry(AppLocalizations.of(context)!.account_management, Icons.settings),
+    MenuEntry(AppLocalizations.of(context)!.user_management, Icons.supervised_user_circle),
+    MenuEntry(AppLocalizations.of(context)!.chat, Icons.chat_bubble_outline),
   ];
 }
 

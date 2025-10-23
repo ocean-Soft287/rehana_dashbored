@@ -210,8 +210,8 @@ class PersonCubit extends Cubit<PersonState> {
       getCompoundDisbursementBonds(currentPage);
     }
   }
-  Future<void>getsummarybondbyvillanumber(int villanumber)async{
-    final response=await accountMangmentrepo.getbondssummarybyyearbyvillanumber(villanumber);
+  Future<void>getsummarybondbyvillanumber(int villa_number)async{
+    final response=await accountMangmentrepo.getbondssummarybyyearbyvillanumber(villa_number);
 
     response.fold(  (failure) {
       emit(SummarybondbyvillanumberFail(message: failure.message));

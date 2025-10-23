@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../../feature/Home/data/model/visitinvitation.dart';
-import '../../../../generated/l10n.dart';
+import '../../../../l10n/app_localizations.dart';
 import 'row_item.dart';
 import 'mobile_button.dart';
 class VisitCard extends StatelessWidget {
@@ -25,7 +25,7 @@ class VisitCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withOpacity(0.07),
+            color: Colors.grey.withValues(alpha: 0.07),
             blurRadius: 4,
             offset: const Offset(0, 2),
           ),
@@ -37,22 +37,22 @@ class VisitCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            RowItem(label: S.of(context).villanumber, value: invitation.memberVillaNumber.toString()),
-            RowItem(label: S.of(context).name, value: invitation.memberUserName),
+            RowItem(label:AppLocalizations.of(context)!.villa_number, value: invitation.memberVillaNumber.toString()),
+            RowItem(label:AppLocalizations.of(context)!.name, value: invitation.memberUserName),
             RowItem(
-              label: S.of(context).time,
+              label:AppLocalizations.of(context)!.time,
               value: "${invitation.dateFrom.toIso8601String()} - ${invitation.dateTo.toIso8601String()}",
             ),
-            RowItem(label: S.of(context).reasonforvisit, value: invitation.reasonForVisit),
-            RowItem(label: S.of(context).status, value: invitation.status),
+            RowItem(label:AppLocalizations.of(context)!.reason_for_visit, value: invitation.reasonForVisit),
+            RowItem(label:AppLocalizations.of(context)!.status, value: invitation.status),
             const SizedBox(height: 8),
             if (isButtons == true)
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  MobileButton(text: S.of(context).accept, color: const Color(0xFFB5CC6D), onPressed: onAccept),
+                  MobileButton(text:AppLocalizations.of(context)!.accept, color: const Color(0xFFB5CC6D), onPressed: onAccept),
                   const SizedBox(width: 10),
-                  MobileButton(text: S.of(context).refuse, color: const Color(0xFFE74A3B), onPressed: onReject),
+                  MobileButton(text:AppLocalizations.of(context)!.refuse, color: const Color(0xFFE74A3B), onPressed: onReject),
                 ],
               ),
           ],

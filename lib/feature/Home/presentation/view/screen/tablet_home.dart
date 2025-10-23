@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rehana_dashboared/core/const/widget/table/headercell.dart';
 import 'package:rehana_dashboared/core/const/widget/table/data_cell.dart';
 import 'package:rehana_dashboared/core/utils/colors/colors.dart';
-import 'package:rehana_dashboared/generated/l10n.dart';
 import '../../../../../core/const/paginationcontrols.dart';
+import '../../../../../l10n/app_localizations.dart';
 import '../../manger/homeinvitation_cubit.dart';
 
 class TabletHome extends StatefulWidget {
@@ -52,11 +52,11 @@ class _TabletHomeState extends State<TabletHome> {
                       ),
                       child: Row(
                         children: [
-                          HeaderCell(text: S.of(context).villanumber, flex: 2),
-                          HeaderCell(text: S.of(context).name),
-                          HeaderCell(text: S.of(context).time),
-                          HeaderCell(text: S.of(context).reasonforvisit),
-                          HeaderCell(text: S.of(context).status),
+                          HeaderCell(text:AppLocalizations.of(context)!.villa_number, flex: 2),
+                          HeaderCell(text:AppLocalizations.of(context)!.name),
+                          HeaderCell(text:AppLocalizations.of(context)!.time),
+                          HeaderCell(text:AppLocalizations.of(context)!.reason_for_visit),
+                          HeaderCell(text:AppLocalizations.of(context)!.status),
                         ],
                       ),
                     ),

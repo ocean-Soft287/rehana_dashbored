@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rehana_dashboared/feature/bar_navigation/manger/bar_cubit.dart';
 import 'package:rehana_dashboared/feature/bar_navigation/manger/bar_state.dart';
-import '../../../../../generated/l10n.dart';
+import 'package:rehana_dashboared/l10n/app_localizations.dart';
 import '../widget/account_card.dart';
 
 class AccountManagementChoose extends StatelessWidget {
@@ -24,7 +24,7 @@ class AccountManagementChoose extends StatelessWidget {
               borderRadius: BorderRadius.circular(16),
               boxShadow: [
                 BoxShadow(
-                  color: CupertinoColors.systemGrey.withOpacity(0.1),
+                  color: CupertinoColors.systemGrey.withValues( alpha:0.1),
                   blurRadius: 12,
                   spreadRadius: 2,
                   offset: const Offset(0, 4),
@@ -40,7 +40,7 @@ class AccountManagementChoose extends StatelessWidget {
                     Expanded(
                       flex: 2,
                       child: AccountCard(
-                        title: S.of(context).create_account,
+                        title:AppLocalizations.of(context)!.create_account,
                         color: Colors.white,
                         onTap: () {
                           bottomCubit.changefinnaceAndItem(1, 5);
@@ -52,7 +52,7 @@ class AccountManagementChoose extends StatelessWidget {
                     Expanded(
                       flex: 2,
                       child: AccountCard(
-                        title: S.of(context).members_account_statement,
+                        title:AppLocalizations.of(context)!.members_account_statement,
                         color: Colors.white,
                         onTap: () {
                           bottomCubit.changefinnaceAndItem(3,5 );
@@ -68,7 +68,7 @@ class AccountManagementChoose extends StatelessWidget {
                     // Expanded(
                     //   flex: 2,
                     //   child: AccountCard(
-                    //     title: S.of(context).single_member_account_statement,
+                    //     title:AppLocalizations.of(context)!.single_member_account_statement,
                     //     color: Colors.white,
                     //     onTap: () {
                     //       bottomCubit.changefinnaceAndItem(4,5);
@@ -80,7 +80,7 @@ class AccountManagementChoose extends StatelessWidget {
                     Expanded(
                       flex: 2,
                       child: AccountCard(
-                        title: S.of(context).disbursementbondforcompound,
+                        title:AppLocalizations.of(context)!.disbursement_bond_for_compound,
                         color: Colors.white,
                         onTap: () {
                           bottomCubit.changefinnaceAndItem(8, 5);
@@ -92,7 +92,7 @@ class AccountManagementChoose extends StatelessWidget {
                     Expanded(
                       flex: 2,
                       child: AccountCard(
-                        title: S.of(context).create_voucher,
+                        title:AppLocalizations.of(context)!.create_voucher,
                         color: Colors.white,
                         onTap: () {
                           bottomCubit.changefinnaceAndItem(2, 5);
@@ -107,7 +107,7 @@ class AccountManagementChoose extends StatelessWidget {
                     Expanded(
                       flex: 2,
                       child: AccountCard(
-                        title: S.of(context).payment_vouchers,
+                        title:AppLocalizations.of(context)!.payment_vouchers,
                         color: Colors.white,
                         onTap: () {
                           bottomCubit.changefinnaceAndItem(6, 5);
@@ -119,7 +119,7 @@ class AccountManagementChoose extends StatelessWidget {
                     Expanded(
                       flex: 2,
                       child: AccountCard(
-                        title: S.of(context).receipt_vouchers,
+                        title:AppLocalizations.of(context)!.receipt_vouchers,
                         color: Colors.white,
                         onTap: () {
                           bottomCubit.changefinnaceAndItem(5, 5);
@@ -136,7 +136,7 @@ class AccountManagementChoose extends StatelessWidget {
                     Expanded(
                       flex: 2,
                       child: AccountCard(
-                        title: S.of(context).createdisbursementbondforcompound,
+                        title:AppLocalizations.of(context)!.create_disbursement_bond_for_compound,
                         color: Colors.white,
                         onTap: () {
                           bottomCubit.changefinnaceAndItem(7, 5);

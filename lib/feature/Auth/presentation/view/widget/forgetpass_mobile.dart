@@ -5,7 +5,7 @@ import '../../../../../core/const/widget/custom_button.dart';
 import '../../../../../core/utils/appstyle/app_styles.dart';
 import '../../../../../core/utils/colors/colors.dart';
 import '../../../../../core/utils/font/fonts.dart';
-import '../../../../../generated/l10n.dart';
+import 'package:rehana_dashboared/l10n/app_localizations.dart';
 import '../screen/change_password.dart';
 import 'mobile_loginscreen.dart';
 
@@ -30,12 +30,12 @@ class _ForgetpassMobileState extends State<ForgetpassMobile> {
   // Email validation function
   String? _validateEmail(String? value) {
     if (value == null || value.isEmpty) {
-      return S.of(context).please_entre_your_email;
+      return AppLocalizations.of(context)!.please_enter_your_email;
     }
     // Regular expression for email validation
     final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
     if (!emailRegex.hasMatch(value)) {
-      return S.of(context).please_enter_valid_email;
+      return AppLocalizations.of(context)!.please_enter_valid_email;
     }
     return null;
   }
@@ -59,7 +59,7 @@ class _ForgetpassMobileState extends State<ForgetpassMobile> {
                 border: Border.all(color: Appcolors.kwhite),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.1),
+                    color: Colors.black.withValues( alpha:0.1),
                     spreadRadius: 2,
                     blurRadius: 5,
                     offset: const Offset(0, 3),
@@ -76,14 +76,14 @@ class _ForgetpassMobileState extends State<ForgetpassMobile> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
-                        S.of(context).did_you_forget_your_password,
+                       AppLocalizations.of(context)!.did_you_forget_your_password,
                         style: AppStyles.styleLogin(context),
                       ),
                       const SizedBox(height: 20),
                       TextFormField(
                         controller: emailController,
                         decoration: InputDecoration(
-                          labelText: S.of(context).email,
+                          labelText:AppLocalizations.of(context)!.email,
                           labelStyle: AppStyles.textformfieldstyle(context),
                           border: const OutlineInputBorder(),
                           focusedBorder: OutlineInputBorder(
@@ -101,7 +101,7 @@ class _ForgetpassMobileState extends State<ForgetpassMobile> {
                             // Navigator.pushNamed(context, Routes.forgetPassword);
                           },
                           child: Text(
-                            S.of(context).did_you_forget_your_password,
+                           AppLocalizations.of(context)!.did_you_forget_your_password,
                             style: TextStyle(
                               fontFamily: Fonts.font,
                               color: Colors.red,
@@ -121,7 +121,7 @@ class _ForgetpassMobileState extends State<ForgetpassMobile> {
                             );
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
-                                content: Text(S.of(context).wesendyouresetlink),
+                                content: Text(AppLocalizations.of(context)!.we_send_you_reset_link),
                               ),
                             );
                           }
@@ -141,7 +141,7 @@ class _ForgetpassMobileState extends State<ForgetpassMobile> {
                             child: CustomButton(
                               textcolor: Appcolors.kprimary,
 
-                              name: S.of(context).sendresetpasword,
+                              name:AppLocalizations.of(context)!.send_reset_password,
                               onTap: () {
                                 if (_formKey.currentState!.validate()) {
                                   // Only proceed if the form is valid

@@ -4,20 +4,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:rehana_dashboared/core/utils/colors/colors.dart';
 import 'package:rehana_dashboared/feature/UserManagement/presentation/view/screen/responsive_adduser_mangment.dart';
-import '../../../../../generated/l10n.dart';
+import 'package:rehana_dashboared/l10n/app_localizations.dart';
 import 'package:rehana_dashboared/core/utils/appstyle/app_styles.dart';
 
 import '../../manger/user_cubit.dart';
 
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get_it/get_it.dart';
-import 'package:rehana_dashboared/core/utils/colors/colors.dart';
-import 'package:rehana_dashboared/core/utils/appstyle/app_styles.dart';
-import 'package:rehana_dashboared/feature/UserManagement/presentation/view/screen/responsive_adduser_mangment.dart';
-import '../../../../../generated/l10n.dart';
-import '../../manger/user_cubit.dart';
 
 class ResponsiveUserManagement extends StatelessWidget {
   const ResponsiveUserManagement({super.key});
@@ -77,7 +68,7 @@ class _ResponsiveUserManagementView extends StatelessWidget {
           borderRadius: BorderRadius.circular(16),
           boxShadow: [
             BoxShadow(
-              color: CupertinoColors.systemGrey.withOpacity(0.1),
+              color: CupertinoColors.systemGrey.withValues( alpha:0.1),
               blurRadius: 12,
               spreadRadius: 2,
               offset: const Offset(0, 4),
@@ -92,7 +83,7 @@ class _ResponsiveUserManagementView extends StatelessWidget {
               snap: false,
               backgroundColor: Colors.white,
               title: Text(
-                S.of(context).userManagement,
+               AppLocalizations.of(context)!.user_management,
                 style: AppStyles.styleLogin(context),
               ),
             ),
@@ -107,7 +98,7 @@ class _ResponsiveUserManagementView extends StatelessWidget {
             SliverToBoxAdapter(
               child: Container(
                 constraints: const BoxConstraints(maxWidth: 1000),
-                color: Appcolors.greenMember.withOpacity(0.3),
+                color: Appcolors.greenMember.withValues( alpha:0.3),
                 padding:
                 const EdgeInsets.symmetric(vertical: 12.0, horizontal: 8.0),
                 child: Row(
@@ -115,7 +106,7 @@ class _ResponsiveUserManagementView extends StatelessWidget {
                     Expanded(
                       flex: 2,
                       child: Text(
-                        S.of(context).name,
+                       AppLocalizations.of(context)!.name,
                         textAlign: TextAlign.center,
                         style: AppStyles.styleLogin(context),
                       ),
@@ -123,7 +114,7 @@ class _ResponsiveUserManagementView extends StatelessWidget {
                     Expanded(
                       flex: 2,
                       child: Text(
-                        S.of(context).job,
+                       AppLocalizations.of(context)!.job,
                         textAlign: TextAlign.center,
                         style: AppStyles.styleLogin(context),
                       ),

@@ -7,7 +7,7 @@ import 'package:rehana_dashboared/feature/Account_Management/presentation/view/w
 
 import '../../../../../core/const/paginationcontrols.dart';
 import '../../../../../core/const/widget/mobile_table/mobile_button.dart';
-import '../../../../../generated/l10n.dart';
+import 'package:rehana_dashboared/l10n/app_localizations.dart';
 import '../../../../bar_navigation/manger/bar_cubit.dart';
 import '../../../../bar_navigation/manger/bar_state.dart';
 
@@ -37,7 +37,7 @@ class MembersAccountStatementMobile extends StatelessWidget {
                       borderRadius: BorderRadius.circular(12),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.grey.withOpacity(0.07),
+                          color: Colors.grey.withValues( alpha:0.07),
                           blurRadius: 4,
                           offset: const Offset(0, 2),
                         ),
@@ -69,26 +69,26 @@ class MembersAccountStatementMobile extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [
                                 RowItem(
-                                  label: S.of(context).name,
+                                  label:AppLocalizations.of(context)!.name,
                                   value: row.fullName.toString(),
                                 ),
                                 RowItem(
-                                  label: S.of(context).phone,
+                                  label:AppLocalizations.of(context)!.phone,
                                   value: row.phoneNumber.toString(),
                                 ),
                                 RowItem(
-                                  label: S.of(context).address,
+                                  label:AppLocalizations.of(context)!.address,
                                   value: row.address.toString(),
                                 ),
                                 RowItem(
-                                  label: S.of(context).status,
+                                  label:AppLocalizations.of(context)!.status,
                                   value:
                                       row.isMarried == true
-                                          ? S.of(context).married
-                                          : S.of(context).single,
+                                          ?AppLocalizations.of(context)!.married
+                                          :AppLocalizations.of(context)!.single,
                                 ),
                                 RowItem(
-                                  label: S.of(context).villanumber,
+                                  label:AppLocalizations.of(context)!.villa_number,
                                   value: row.villaNumber.toString(),
                                 ),
                                 const SizedBox(height: 8),
@@ -96,7 +96,7 @@ class MembersAccountStatementMobile extends StatelessWidget {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     MobileButton(
-                                      text: S.of(context).edit,
+                                      text:AppLocalizations.of(context)!.edit,
                                       color: const Color(0xFFB5CC6D),
                                       onPressed: () {
                                         showDialog(
@@ -118,7 +118,7 @@ class MembersAccountStatementMobile extends StatelessWidget {
                                     ),
                                     const SizedBox(width: 10),
                                     MobileButton(
-                                      text: S.of(context).delete,
+                                      text:AppLocalizations.of(context)!.delete,
                                       color: const Color(0xFFE74A3B),
                                       onPressed: () {
                                         personCubit.deleteid(row.id);

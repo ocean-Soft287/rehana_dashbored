@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../core/const/widget/custom_button.dart';
 import '../../../../../core/const/widget/custom_drop_down_menu.dart';
 import '../../../../../core/const/widget/textformcrud.dart';
-import '../../../../../generated/l10n.dart';
+import 'package:rehana_dashboared/l10n/app_localizations.dart';
 import '../../manger/person_cubit.dart';
 
 class CreateReceiptBondCompoundMobile extends StatefulWidget {
@@ -30,7 +30,7 @@ class _CreateReceiptBondCompoundMobileState
 
   @override
   Widget build(BuildContext context) {
-    final s = S.of(context);
+    final s =AppLocalizations.of(context)!;
 
     return SingleChildScrollView(
       child: Padding(
@@ -54,7 +54,7 @@ class _CreateReceiptBondCompoundMobileState
                 borderRadius: BorderRadius.circular(12),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.05),
+                    color: Colors.black.withValues( alpha:0.05),
                     blurRadius: 6,
                     offset: const Offset(0, 3),
                   ),

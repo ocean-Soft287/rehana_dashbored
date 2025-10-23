@@ -14,7 +14,7 @@ import 'core/utils/services/services_locator.dart';
 import 'feature/create_invite/presentation/manger/securityonetime_cubit.dart';
 import 'feature/localization/localizationmodel/localizationmodel.dart';
 import 'feature/localization/manger/localization_cubit.dart';
-import 'generated/l10n.dart';
+import 'l10n/app_localizations.dart';
 
 
 void main() async {
@@ -47,7 +47,7 @@ class MyApp extends StatelessWidget {
         locale: const Locale('ar'),
         supportedLocales: const [Locale('ar')],
         localizationsDelegates: const [
-          S.delegate,
+          AppLocalizations.delegate,
           GlobalMaterialLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate,
           GlobalCupertinoLocalizations.delegate,

@@ -4,8 +4,7 @@ import '../../../../core/const/widget/custom_button.dart';
 import '../../../../core/const/widget/textformcrud.dart';
 import '../../../../core/utils/colors/colors.dart';
 import '../../../../core/utils/font/fonts.dart';
-import '../../../../generated/l10n.dart';
-import '../manger/adduser_cubit.dart';
+import '../../../../l10n/app_localizations.dart';import '../manger/adduser_cubit.dart';
 import 'imageuser.dart';
 
 class AddUserTablet extends StatelessWidget {
@@ -50,7 +49,7 @@ class AddUserTablet extends StatelessWidget {
           borderRadius: BorderRadius.circular(16),
           boxShadow: [
             BoxShadow(
-              color: Colors.grey.withOpacity(0.1),
+              color: Colors.grey.withValues( alpha:0.1),
               blurRadius: 12,
               spreadRadius: 2,
               offset: const Offset(0, 4),
@@ -65,7 +64,7 @@ class AddUserTablet extends StatelessWidget {
               Imageuser(),
               const SizedBox(height: 16),
               Text(
-                S.of(context).upload_new_member_photo,
+               AppLocalizations.of(context)!.upload_new_member_photo,
                 style: const TextStyle(
                   fontFamily: Fonts.font,
                   fontWeight: FontWeight.w600,
@@ -81,15 +80,14 @@ class AddUserTablet extends StatelessWidget {
                   Expanded(
                     child: Textformcrud(
                       controller: name,
-                      name: S.of(context).name,
-                      nameinfo: S.of(context).please_entre_name,
+                      name:AppLocalizations.of(context)!.name,
+                      nameinfo:AppLocalizations.of(context)!.please_enter_name,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return S.of(context).please_entre_name;
+                          return AppLocalizations.of(context)!.please_enter_name;
                         }
                         if (value.length < 2) {
-                          return S
-                              .of(context)
+                          return AppLocalizations.of(context)!
                               .name_must_be_at_least_2_characters;
                         }
                         return null;
@@ -100,14 +98,14 @@ class AddUserTablet extends StatelessWidget {
                   Expanded(
                     child: Textformcrud(
                       controller: phone,
-                      name: S.of(context).phone,
-                      nameinfo: S.of(context).enter_phone_number,
+                      name:AppLocalizations.of(context)!.phone,
+                      nameinfo:AppLocalizations.of(context)!.enter_phone_number,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return S.of(context).enter_phone_number;
+                          return AppLocalizations.of(context)!.enter_phone_number;
                         }
                         if (!RegExp(r'^\d{10,}$').hasMatch(value)) {
-                          return S.of(context).enter_valid_phone_number;
+                          return AppLocalizations.of(context)!.enter_valid_phone_number;
                         }
                         return null;
                       },
@@ -123,16 +121,16 @@ class AddUserTablet extends StatelessWidget {
                   Expanded(
                     child: Textformcrud(
                       controller: email,
-                      name: S.of(context).email,
-                      nameinfo: S.of(context).please_entre_your_email,
+                      name:AppLocalizations.of(context)!.email,
+                      nameinfo:AppLocalizations.of(context)!.please_enter_your_email,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return S.of(context).please_entre_your_email;
+                          return AppLocalizations.of(context)!.please_enter_your_email;
                         }
                         if (!RegExp(
                           r'^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$',
                         ).hasMatch(value)) {
-                          return S.of(context).enter_valid_email;
+                          return AppLocalizations.of(context)!.enter_valid_email;
                         }
                         return null;
                       },
@@ -142,17 +140,17 @@ class AddUserTablet extends StatelessWidget {
                   Expanded(
                     child: Textformcrud(
                       controller: password,
-                      name: S.of(context).password,
-                      nameinfo: S.of(context).please_entre_your_password,
+                      name:AppLocalizations.of(context)!.password,
+                      nameinfo:AppLocalizations.of(context)!.please_enter_your_password,
                       validator: (value) {
                         if (value == null || value.trim().isEmpty) {
-                          return S.of(context).please_entre_your_password;
+                          return AppLocalizations.of(context)!.please_enter_your_password;
                         }
                         const pattern =
                             r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#\$&*~]).{8,}$';
 
                         if (!RegExp(pattern).hasMatch(value)) {
-                          return S.of(context).password_complexity_error;
+                          return AppLocalizations.of(context)!.password_complexity_error;
                         }
 
                         return null;
@@ -169,15 +167,14 @@ class AddUserTablet extends StatelessWidget {
                   Expanded(
                     child: Textformcrud(
                       controller: villaAddress,
-                      name: S.of(context).villa_address,
-                      nameinfo: S.of(context).enter_villa_address,
+                      name:AppLocalizations.of(context)!.villa_address,
+                      nameinfo:AppLocalizations.of(context)!.enter_villa_address,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return S.of(context).enter_villa_address;
+                          return AppLocalizations.of(context)!.enter_villa_address;
                         }
                         if (value.length < 5) {
-                          return S
-                              .of(context)
+                          return AppLocalizations.of(context)!
                               .villa_address_must_be_at_least_5_characters;
                         }
                         return null;
@@ -188,14 +185,14 @@ class AddUserTablet extends StatelessWidget {
                   Expanded(
                     child: Textformcrud(
                       controller: villaNumber,
-                      name: S.of(context).villanumber,
-                      nameinfo: S.of(context).please_enter_villa_number,
+                      name:AppLocalizations.of(context)!.villa_number,
+                      nameinfo:AppLocalizations.of(context)!.please_enter_villa_number,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return S.of(context).please_enter_villa_number;
+                          return AppLocalizations.of(context)!.please_enter_villa_number;
                         }
                         if (!RegExp(r'^\d+$').hasMatch(value)) {
-                          return S.of(context).villa_number_must_be_numeric;
+                          return AppLocalizations.of(context)!.villa_number_must_be_numeric;
                         }
                         return null;
                       },
@@ -211,15 +208,14 @@ class AddUserTablet extends StatelessWidget {
                   Expanded(
                     child: Textformcrud(
                       controller: villaLocation,
-                      name: S.of(context).villa_location,
-                      nameinfo: S.of(context).enter_villa_location,
+                      name:AppLocalizations.of(context)!.villa_location,
+                      nameinfo:AppLocalizations.of(context)!.enter_villa_location,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return S.of(context).enter_villa_location;
+                          return AppLocalizations.of(context)!.enter_villa_location;
                         }
                         if (value.length < 5) {
-                          return S
-                              .of(context)
+                          return AppLocalizations.of(context)!
                               .villa_location_must_be_at_least_5_characters;
                         }
                         return null;
@@ -230,15 +226,14 @@ class AddUserTablet extends StatelessWidget {
                   Expanded(
                     child: Textformcrud(
                       controller: street,
-                      name: S.of(context).street,
-                      nameinfo: S.of(context).select_street,
+                      name:AppLocalizations.of(context)!.street,
+                      nameinfo:AppLocalizations.of(context)!.select_street,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return S.of(context).select_street;
+                          return AppLocalizations.of(context)!.select_street;
                         }
                         if (value.length < 3) {
-                          return S
-                              .of(context)
+                          return AppLocalizations.of(context)!
                               .street_must_be_at_least_3_characters;
                         }
                         return null;
@@ -255,14 +250,14 @@ class AddUserTablet extends StatelessWidget {
                   Expanded(
                     child: Textformcrud(
                       controller: area,
-                      name: S.of(context).area,
-                      nameinfo: S.of(context).enter_area,
+                      name:AppLocalizations.of(context)!.area,
+                      nameinfo:AppLocalizations.of(context)!.enter_area,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return S.of(context).enter_area;
+                          return AppLocalizations.of(context)!.enter_area;
                         }
                         if (!RegExp(r'^\d+(\.\d+)?$').hasMatch(value)) {
-                          return S.of(context).area_must_be_valid_number;
+                          return AppLocalizations.of(context)!.area_must_be_valid_number;
                         }
                         return null;
                       },
@@ -272,14 +267,14 @@ class AddUserTablet extends StatelessWidget {
                   Expanded(
                     child: Textformcrud(
                       controller: numOfFloors,
-                      name: S.of(context).number_of_floors,
-                      nameinfo: S.of(context).enter_number_of_floors,
+                      name:AppLocalizations.of(context)!.number_of_floors,
+                      nameinfo:AppLocalizations.of(context)!.enter_number_of_floors,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return S.of(context).enter_number_of_floors;
+                          return AppLocalizations.of(context)!.enter_number_of_floors;
                         }
                         if (!RegExp(r'^\d+$').hasMatch(value)) {
-                          return S.of(context).number_of_floors_must_be_numeric;
+                          return AppLocalizations.of(context)!.number_of_floors_must_be_numeric;
                         }
                         return null;
                       },
@@ -314,7 +309,7 @@ class AddUserTablet extends StatelessWidget {
                       final adduser = context.read<AdduserCubit>();
 
                       return CustomButton(
-                        name: S.of(context).save,
+                        name:AppLocalizations.of(context)!.save,
                         colors: Appcolors.kBlack,
                         width: MediaQuery.of(context).size.width * 0.15,
                         onTap: () {

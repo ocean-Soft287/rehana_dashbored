@@ -4,7 +4,7 @@ import '../../../../../core/const/widget/custom_button.dart';
 import '../../../../../core/utils/appstyle/app_styles.dart';
 import '../../../../../core/utils/colors/colors.dart';
 import '../../../../../core/utils/image/images.dart';
-import '../../../../../generated/l10n.dart';
+import 'package:rehana_dashboared/l10n/app_localizations.dart';
 import '../../manger/auth_cubit.dart';
 
 
@@ -33,30 +33,30 @@ class _ConfirmResetPasswordTabletState extends State<ConfirmResetPasswordTablet>
 
   String? _validateEmail(String? value) {
     if (value == null || value.isEmpty) {
-      return S.of(context).emailisrequired;
+      return AppLocalizations.of(context)!.email_is_required;
     }
     final emailRegex = RegExp(r"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$");
     if (!emailRegex.hasMatch(value)) {
-      return S.of(context).invalidemail;
+      return AppLocalizations.of(context)!.invalid_email;
     }
     return null;
   }
 
   String? _validateToken(String? value) {
     if (value == null || value.isEmpty) {
-      return S.of(context).tokenisrequired;
+      return AppLocalizations.of(context)!.token_is_required;
     }
     return null;
   }
 
   String? _validatePassword(String? value) {
     if (value == null || value.isEmpty) {
-      return S.of(context).passwordisrequired;
+      return AppLocalizations.of(context)!.password_is_required;
     }
     final passwordPattern =
         r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#\$&*~%^_])[A-Za-z\d!@#\$&*~%^_]{8,}$';
     if (!RegExp(passwordPattern).hasMatch(value)) {
-      return S.of(context).password_validation_message;
+      return AppLocalizations.of(context)!.password_validation_message;
     }
     return null;
   }
@@ -105,7 +105,7 @@ class _ConfirmResetPasswordTabletState extends State<ConfirmResetPasswordTablet>
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              S.of(context).confirmchangepassword,
+                             AppLocalizations.of(context)!.confirm_change_password,
                               style: AppStyles.styletitlelogin(context),
                             ),
                             const SizedBox(height: 30),
@@ -116,7 +116,7 @@ class _ConfirmResetPasswordTabletState extends State<ConfirmResetPasswordTablet>
                               textAlign: TextAlign.right,
                               validator: _validateEmail,
                               decoration: InputDecoration(
-                                labelText: S.of(context).email,
+                                labelText:AppLocalizations.of(context)!.email,
                                 border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
                               ),
                             ),
@@ -141,7 +141,7 @@ class _ConfirmResetPasswordTabletState extends State<ConfirmResetPasswordTablet>
                               textAlign: TextAlign.right,
                               validator: _validatePassword,
                               decoration: InputDecoration(
-                                labelText: S.of(context).newpassword,
+                                labelText:AppLocalizations.of(context)!.new_password,
                                 border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
                                 suffixIcon: IconButton(
                                   icon: Icon(

@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:rehana_dashboared/core/const/widget/mobile_table/row_item.dart'
     show RowItem;
+import 'package:rehana_dashboared/l10n/app_localizations.dart';
 
 import '../../../../../core/const/widget/mobile_table/mobile_button.dart';
-import '../../../../../generated/l10n.dart';
 import '../../../../add_users/data/model/securitygardmodel.dart';
 
 
@@ -32,7 +32,7 @@ class SecurityCardMobile extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withOpacity(0.07),
+            color: Colors.grey.withValues( alpha:0.07),
             blurRadius: 4,
             offset: const Offset(0, 2),
           ),
@@ -57,23 +57,23 @@ class SecurityCardMobile extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 12),
-            RowItem(label: S.of(context).name, value: securityGuardModel.userName),
-            RowItem(label: S.of(context).email, value: securityGuardModel.email),
-            RowItem(label: S.of(context).gatenumber, value: securityGuardModel.gateNumber),
-            RowItem(label: S.of(context).phone, value: securityGuardModel.phoneNumber),
+            RowItem(label: AppLocalizations.of(context)!.name, value: securityGuardModel.userName),
+            RowItem(label:AppLocalizations.of(context)!.email, value: securityGuardModel.email),
+            RowItem(label:AppLocalizations.of(context)!.gate_number, value: securityGuardModel.gateNumber),
+            RowItem(label:AppLocalizations.of(context)!.phone, value: securityGuardModel.phoneNumber),
             const SizedBox(height: 8),
             if (isButtons)
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   MobileButton(
-                    text: S.of(context).edit,
+                    text:AppLocalizations.of(context)!.edit,
                     color: const Color(0xFFB5CC6D),
                     onPressed: onAccept,
                   ),
                   const SizedBox(width: 10),
                   MobileButton(
-                    text: S.of(context).delete,
+                    text:AppLocalizations.of(context)!.delete,
                     color: const Color(0xFFE74A3B),
                     onPressed: onReject,
                   ),

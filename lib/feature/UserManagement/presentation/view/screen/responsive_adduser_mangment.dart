@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 
-import '../../../../../generated/l10n.dart';
+import 'package:rehana_dashboared/l10n/app_localizations.dart';
 import '../../manger/user_cubit.dart';
 import '../widget/add_usermangment_mobile.dart';
 import '../widget/add_usermangment_tablet.dart';
@@ -16,8 +16,8 @@ class ResponsiveAdduserMangment extends StatelessWidget {
     final emailController = TextEditingController();
     final passwordController = TextEditingController();
     final List<String> jobs = [
-      S.of(context).admin,
-      S.of(context).account_manger,
+     AppLocalizations.of(context)!.admin,
+     AppLocalizations.of(context)!.account_manager,
     ];
 
     return LayoutBuilder(

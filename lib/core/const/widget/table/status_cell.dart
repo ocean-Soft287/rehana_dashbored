@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../generated/l10n.dart';
+import '../../../../l10n/app_localizations.dart';
 import '../../../utils/font/fonts.dart';
 class StatusCell extends StatelessWidget {
   final VoidCallback onAccept;
@@ -31,7 +31,7 @@ class StatusCell extends StatelessWidget {
           ),
           onPressed: onAccept,
           child: Text(
-            accept ?? S.of(context).accept,
+            accept ??AppLocalizations.of(context)!.accept,
             style: TextStyle(
               fontFamily: Fonts.font,
               color: Colors.white,
@@ -50,7 +50,7 @@ class StatusCell extends StatelessWidget {
           ),
           onPressed: onReject,
           child: Text(
-            refuse ?? S.of(context).refuse,
+            refuse ??AppLocalizations.of(context)!.refuse,
             style: TextStyle(
               fontFamily: Fonts.font,
               color: Colors.white,

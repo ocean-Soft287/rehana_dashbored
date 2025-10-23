@@ -3,16 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rehana_dashboared/core/const/widget/mobile_table/row_item.dart'
     show RowItem;
 import '../../../../../core/const/paginationcontrols.dart';
-import '../../../../../generated/l10n.dart';
+import 'package:rehana_dashboared/l10n/app_localizations.dart';
 import '../../../../Home/data/model/visitrow_model.dart';
 import '../../manger/person_cubit.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rehana_dashboared/core/const/widget/mobile_table/row_item.dart';
-import '../../../../../core/const/paginationcontrols.dart';
-import '../../../../../generated/l10n.dart';
-import '../../../../Home/data/model/visitrow_model.dart';
-import '../../manger/person_cubit.dart';
 
 class ExchangeBondsMobile extends StatefulWidget {
   const ExchangeBondsMobile({super.key, required this.rows});
@@ -61,7 +55,7 @@ class _ExchangeBondsMobileState extends State<ExchangeBondsMobile> {
                             borderRadius: BorderRadius.circular(12),
                             boxShadow: [
                               BoxShadow(
-                                color: Colors.grey.withOpacity(0.07),
+                                color: Colors.grey.withValues(alpha: 0.07),
                                 blurRadius: 4,
                                 offset: const Offset(0, 2),
                               ),
@@ -73,13 +67,13 @@ class _ExchangeBondsMobileState extends State<ExchangeBondsMobile> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [
-                                RowItem(label: S.of(context).voucher_date, value: row.date),
-                                RowItem(label: S.of(context).currency, value: row.currency),
-                                RowItem(label: S.of(context).account_num, value: row.amount.toString()),
-                                RowItem(label: S.of(context).debtor, value: row.memberName),
-                                RowItem(label: S.of(context).description, value: row.bondDescription),
-                                RowItem(label: S.of(context).type, value: row.type == "Disbursement" ? S.of(context).Disbursement : row.type),
-                                RowItem(label: S.of(context).villanumber, value: row.villaNumber.toString()),
+                                RowItem(label:AppLocalizations.of(context)!.voucher_date, value: row.date),
+                                RowItem(label:AppLocalizations.of(context)!.currency, value: row.currency),
+                                RowItem(label:AppLocalizations.of(context)!.account_num, value: row.amount.toString()),
+                                RowItem(label:AppLocalizations.of(context)!.debtor, value: row.memberName),
+                                RowItem(label:AppLocalizations.of(context)!.description, value: row.bondDescription),
+                                RowItem(label:AppLocalizations.of(context)!.type, value: row.type == "Disbursement" ?AppLocalizations.of(context)!.disbursement : row.type),
+                                RowItem(label:AppLocalizations.of(context)!.villa_number, value: row.villaNumber.toString()),
                               ],
                             ),
                           ),

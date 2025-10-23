@@ -8,7 +8,7 @@ import 'package:rehana_dashboared/feature/Account_Management/presentation/view/w
 import 'package:rehana_dashboared/feature/bar_navigation/manger/bar_state.dart';
 import '../../../../../core/const/paginationcontrols.dart';
 import '../../../../../core/utils/colors/colors.dart';
-import '../../../../../generated/l10n.dart';
+import 'package:rehana_dashboared/l10n/app_localizations.dart';
 import '../../../../bar_navigation/manger/bar_cubit.dart';
 import '../../manger/person_cubit.dart';
 
@@ -46,12 +46,12 @@ class MembersAccountStatementTablet extends StatelessWidget {
                       child: Row(
                         textDirection: TextDirection.rtl,
                         children: [
-                          HeaderCell(text: S.of(context).name, flex: 2),
-                          HeaderCell(text: S.of(context).phone, flex: 2),
-                          HeaderCell(text: S.of(context).address, flex: 2),
-                          HeaderCell(text: S.of(context).status, flex: 2),
-                          HeaderCell(text: S.of(context).villanumber, flex: 2),
-                          HeaderCell(text: S.of(context).edit, flex: 3),
+                          HeaderCell(text:AppLocalizations.of(context)!.name, flex: 2),
+                          HeaderCell(text:AppLocalizations.of(context)!.phone, flex: 2),
+                          HeaderCell(text:AppLocalizations.of(context)!.address, flex: 2),
+                          HeaderCell(text:AppLocalizations.of(context)!.status, flex: 2),
+                          HeaderCell(text:AppLocalizations.of(context)!.villa_number, flex: 2),
+                          HeaderCell(text:AppLocalizations.of(context)!.edit, flex: 3),
                         ],
                       ),
                     ),
@@ -98,8 +98,8 @@ class MembersAccountStatementTablet extends StatelessWidget {
                                         DataCell(text: row.address, flex: 2),
                                         DataCell(
                                           text: row.isMarried == true
-                                              ? S.of(context).married
-                                              : S.of(context).single,
+                                              ?AppLocalizations.of(context)!.married
+                                              :AppLocalizations.of(context)!.single,
                                           flex: 2,
                                         ),
                                         DataCell(text: row.villaNumber.toString(), flex: 2),
@@ -115,8 +115,8 @@ class MembersAccountStatementTablet extends StatelessWidget {
                               Expanded(
                                 flex: 3,
                                 child: StatusCell(
-                                  accept: S.of(context).edit,
-                                  refuse: S.of(context).delete,
+                                  accept:AppLocalizations.of(context)!.edit,
+                                  refuse:AppLocalizations.of(context)!.delete,
                                   onAccept: () {
                                     showDialog(
                                       context: context,

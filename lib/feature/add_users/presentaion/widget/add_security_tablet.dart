@@ -7,8 +7,7 @@ import '../../../../core/utils/colors/colors.dart';
 import '../../../../core/utils/font/fonts.dart';
 
 
-import '../../../../generated/l10n.dart';
-import '../manger/adduser_cubit.dart';
+import '../../../../l10n/app_localizations.dart';import '../manger/adduser_cubit.dart';
 import 'imageuser.dart';
 
 class AddSecurityTablet extends StatelessWidget {
@@ -40,7 +39,7 @@ class AddSecurityTablet extends StatelessWidget {
           borderRadius: BorderRadius.circular(16),
           boxShadow: [
             BoxShadow(
-              color: CupertinoColors.systemGrey.withOpacity(0.1),
+              color: CupertinoColors.systemGrey.withValues( alpha:0.1),
               blurRadius: 12,
               spreadRadius: 2,
               offset: const Offset(0, 4),
@@ -55,7 +54,7 @@ class AddSecurityTablet extends StatelessWidget {
 
               const SizedBox(height: 16),
               Text(
-                S.of(context).security_guard_photo_upload,
+               AppLocalizations.of(context)!.security_guard_photo_upload,
                 style: const TextStyle(
                   fontFamily: Fonts.font,
                   fontWeight: FontWeight.w600,
@@ -71,14 +70,14 @@ class AddSecurityTablet extends StatelessWidget {
                   Expanded(
                     child: Textformcrud(
                       controller: name,
-                      name: S.of(context).name,
-                      nameinfo: S.of(context).please_entre_name,
+                      name:AppLocalizations.of(context)!.name,
+                      nameinfo:AppLocalizations.of(context)!.please_enter_name,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return S.of(context).please_entre_name;
+                          return AppLocalizations.of(context)!.please_enter_name;
                         }
                         if (value.length < 2) {
-                          return S.of(context).name_must_be_at_least_2_characters;
+                          return AppLocalizations.of(context)!.name_must_be_at_least_2_characters;
                         }
                         return null;
                       },
@@ -88,14 +87,14 @@ class AddSecurityTablet extends StatelessWidget {
                   Expanded(
                     child: Textformcrud(
                       controller: phone,
-                      name: S.of(context).phone,
-                      nameinfo: S.of(context).enter_phone_number,
+                      name:AppLocalizations.of(context)!.phone,
+                      nameinfo:AppLocalizations.of(context)!.enter_phone_number,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return S.of(context).enter_phone_number;
+                          return AppLocalizations.of(context)!.enter_phone_number;
                         }
                         if (!RegExp(r'^\d{10,}$').hasMatch(value)) {
-                          return S.of(context).enter_valid_phone_number;
+                          return AppLocalizations.of(context)!.enter_valid_phone_number;
                         }
                         return null;
                       },
@@ -111,14 +110,14 @@ class AddSecurityTablet extends StatelessWidget {
                   Expanded(
                     child: Textformcrud(
                       controller: email,
-                      name: S.of(context).email,
-                      nameinfo: S.of(context).please_entre_your_email,
+                      name:AppLocalizations.of(context)!.email,
+                      nameinfo:AppLocalizations.of(context)!.please_enter_your_email,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return S.of(context).please_entre_your_email;
+                          return AppLocalizations.of(context)!.please_enter_your_email;
                         }
                         if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value)) {
-                          return S.of(context).enter_valid_email;
+                          return AppLocalizations.of(context)!.enter_valid_email;
                         }
                         return null;
                       },
@@ -128,17 +127,17 @@ class AddSecurityTablet extends StatelessWidget {
                   Expanded(
                     child: Textformcrud(
                       controller: password,
-                      name: S.of(context).password,
-                      nameinfo: S.of(context).please_entre_your_password,
+                      name:AppLocalizations.of(context)!.password,
+                      nameinfo:AppLocalizations.of(context)!.please_enter_your_password,
                       validator: (value) {
                         if (value == null || value.trim().isEmpty) {
-                          return S.of(context).please_entre_your_password;
+                          return AppLocalizations.of(context)!.please_enter_your_password;
                         }
                         const pattern =
                             r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#\$&*~]).{8,}$';
 
                         if (!RegExp(pattern).hasMatch(value)) {
-                                                      return S.of(context).password_complexity_error;
+                                                      return AppLocalizations.of(context)!.password_complexity_error;
 
                         }
 
@@ -156,14 +155,14 @@ class AddSecurityTablet extends StatelessWidget {
                   Expanded(
                     child: Textformcrud(
                       controller: numofgate,
-                      name: S.of(context).enter_gate_number,
-                      nameinfo: S.of(context).enter_gate_number,
+                      name:AppLocalizations.of(context)!.enter_gate_number,
+                      nameinfo:AppLocalizations.of(context)!.enter_gate_number,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return S.of(context).enter_gate_number;
+                          return AppLocalizations.of(context)!.enter_gate_number;
                         }
                         if (!RegExp(r'^\d+$').hasMatch(value)) {
-                          return S.of(context).gate_number_must_be_numeric;
+                          return AppLocalizations.of(context)!.gate_number_must_be_numeric;
                         }
                         return null;
                       },
@@ -194,7 +193,7 @@ class AddSecurityTablet extends StatelessWidget {
     final adduser=context.read<AdduserCubit>();
 
     return CustomButton(
-                    name: S.of(context).save,
+                    name:AppLocalizations.of(context)!.save,
                     colors: Appcolors.kBlack,
                     width: MediaQuery.of(context).size.width * 0.15,
                     onTap: () {

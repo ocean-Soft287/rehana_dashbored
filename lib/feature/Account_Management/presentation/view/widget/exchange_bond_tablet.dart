@@ -6,7 +6,7 @@ import 'package:rehana_dashboared/core/const/widget/table/data_cell.dart' show D
 import 'package:rehana_dashboared/core/utils/colors/colors.dart' show Appcolors;
 
 import '../../../../../core/const/paginationcontrols.dart';
-import '../../../../../generated/l10n.dart';
+import 'package:rehana_dashboared/l10n/app_localizations.dart';
 import '../../../../Home/data/model/visitrow_model.dart';
 import '../../manger/person_cubit.dart';
 
@@ -57,13 +57,13 @@ class _ExchangeBondTabletState extends State<ExchangeBondTablet> {
                   child: Row(
                     textDirection: TextDirection.rtl,
                     children: [
-                      HeaderCell(text: S.of(context).voucher_date, flex: 2),
-                      HeaderCell(text: S.of(context).currency),
-                      HeaderCell(text: S.of(context).debtor), // اسم العضو
-                      HeaderCell(text: S.of(context).account_num), // المبلغ
-                      HeaderCell(text: S.of(context).villanumber),
-                      HeaderCell(text: S.of(context).description), // وصف السند
-                      HeaderCell(text: S.of(context).type), // نوع السند
+                      HeaderCell(text:AppLocalizations.of(context)!.voucher_date, flex: 2),
+                      HeaderCell(text:AppLocalizations.of(context)!.currency),
+                      HeaderCell(text:AppLocalizations.of(context)!.debtor), // اسم العضو
+                      HeaderCell(text:AppLocalizations.of(context)!.account_num), // المبلغ
+                      HeaderCell(text:AppLocalizations.of(context)!.villa_number),
+                      HeaderCell(text:AppLocalizations.of(context)!.description), // وصف السند
+                      HeaderCell(text:AppLocalizations.of(context)!.type), // نوع السند
                     ],
                   ),
 
@@ -87,7 +87,7 @@ class _ExchangeBondTabletState extends State<ExchangeBondTablet> {
                         DataCell(text: row.amount.toString()),
                         DataCell(text: row.villaNumber.toString()),
                         DataCell(text: row.bondDescription),
-                        DataCell(text: row.type=="Disbursement"?S.of(context).Disbursement:S.of(context).Disbursement),
+                        DataCell(text: row.type=="Disbursement"?AppLocalizations.of(context)!.disbursement:AppLocalizations.of(context)!.disbursement),
                       ],
                     ),
 

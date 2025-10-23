@@ -7,7 +7,7 @@ import '../../../../../core/utils/appstyle/app_styles.dart';
 import '../../../../../core/utils/colors/colors.dart';
 import '../../../../../core/utils/font/fonts.dart';
 import '../../../../../core/utils/image/images.dart';
-import '../../../../../generated/l10n.dart';
+import 'package:rehana_dashboared/l10n/app_localizations.dart';
 import '../screen/change_password.dart';
 
 
@@ -30,11 +30,11 @@ class _ForgetpasswordTabletState extends State<ForgetpasswordTablet> {
 
   String? _validateEmail(String? value) {
     if (value == null || value.isEmpty) {
-      return S.of(context).please_entre_your_email;
+      return AppLocalizations.of(context)!.please_enter_your_email;
     }
     final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
     if (!emailRegex.hasMatch(value)) {
-      return S.of(context).please_enter_valid_email;
+      return AppLocalizations.of(context)!.please_enter_valid_email;
     }
     return null;
   }
@@ -85,7 +85,7 @@ class _ForgetpasswordTabletState extends State<ForgetpasswordTablet> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              S.of(context).did_you_forget_your_password,
+                             AppLocalizations.of(context)!.did_you_forget_your_password,
                               style: AppStyles.styletitlelogin(context),
                               textAlign: TextAlign.right,
                             ),
@@ -96,12 +96,12 @@ class _ForgetpasswordTabletState extends State<ForgetpasswordTablet> {
                               controller: emailController,
                               textAlign: TextAlign.right,
                               decoration: InputDecoration(
-                                labelText: S.of(context).email,
+                                labelText:AppLocalizations.of(context)!.email,
                                 labelStyle: TextStyle(
                                   fontFamily: Fonts.font,
                                   color: Colors.grey[700],
                                 ),
-                                hintText: S.of(context).please_entre_your_email,
+                                hintText:AppLocalizations.of(context)!.please_enter_your_email,
                                 hintStyle: TextStyle(
                                   fontFamily: Fonts.font,
                                   color: Colors.grey[400],
@@ -129,7 +129,7 @@ class _ForgetpasswordTabletState extends State<ForgetpasswordTablet> {
                                   );
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
-                                      content: Text(S.of(context).wesendyouresetlink),
+                                      content: Text(AppLocalizations.of(context)!.we_send_you_reset_link),
                                     ),
                                   );
                                 }
@@ -146,7 +146,7 @@ class _ForgetpasswordTabletState extends State<ForgetpasswordTablet> {
                                 return SizedBox(
                                   width: double.infinity,
                                   child: CustomButton(
-                                    name: S.of(context).sendresetpasword,
+                                    name:AppLocalizations.of(context)!.send_reset_password,
                                     textcolor: Appcolors.kprimary,
                                     onTap: () {
                                       if (_formKey.currentState!.validate()) {

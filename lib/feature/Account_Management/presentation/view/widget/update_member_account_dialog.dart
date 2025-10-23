@@ -4,7 +4,7 @@ import 'package:get_it/get_it.dart';
 import '../../../../../core/const/dropdownformcrud.dart';
 import '../../../../../core/const/widget/table/status_cell.dart';
 import '../../../../../core/const/widget/textformcrud.dart';
-import '../../../../../generated/l10n.dart';
+import 'package:rehana_dashboared/l10n/app_localizations.dart';
 import '../../manger/person_cubit.dart';
 
 
@@ -75,7 +75,7 @@ class _UpdateMemberAccountDialogState extends State<UpdateMemberAccountDialog> {
           if (state is UpdateSuccessful) {
             Navigator.pop(context);
             ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text(S.of(context).update_success)),
+              SnackBar(content: Text(AppLocalizations.of(context)!.update_success)),
             );
 
           // } else if (state is PersonFailure) {
@@ -87,7 +87,7 @@ class _UpdateMemberAccountDialogState extends State<UpdateMemberAccountDialog> {
         builder: (context, state) {
           return AlertDialog(
             title: Text(
-              S.of(context).edit_member_account_title,
+             AppLocalizations.of(context)!.edit_member_account_title,
               style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.blue),
             ),
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
@@ -104,11 +104,11 @@ class _UpdateMemberAccountDialogState extends State<UpdateMemberAccountDialog> {
                     children: [
                       Textformcrud(
                         controller: fullNameController,
-                        name: S.of(context).name,
-                        nameinfo: S.of(context).please_entre_name,
+                        name:AppLocalizations.of(context)!.name,
+                        nameinfo:AppLocalizations.of(context)!.please_enter_name,
                         validator: (value) {
                           if (value == null || value.trim().isEmpty) {
-                            return S.of(context).please_entre_name;
+                            return AppLocalizations.of(context)!.please_enter_name;
                           }
                           return null;
                         },
@@ -116,20 +116,20 @@ class _UpdateMemberAccountDialogState extends State<UpdateMemberAccountDialog> {
                       const SizedBox(height: 10),
                       Textformcrud(
                         controller: phoneController,
-                        name: S.of(context).phone_number,
-                        nameinfo: S.of(context).phone_number_hint,
+                        name:AppLocalizations.of(context)!.phone_number,
+                        nameinfo:AppLocalizations.of(context)!.phone_number_hint,
                         keyboardType: TextInputType.phone,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return S.of(context).invalid_phone_number;
+                            return AppLocalizations.of(context)!.invalid_phone_number;
                           }
 
                           if (!RegExp(r'^\d{10,15}$').hasMatch(value)) {
-                            return S.of(context).invalid_phone_number;
+                            return AppLocalizations.of(context)!.invalid_phone_number;
                           }
 
                           if (value.length != 12) {
-                            return S.of(context).invalid_phone_number;
+                            return AppLocalizations.of(context)!.invalid_phone_number;
                           }
 
                           return null;
@@ -138,24 +138,24 @@ class _UpdateMemberAccountDialogState extends State<UpdateMemberAccountDialog> {
                       ),
                       const SizedBox(height: 10),
                       DropdownFormCrud(
-                        name: S.of(context).status,
-                        hint: S.of(context).status,
-                        items: [S.of(context).single, S.of(context).married],
-                        value: isMarried ? S.of(context).married : S.of(context).single,
+                        name:AppLocalizations.of(context)!.status,
+                        hint:AppLocalizations.of(context)!.status,
+                        items: [AppLocalizations.of(context)!.single,AppLocalizations.of(context)!.married],
+                        value: isMarried ?AppLocalizations.of(context)!.married :AppLocalizations.of(context)!.single,
                         onChanged: (val) => setState(() {
-                          isMarried = val == S.of(context).married;
+                          isMarried = val ==AppLocalizations.of(context)!.married;
                         }),
                         validator: (val) =>
-                        val == null ? S.of(context).enter_status : null,
+                        val == null ?AppLocalizations.of(context)!.enter_status : null,
                       ),
                       const SizedBox(height: 10),
                       Textformcrud(
                         controller: addressController,
-                        name: S.of(context).address,
-                        nameinfo: S.of(context).address,
+                        name:AppLocalizations.of(context)!.address,
+                        nameinfo:AppLocalizations.of(context)!.address,
                         validator: (value) {
                           if (value == null || value.trim().isEmpty) {
-                            return S.of(context).address;
+                            return AppLocalizations.of(context)!.address;
                           }
                           return null;
                         },
@@ -163,15 +163,15 @@ class _UpdateMemberAccountDialogState extends State<UpdateMemberAccountDialog> {
                       const SizedBox(height: 10),
                       Textformcrud(
                         controller: villaNumberController,
-                        name: S.of(context).villanumber,
-                        nameinfo: S.of(context).please_enter_villa_number,
+                        name:AppLocalizations.of(context)!.villa_number,
+                        nameinfo:AppLocalizations.of(context)!.please_enter_villa_number,
                         keyboardType: TextInputType.number,
                         validator: (value) {
                           if (value == null || value.trim().isEmpty) {
-                            return S.of(context).vilanumberisempty;
+                            return AppLocalizations.of(context)!.villa_number_is_empty;
                           }
                           if (!RegExp(r'^\d+$').hasMatch(value.trim())) {
-                            return S.of(context).villa_number_must_be_numeric;
+                            return AppLocalizations.of(context)!.villa_number_must_be_numeric;
                           }
                           return null;
                         },
@@ -183,8 +183,8 @@ class _UpdateMemberAccountDialogState extends State<UpdateMemberAccountDialog> {
             ),
             actions: [
               StatusCell(
-                accept: S.of(context).edit,
-                refuse: S.of(context).cancel,
+                accept:AppLocalizations.of(context)!.edit,
+                refuse:AppLocalizations.of(context)!.cancel,
                 onAccept: () {
                   if (_updateFormKey.currentState!.validate()) {
                     final cubit = BlocProvider.of<PersonCubit>(context);

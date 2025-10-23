@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../core/const/widget/mobile_table/row_item.dart';
-import '../../../../../generated/l10n.dart';
+import 'package:rehana_dashboared/l10n/app_localizations.dart';
 import '../../manger/person_cubit.dart';
 
 
 class SummarybondbyyearStatementMobile extends StatefulWidget {
-  const SummarybondbyyearStatementMobile({super.key, required this.villanumber});
-  final int villanumber;
+  const SummarybondbyyearStatementMobile({super.key, required this.villa_number});
+  final int villa_number;
 
   @override
   State<SummarybondbyyearStatementMobile> createState() => _SummarybondbyyearStatementMobileState();
@@ -18,7 +18,7 @@ class _SummarybondbyyearStatementMobileState extends State<SummarybondbyyearStat
   @override
   void initState() {
     super.initState();
-    context.read<PersonCubit>().getsummarybondbyvillanumber(widget.villanumber);
+    context.read<PersonCubit>().getsummarybondbyvillanumber(widget.villa_number);
   }
 
   @override
@@ -42,7 +42,7 @@ class _SummarybondbyyearStatementMobileState extends State<SummarybondbyyearStat
                             borderRadius: BorderRadius.circular(12),
                             boxShadow: [
                               BoxShadow(
-                                color: Colors.grey.withOpacity(0.07),
+                                color: Colors.grey.withValues( alpha:0.07),
                                 blurRadius: 4,
                                 offset: const Offset(0, 2),
                               ),
@@ -54,9 +54,9 @@ class _SummarybondbyyearStatementMobileState extends State<SummarybondbyyearStat
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [
-                                RowItem(label: S.of(context).year, value: row.year.toString()),
-                                RowItem(label: S.of(context).Paid, value: row.totalDisbursement.toString()),
-                                RowItem(label: S.of(context).residual, value: row.totalReceipt.toString()),
+                                RowItem(label:AppLocalizations.of(context)!.year, value: row.year.toString()),
+                                RowItem(label:AppLocalizations.of(context)!.paid, value: row.totalDisbursement.toString()),
+                                RowItem(label:AppLocalizations.of(context)!.residual, value: row.totalReceipt.toString()),
                               ],
                             ),
                           ),

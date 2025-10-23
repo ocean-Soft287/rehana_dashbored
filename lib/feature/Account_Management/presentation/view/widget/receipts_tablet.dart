@@ -4,7 +4,7 @@ import 'package:rehana_dashboared/core/const/widget/table/headercell.dart' show 
 import 'package:rehana_dashboared/core/const/widget/table/data_cell.dart' show DataCell;
 import '../../../../../core/const/paginationcontrols.dart';
 import '../../../../../core/utils/colors/colors.dart';
-import '../../../../../generated/l10n.dart';
+import 'package:rehana_dashboared/l10n/app_localizations.dart';
 import '../../manger/person_cubit.dart';
 
 class ReceiptsTablet extends StatefulWidget {
@@ -51,13 +51,13 @@ class _ReceiptsTabletState extends State<ReceiptsTablet> {
                       ),
                       child: Row(
                         children: [
-                          HeaderCell(text: S.of(context).voucher_date, flex: 2),
-                          HeaderCell(text: S.of(context).currency),
-                          HeaderCell(text: S.of(context).creditor), // اسم العضو
-                          HeaderCell(text: S.of(context).account_num), // المبلغ
-                          HeaderCell(text: S.of(context).villanumber),
-                          HeaderCell(text: S.of(context).description), // وصف السند
-                          HeaderCell(text: S.of(context).type), // نوع السند
+                          HeaderCell(text:AppLocalizations.of(context)!.voucher_date, flex: 2),
+                          HeaderCell(text:AppLocalizations.of(context)!.currency),
+                          HeaderCell(text:AppLocalizations.of(context)!.creditor), // اسم العضو
+                          HeaderCell(text:AppLocalizations.of(context)!.account_num), // المبلغ
+                          HeaderCell(text:AppLocalizations.of(context)!.villa_number),
+                          HeaderCell(text:AppLocalizations.of(context)!.description), // وصف السند
+                          HeaderCell(text:AppLocalizations.of(context)!.type), // نوع السند
                         ],
                       ),
                     ),
@@ -82,7 +82,7 @@ if(state is ReceiptBondSuccess)
                             DataCell(text: row.amount.toString()),
                             DataCell(text: row.villaNumber.toString()),
                             DataCell(text: row.bondDescription),
-                            DataCell(text: row.type=="Receipt"?S.of(context).receipt:S.of(context).receipt),
+                            DataCell(text: row.type=="Receipt"?AppLocalizations.of(context)!.receipt:AppLocalizations.of(context)!.receipt),
 
                           ],
                         ),

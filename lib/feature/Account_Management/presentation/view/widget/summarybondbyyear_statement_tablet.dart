@@ -13,15 +13,15 @@ import 'package:rehana_dashboared/core/const/widget/table/data_cell.dart'
     show DataCell;
 
 import '../../../../../core/utils/colors/colors.dart';
-import '../../../../../generated/l10n.dart';
+import 'package:rehana_dashboared/l10n/app_localizations.dart';
 import '../../manger/person_cubit.dart';
 
 
 
 class SummarybondbyyearStatementTablet extends StatefulWidget {
-  const SummarybondbyyearStatementTablet({super.key, required this.villanumber});
+  const SummarybondbyyearStatementTablet({super.key, required this.villa_number});
 
-  final int villanumber;
+  final int villa_number;
 
   @override
   State<SummarybondbyyearStatementTablet> createState() => _SummarybondbyyearStatementTabletState();
@@ -31,7 +31,7 @@ class _SummarybondbyyearStatementTabletState extends State<SummarybondbyyearStat
   @override
   void initState() {
     super.initState();
-    context.read<PersonCubit>().getsummarybondbyvillanumber(widget.villanumber);
+    context.read<PersonCubit>().getsummarybondbyvillanumber(widget.villa_number);
   }
   @override
   Widget build(BuildContext context) {
@@ -62,15 +62,15 @@ class _SummarybondbyyearStatementTabletState extends State<SummarybondbyyearStat
                       child: Row(
                         textDirection: TextDirection.rtl,
                         children: [
-                          HeaderCell(text: S
+                          HeaderCell(text: AppLocalizations
                               .of(context)
-                              .year, flex: 2),
-                          HeaderCell(text: S
+                              !.year, flex: 2),
+                          HeaderCell(text: AppLocalizations
                               .of(context)
-                              .Paid,),
-                          HeaderCell(text: S
+                              !.paid,),
+                          HeaderCell(text: AppLocalizations
                               .of(context)
-                              .residual),
+                              !.residual),
                         ],
                       ),
                     ),

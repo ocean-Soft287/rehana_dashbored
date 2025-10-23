@@ -8,7 +8,7 @@ import '../../manger/securityonetime_cubit.dart';
 import 'package:rehana_dashboared/core/utils/colors/colors.dart';
 import 'package:rehana_dashboared/core/utils/image/images.dart';
 import 'package:rehana_dashboared/core/utils/font/fonts.dart';
-import '../../../../../generated/l10n.dart';
+import 'package:rehana_dashboared/l10n/app_localizations.dart';
 
 class Picturewidget extends StatelessWidget {
   const Picturewidget({super.key});
@@ -21,7 +21,7 @@ class Picturewidget extends StatelessWidget {
         Row(
           children: [
             Text(
-              S.of(context).Picture,
+             AppLocalizations.of(context)!.picture,
               style: const TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
@@ -62,7 +62,7 @@ class Picturewidget extends StatelessWidget {
                   Image.asset(Images.photo, width: 18, height: 18),
                   const SizedBox(height: 21),
                   Text(
-                    S.of(context).AddPhoto,
+                   AppLocalizations.of(context)!.add_photo,
                     style: const TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w400,

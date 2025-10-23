@@ -1,0 +1,16 @@
+# l10n.yaml
+
+# Folder that contains your ARB translation files
+arb-dir: lib/l10n
+
+# The main (template) language file
+template-arb-file: intl_en.arb
+
+# The output file that will be generated automatically
+output-localization-file: app_localizations.dart
+
+# The Dart class name to access translations
+output-class: AppLocalizations
+
+# Whether to include deferred loading (usually false)
+use-deferred-loading: false

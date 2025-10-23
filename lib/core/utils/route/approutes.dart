@@ -5,11 +5,6 @@ import '../../../feature/Auth/presentation/view/screen/login.dart';
 import '../../../feature/bar_navigation/presentation/screen/custom_column_slider.dart';
 import '../../../main.dart';
 
-import 'package:flutter/material.dart';
-import '../../../feature/Auth/presentation/view/screen/forgetpassword.dart';
-import '../../../feature/Auth/presentation/view/screen/login.dart';
-import '../../../feature/bar_navigation/presentation/screen/custom_column_slider.dart';
-import '../../../main.dart';
 
 class Routes {
   static const String login = '/login';

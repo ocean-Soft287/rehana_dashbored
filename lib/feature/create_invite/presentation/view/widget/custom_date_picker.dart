@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../core/utils/colors/colors.dart';
-import '../../../../../generated/l10n.dart';
+import 'package:rehana_dashboared/l10n/app_localizations.dart';
 import '../../../../localization/manger/localization_cubit.dart';
 class CustomDatePicker extends StatefulWidget {
   final DateTime? selectedDate;
@@ -51,7 +51,7 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  S.of(context).date,
+                 AppLocalizations.of(context)!.date,
                   style:  TextStyle(fontSize: 16, fontWeight: FontWeight.bold,
                   color: Appcolors.bIcon),
                 ),

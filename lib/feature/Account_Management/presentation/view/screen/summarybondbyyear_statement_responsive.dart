@@ -14,7 +14,7 @@ class SummarybondbyyearStatementResponsive extends StatelessWidget {
   Widget build(BuildContext context) {
     final villaNumber = context
         .read<BottomCubit>()
-        .villanumber;
+        .villa_number;
 
     return BlocProvider(
       create: (context) => GetIt.instance<PersonCubit>(),
@@ -22,8 +22,8 @@ class SummarybondbyyearStatementResponsive extends StatelessWidget {
           body: LayoutBuilder(
             builder: (context, constraints) {
               return constraints.maxWidth < 600
-                  ? SummarybondbyyearStatementMobile(villanumber: villaNumber,)
-                  : SummarybondbyyearStatementTablet(villanumber: villaNumber,);
+                  ? SummarybondbyyearStatementMobile(villa_number: villaNumber,)
+                  : SummarybondbyyearStatementTablet(villa_number: villaNumber,);
             },
           )
       ),

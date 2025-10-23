@@ -10,7 +10,7 @@ import 'package:rehana_dashboared/core/const/widget/table/data_cell.dart' show D
 import 'package:rehana_dashboared/core/utils/colors/colors.dart' show Appcolors;
 import 'package:rehana_dashboared/feature/security_view/presentation/view/widget/security_show_alert_dialoug.dart';
 import '../../../../../core/const/widget/table/status_cell.dart';
-import '../../../../../generated/l10n.dart';
+import 'package:rehana_dashboared/l10n/app_localizations.dart';
 import '../../manger/security_cubit.dart';
 
 
@@ -54,12 +54,12 @@ class SecurityViewTablet extends StatelessWidget {
                         ),
                         child: Row(
                           children: [
-                            HeaderCell(text: S.of(context).email, flex: 2),
-                            HeaderCell(text: S.of(context).name, flex: 2),
-                            HeaderCell(text: S.of(context).gatenumber, flex: 2),
-                            HeaderCell(text: S.of(context).phone, flex: 2),
-                            HeaderCell(text: S.of(context).image, flex: 2),
-                            HeaderCell(text: S.of(context).action, flex: 2),
+                            HeaderCell(text:AppLocalizations.of(context)!.email, flex: 2),
+                            HeaderCell(text:AppLocalizations.of(context)!.name, flex: 2),
+                            HeaderCell(text:AppLocalizations.of(context)!.gate_number, flex: 2),
+                            HeaderCell(text:AppLocalizations.of(context)!.phone, flex: 2),
+                            HeaderCell(text:AppLocalizations.of(context)!.image, flex: 2),
+                            HeaderCell(text:AppLocalizations.of(context)!.action, flex: 2),
                           ],
                         ),
                       ),
@@ -105,8 +105,8 @@ class SecurityViewTablet extends StatelessWidget {
                               Expanded(
                                 flex: 2,
                                 child: StatusCell(
-                                  accept: S.of(context).edit,
-                                  refuse: S.of(context).delete,
+                                  accept:AppLocalizations.of(context)!.edit,
+                                  refuse:AppLocalizations.of(context)!.delete,
                                   onAccept: () {
                                     showDialog(
                                       context: context,

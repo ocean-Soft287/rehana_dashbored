@@ -8,7 +8,7 @@ import '../../../../../core/const/widget/custom_button.dart';
 import '../../../../../core/utils/colors/colors.dart';
 import '../../../../../core/utils/image/images.dart';
 import '../../../../../core/utils/route/approutes.dart';
-import '../../../../../generated/l10n.dart';
+import 'package:rehana_dashboared/l10n/app_localizations.dart';
 import '../../../../bar_navigation/presentation/screen/custom_column_slider.dart';
 
 
@@ -79,7 +79,7 @@ class _TabletLoginScreenState extends State<TabletLoginScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              S.of(context).login,
+                             AppLocalizations.of(context)!.login,
                               style: AppStyles.styletitlelogin(context),
                             ),
                             const SizedBox(height: 30),
@@ -87,12 +87,12 @@ class _TabletLoginScreenState extends State<TabletLoginScreen> {
                               controller: widget.emailController,
                               textAlign: TextAlign.right,
                               decoration: InputDecoration(
-                                labelText: S.of(context).email,
+                                labelText:AppLocalizations.of(context)!.email,
                                 labelStyle: TextStyle(
                                     fontFamily: Fonts.font,
                                     color: Colors.grey[700]),
                                 hintText:
-                                S.of(context).please_entre_your_email,
+                               AppLocalizations.of(context)!.please_enter_your_email,
                                 hintStyle: TextStyle(
                                     fontFamily: Fonts.font,
                                     color: Colors.grey[400]),
@@ -102,10 +102,10 @@ class _TabletLoginScreenState extends State<TabletLoginScreen> {
                               ),
                               validator: (value) {
                                 if (value == null || value.trim().isEmpty) {
-                                  return S.of(context).please;
+                                  return AppLocalizations.of(context)!.please;
                                 }
                                 if (!value.contains('@')) {
-                                  return S.of(context)
+                                  return AppLocalizations.of(context)!
                                       .invalid_email; // ضيف الترجمة دى عندك
                                 }
                                 return null;
@@ -117,12 +117,12 @@ class _TabletLoginScreenState extends State<TabletLoginScreen> {
                               obscureText: isobsecure,
                               textAlign: TextAlign.right,
                               decoration: InputDecoration(
-                                labelText: S.of(context).password,
+                                labelText:AppLocalizations.of(context)!.password,
                                 labelStyle: TextStyle(
                                     fontFamily: Fonts.font,
                                     color: Colors.grey[700]),
                                 hintText:
-                                S.of(context).please_entre_your_password,
+                               AppLocalizations.of(context)!.please_enter_your_password,
                                 hintStyle: TextStyle(
                                     fontFamily: Fonts.font,
                                     color: Colors.grey[400]),
@@ -139,7 +139,7 @@ class _TabletLoginScreenState extends State<TabletLoginScreen> {
                               ),
                               validator: (value) {
                                 if (value == null || value.trim().isEmpty) {
-                                  return S.of(context).please;
+                                  return AppLocalizations.of(context)!.please;
                                 }
                                 return null;
                               },
@@ -151,7 +151,7 @@ class _TabletLoginScreenState extends State<TabletLoginScreen> {
                                 onPressed: () => Navigator.pushNamed(
                                     context, Routes.forgetPassword),
                                 child: Text(
-                                  S.of(context).did_you_forget_your_password,
+                                 AppLocalizations.of(context)!.did_you_forget_your_password,
                                   style: TextStyle(
                                       fontFamily: Fonts.font,
                                       color: Colors.grey),
@@ -166,7 +166,7 @@ class _TabletLoginScreenState extends State<TabletLoginScreen> {
                                 activeColor: Appcolors.kprimary,
                               ),
                               Text(
-                                S.of(context).rememberme,
+                               AppLocalizations.of(context)!.remember_me,
                                 style: TextStyle(
                                     fontFamily: Fonts.font,
                                     color: Colors.black),
@@ -186,7 +186,7 @@ class _TabletLoginScreenState extends State<TabletLoginScreen> {
                                 if (state is AuthFailure) {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
-                                      content: Text(S.of(context).invalid_email_password),
+                                      content: Text(AppLocalizations.of(context)!.invalid_email_password),
                                       backgroundColor: Colors.red,
                                     ),
                                   );
@@ -198,7 +198,7 @@ class _TabletLoginScreenState extends State<TabletLoginScreen> {
                                 return SizedBox(
                                   width: double.infinity,
                                   child: CustomButton(
-                                    name: S.of(context).login,
+                                    name:AppLocalizations.of(context)!.login,
                                     textcolor: Appcolors.kprimary,
                                     onTap: () {
                                       if (_formKey.currentState!.validate()) {

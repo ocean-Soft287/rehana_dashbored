@@ -9,7 +9,7 @@ import 'package:rehana_dashboared/core/const/widget/mobile_table/row_item.dart'
     show RowItem;
 
 import '../../../../../core/const/paginationcontrols.dart';
-import '../../../../../generated/l10n.dart';
+import 'package:rehana_dashboared/l10n/app_localizations.dart';
 import '../../manger/person_cubit.dart';
 
 
@@ -57,7 +57,7 @@ class _ReceiptsMobileState extends State<ReceiptsMobile> {
                       borderRadius: BorderRadius.circular(12),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.grey.withOpacity(0.07),
+                          color: Colors.grey.withValues( alpha:0.07),
                           blurRadius: 4,
                           offset: const Offset(0, 2),
                         ),
@@ -69,13 +69,13 @@ class _ReceiptsMobileState extends State<ReceiptsMobile> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
-                          RowItem(label: S.of(context).voucher_date, value: row.date),
-                          RowItem(label: S.of(context).currency, value: row.currency),
-                          RowItem(label: S.of(context).account_num, value: row.amount.toString()),
-                          RowItem(label: S.of(context).creditor, value: row.memberName),
-                          RowItem(label: S.of(context).description, value: row.bondDescription),
-                          RowItem(label: S.of(context).type, value: row.type == "Receipt" ? S.of(context).receipt : row.type),
-                          RowItem(label: S.of(context).villanumber, value: row.villaNumber.toString()),
+                          RowItem(label:AppLocalizations.of(context)!.voucher_date, value: row.date),
+                          RowItem(label:AppLocalizations.of(context)!.currency, value: row.currency),
+                          RowItem(label:AppLocalizations.of(context)!.account_num, value: row.amount.toString()),
+                          RowItem(label:AppLocalizations.of(context)!.creditor, value: row.memberName),
+                          RowItem(label:AppLocalizations.of(context)!.description, value: row.bondDescription),
+                          RowItem(label:AppLocalizations.of(context)!.type, value: row.type == "Receipt" ?AppLocalizations.of(context)!.receipt : row.type),
+                          RowItem(label:AppLocalizations.of(context)!.villa_number, value: row.villaNumber.toString()),
                           const SizedBox(height: 8),
 
                         ],

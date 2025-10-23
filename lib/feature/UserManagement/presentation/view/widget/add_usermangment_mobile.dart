@@ -5,7 +5,7 @@ import '../../../../../core/const/widget/custom_button.dart';
 import '../../../../../core/const/widget/custom_drop_down_menu.dart';
 import '../../../../../core/const/widget/textformcrud.dart';
 import '../../../../../core/utils/colors/colors.dart';
-import '../../../../../generated/l10n.dart';
+import 'package:rehana_dashboared/l10n/app_localizations.dart';
 
 final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 class AddUsermangmentMobile extends StatefulWidget {
@@ -44,14 +44,14 @@ class _AddUsermangmentMobileState extends State<AddUsermangmentMobile> {
             /// Name field
             Textformcrud(
               controller: widget.name,
-              name: S.of(context).name,
-              nameinfo: S.of(context).please_entre_name,
+              name:AppLocalizations.of(context)!.name,
+              nameinfo:AppLocalizations.of(context)!.please_enter_name,
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return S.of(context).please_entre_name;
+                  return AppLocalizations.of(context)!.please_enter_name;
                 }
                 if (value.length < 2) {
-                  return S.of(context).name_must_be_at_least_2_characters;
+                  return AppLocalizations.of(context)!.name_must_be_at_least_2_characters;
                 }
                 return null;
               },
@@ -61,14 +61,14 @@ class _AddUsermangmentMobileState extends State<AddUsermangmentMobile> {
             /// Phone field
             Textformcrud(
               controller: widget.phone,
-              name: S.of(context).phone,
-              nameinfo: S.of(context).enter_phone_number,
+              name:AppLocalizations.of(context)!.phone,
+              nameinfo:AppLocalizations.of(context)!.enter_phone_number,
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return S.of(context).enter_phone_number;
+                  return AppLocalizations.of(context)!.enter_phone_number;
                 }
                 if (!RegExp(r'^\d{10,}$').hasMatch(value)) {
-                  return S.of(context).enter_valid_phone_number;
+                  return AppLocalizations.of(context)!.enter_valid_phone_number;
                 }
                 return null;
               },
@@ -77,15 +77,15 @@ class _AddUsermangmentMobileState extends State<AddUsermangmentMobile> {
 
             Textformcrud(
               controller: widget.email,
-              name: S.of(context).email,
-              nameinfo: S.of(context).please_entre_your_email,
+              name:AppLocalizations.of(context)!.email,
+              nameinfo:AppLocalizations.of(context)!.please_enter_your_email,
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return S.of(context).please_entre_your_email;
+                  return AppLocalizations.of(context)!.please_enter_your_email;
                 }
                 if (!RegExp(r'^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$')
                     .hasMatch(value)) {
-                  return S.of(context).enter_valid_email;
+                  return AppLocalizations.of(context)!.enter_valid_email;
                 }
                 return null;
               },
@@ -95,22 +95,21 @@ class _AddUsermangmentMobileState extends State<AddUsermangmentMobile> {
             /// Password field
             Textformcrud(
               controller: widget.password,
-              name: S.of(context).password,
-              nameinfo: S.of(context).please_entre_your_password,
+              name:AppLocalizations.of(context)!.password,
+              nameinfo:AppLocalizations.of(context)!.please_enter_your_password,
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return S.of(context).please_entre_your_password;
+                  return AppLocalizations.of(context)!.please_enter_your_password;
                 }
                 if (value.length < 8) {
-                  return S
-                      .of(context)
-                      .password_must_be_at_least_6_characters;
+                  return AppLocalizations.of(context)!
+                      .password_must_be_at_least_8_characters;
                 }
                 const pattern =
                     r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#\$&*~]).{8,}$';
 
                 if (!RegExp(pattern).hasMatch(value)) {
-                  return S.of(context).password_complexity_error;
+                  return AppLocalizations.of(context)!.password_complexity_error;
                 }
                 return null;
               },
@@ -118,8 +117,8 @@ class _AddUsermangmentMobileState extends State<AddUsermangmentMobile> {
             const SizedBox(height: 16),
 
             CustomDropdownCrud(
-              name: '${S.of(context).job} *',
-              hint: S.of(context).job,
+              name: '${AppLocalizations.of(context)!.job} *',
+              hint:AppLocalizations.of(context)!.job,
               items:widget.jobs,
               selectedItem: selectedJob,
               onChanged: (String? value) {
@@ -158,14 +157,14 @@ class _AddUsermangmentMobileState extends State<AddUsermangmentMobile> {
           builder: (context, state) {
             final usercubit=context.read<UserCubit>();
             return CustomButton(
-          name: S.of(context).add,
+          name:AppLocalizations.of(context)!.add,
           colors: Appcolors.bIcon,
           onTap: () {
             if (_formKey.currentState!.validate()) {
               if (selectedJob == null) {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
-                    content: Text(S.of(context).please_choose_job),
+                    content: Text(AppLocalizations.of(context)!.please_choose_job),
                     backgroundColor: Colors.red,
                   ),
                 );

@@ -7,7 +7,7 @@ import '../../../../../core/const/dropdownformcrud.dart';
 import '../../../../../core/const/widget/custom_button.dart';
 import '../../../../../core/const/widget/textformcrud.dart';
 import '../../../../../core/utils/colors/colors.dart';
-import '../../../../../generated/l10n.dart';
+import 'package:rehana_dashboared/l10n/app_localizations.dart';
 import '../../manger/securityonetime_cubit.dart';
 import 'fromtowidget.dart';
 import 'custom_date_picker.dart';
@@ -52,30 +52,30 @@ class _CreateInviteMobileState extends State<CreateInviteMobile> {
             // اسم الضيف
             Textformcrud(
               controller: widget.name,
-              name: '${S.of(context).name} *',
-              nameinfo: S.of(context).please_entre_name,
+              name: '${AppLocalizations.of(context)!.name} *',
+              nameinfo:AppLocalizations.of(context)!.please_enter_name,
               validator: (value) =>
               (value == null || value.trim().isEmpty)
-                  ? S.of(context).please_entre_name
+                  ?AppLocalizations.of(context)!.please_enter_name
                   : null,
             ),
             const SizedBox(height: 10),
             // رقم الهاتف
             Textformcrud(
               controller: widget.phone,
-              name: '${S.of(context).phone} *',
-              nameinfo: S.of(context).enter_phone_number,
+              name: '${AppLocalizations.of(context)!.phone} *',
+              nameinfo:AppLocalizations.of(context)!.enter_phone_number,
               keyboardType: TextInputType.phone,
               validator: (value) {
                 if (value == null || value.trim().isEmpty) {
-                  return S.of(context).enter_phone_number;
+                  return AppLocalizations.of(context)!.enter_phone_number;
                 }
                 if(value.length!=12){
-                  return S.of(context).enter_phone_number;
+                  return AppLocalizations.of(context)!.enter_phone_number;
 
                 }
                 if (!RegExp(r'^\+?\d{10,15}$').hasMatch(value)) {
-                  return S.of(context).enter_phone_number;
+                  return AppLocalizations.of(context)!.enter_phone_number;
                 }
                 return null;
               },
@@ -93,7 +93,7 @@ class _CreateInviteMobileState extends State<CreateInviteMobile> {
 
 
                 return DropdownFormCrud(
-                  name: S.of(context).villanumber ,
+                  name:AppLocalizations.of(context)!.villa_number ,
                   hint: 'اختار رقم الفيلا',
                   items: villaNumbers.map((e) => e.toString()).toList(),
                   value: selectedVilla?.toString(),
@@ -112,11 +112,11 @@ class _CreateInviteMobileState extends State<CreateInviteMobile> {
             // سبب الزيارة
             Textformcrud(
               controller: widget.reasonofvisit,
-              name: '${S.of(context).reasonforvisit} *',
-              nameinfo: S.of(context).reasonforvisit,
+              name: '${AppLocalizations.of(context)!.reason_for_visit} *',
+              nameinfo:AppLocalizations.of(context)!.reason_for_visit,
               validator: (value) =>
               (value == null || value.trim().isEmpty)
-                  ? S.of(context).please_enter_reason_for_visit
+                  ?AppLocalizations.of(context)!.please_enter_reason_for_visit
                   : null,
             ),
             // اختيار التاريخ
@@ -193,7 +193,7 @@ class _CreateInviteMobileState extends State<CreateInviteMobile> {
                 final security = context.read<SecurityonetimeCubit>();
 
                 return CustomButton(
-                  name: S.of(context).create_invitation,
+                  name:AppLocalizations.of(context)!.create_invitation,
                   colors: Appcolors.kBlack,
                   onTap: () {
                     if (!(_formKey.currentState?.validate() ?? false)) return;
@@ -204,7 +204,7 @@ class _CreateInviteMobileState extends State<CreateInviteMobile> {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
                           content: Text(
-                            S.of(context).pleaseSelectDateAndTime,
+                           AppLocalizations.of(context)!.please_select_date_and_time,
                           ),
                         ),
                       );

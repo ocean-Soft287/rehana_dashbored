@@ -7,7 +7,7 @@ import '../../../../../core/utils/colors/colors.dart';
 import '../../../../../core/utils/font/fonts.dart';
 import '../../../../../core/utils/image/images.dart';
 import '../../../../../core/utils/route/approutes.dart';
-import '../../../../../generated/l10n.dart';
+import 'package:rehana_dashboared/l10n/app_localizations.dart';
 import '../../../../bar_navigation/presentation/screen/custom_column_slider.dart';
 import '../../manger/auth_cubit.dart';
 class MobileLoginScreen extends StatefulWidget {
@@ -42,7 +42,7 @@ bool isobsecure=true;
                 color: Appcolors.kwhite,
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.1),
+                    color: Colors.black.withValues( alpha:0.1),
                     spreadRadius: 2,
                     blurRadius: 5,
                     offset: const Offset(0, 3),
@@ -55,13 +55,13 @@ bool isobsecure=true;
                   key: _formKey,
                   child: Column(
                     children: [
-                      Text(S.of(context).login,
+                      Text(AppLocalizations.of(context)!.login,
                           style: AppStyles.styleLogin(context)),
                       const SizedBox(height: 20),
                       TextFormField(
                         controller: widget.emailController,
                         decoration: InputDecoration(
-                          labelText: S.of(context).email,
+                          labelText:AppLocalizations.of(context)!.email,
                           labelStyle: AppStyles.textformfieldstyle(context),
                           border: const OutlineInputBorder(),
                           focusedBorder: OutlineInputBorder(
@@ -71,10 +71,10 @@ bool isobsecure=true;
                         keyboardType: TextInputType.emailAddress,
                         validator: (value) {
                           if (value == null || value.trim().isEmpty) {
-                            return S.of(context).please;
+                            return AppLocalizations.of(context)!.please;
                           }
                           if (!value.contains('@')) {
-                            return S.of(context).invalid_email;
+                            return AppLocalizations.of(context)!.invalid_email;
                           }
                           return null;
                         },
@@ -84,7 +84,7 @@ bool isobsecure=true;
                         controller: widget.passwordController,
                         obscureText:isobsecure ,
                         decoration: InputDecoration(
-                          labelText: S.of(context).password,
+                          labelText:AppLocalizations.of(context)!.password,
                           labelStyle: AppStyles.textformfieldstyle(context),
                           border: const OutlineInputBorder(),
                           focusedBorder: OutlineInputBorder(
@@ -100,7 +100,7 @@ bool isobsecure=true;
                         ),
                         validator: (value) {
                           if (value == null || value.trim().isEmpty) {
-                            return S.of(context).please;
+                            return AppLocalizations.of(context)!.please;
                           }
                           return null;
                         },
@@ -112,7 +112,7 @@ bool isobsecure=true;
                           onPressed: () =>
                               Navigator.pushNamed(context, Routes.forgetPassword),
                           child: Text(
-                            S.of(context).did_you_forget_your_password,
+                           AppLocalizations.of(context)!.did_you_forget_your_password,
                             style: TextStyle(
                                 fontFamily: Fonts.font, color: Colors.red),
                           ),
@@ -132,7 +132,7 @@ bool isobsecure=true;
                           if (state is AuthFailure) {
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
-                                content: Text(S.of(context).invalid_email_password),
+                                content: Text(AppLocalizations.of(context)!.invalid_email_password),
                                 backgroundColor: Colors.red,
                               ),
                             );
@@ -144,7 +144,7 @@ bool isobsecure=true;
                           return SizedBox(
                             width: double.infinity,
                             child: CustomButton(
-                              name: S.of(context).login,
+                              name:AppLocalizations.of(context)!.login,
                               textcolor: Appcolors.kprimary,
                               onTap: () {
                                 if (_formKey.currentState!.validate()) {
@@ -196,7 +196,7 @@ class TriangleContainer extends StatelessWidget {
       clipper: CustomShapeClipper(),
       child: Container(
         height: MediaQuery.of(context).size.height / 2,
-        color: Appcolors.kprimary.withOpacity(0.30),
+        color: Appcolors.kprimary.withValues( alpha:0.30),
         child: Center(
           child: Padding(
             padding: const EdgeInsets.all(20.0),

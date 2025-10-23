@@ -5,7 +5,7 @@ import '../../../../../core/utils/colors/colors.dart';
 import '../../../../../core/const/widget/custom_button.dart';
 import '../../../../../core/const/widget/custom_drop_down_menu.dart';
 import '../../../../../core/const/widget/textformcrud.dart';
-import '../../../../../generated/l10n.dart';
+import 'package:rehana_dashboared/l10n/app_localizations.dart';
 import '../../manger/person_cubit.dart';
 
 class CreateReceiptBondCompoundTablet extends StatefulWidget {
@@ -31,7 +31,7 @@ class _CreateReceiptBondCompoundTabletState
 
   @override
   Widget build(BuildContext context) {
-    final s = S.of(context);
+    final s =AppLocalizations.of(context)!;
 
     return SingleChildScrollView(
       padding: const EdgeInsets.all(32),
@@ -58,7 +58,7 @@ class _CreateReceiptBondCompoundTabletState
                 borderRadius: BorderRadius.circular(16),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.08),
+                    color: Colors.black.withValues( alpha:0.08),
                     blurRadius: 8,
                     offset: const Offset(0, 4),
                   ),
@@ -152,7 +152,7 @@ class _CreateReceiptBondCompoundTabletState
                             if (state is CreateBoncompounddSuccess) {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
-                                  content: Text(s.ownerDisbursementBondCreated),
+                                  content: Text(s.owner_disbursement_bond_created),
                                 ),
                               );
                               widget.dateController.clear();

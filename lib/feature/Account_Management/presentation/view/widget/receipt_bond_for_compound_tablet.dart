@@ -7,8 +7,8 @@ import 'package:rehana_dashboared/core/const/paginationcontrols.dart' show Pagin
 import 'package:rehana_dashboared/core/const/widget/table/headercell.dart' show HeaderCell;
 import 'package:rehana_dashboared/core/const/widget/table/data_cell.dart' show DataCell;
 import 'package:rehana_dashboared/core/utils/colors/colors.dart' show Appcolors;
-import 'package:rehana_dashboared/generated/l10n.dart' show S;
 
+import '../../../../../l10n/app_localizations.dart';
 import '../../manger/person_cubit.dart';
 
 class ReceiptBondForCompoundTablet extends StatefulWidget {
@@ -55,9 +55,9 @@ class _ReceiptBondForCompoundTabletState extends State<ReceiptBondForCompoundTab
                       child: Row(
                         textDirection: TextDirection.rtl,
                         children: [
-                          HeaderCell(text: S.of(context).voucher_date, flex: 2),
-                          HeaderCell(text: S.of(context).currency),
-                          HeaderCell(text: S.of(context).amount),
+                          HeaderCell(text:AppLocalizations.of(context)!.voucher_date, flex: 2),
+                          HeaderCell(text:AppLocalizations.of(context)!.currency),
+                          HeaderCell(text:AppLocalizations.of(context)!.amount),
                         ],
                       ),
                     ),

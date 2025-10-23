@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../core/const/paginationcontrols.dart';
 import '../../../../../core/const/widget/mobile_table/row_item.dart';
-import '../../../../../generated/l10n.dart';
+import 'package:rehana_dashboared/l10n/app_localizations.dart';
 import '../../manger/person_cubit.dart';
 
 class ReceiptBondForCompoundMobile extends StatefulWidget {
@@ -52,7 +52,7 @@ class _ReceiptBondForCompoundMobileState extends State<ReceiptBondForCompoundMob
                             borderRadius: BorderRadius.circular(12),
                             boxShadow: [
                               BoxShadow(
-                                color: Colors.grey.withOpacity(0.07),
+                                color: Colors.grey.withValues( alpha:0.07),
                                 blurRadius: 4,
                                 offset: const Offset(0, 2),
                               ),
@@ -64,10 +64,10 @@ class _ReceiptBondForCompoundMobileState extends State<ReceiptBondForCompoundMob
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [
-                                RowItem(label: S.of(context).voucher_date, value: row.date),
-                                RowItem(label: S.of(context).currency, value: row.currency),
-                                RowItem(label: S.of(context).account_num, value: row.amount.toString()),
-                                RowItem(label: S.of(context).creditor, value: row.amount.toString()),
+                                RowItem(label:AppLocalizations.of(context)!.voucher_date, value: row.date),
+                                RowItem(label:AppLocalizations.of(context)!.currency, value: row.currency),
+                                RowItem(label:AppLocalizations.of(context)!.account_num, value: row.amount.toString()),
+                                RowItem(label:AppLocalizations.of(context)!.creditor, value: row.amount.toString()),
 
                                 const SizedBox(height: 8),
                               ],
