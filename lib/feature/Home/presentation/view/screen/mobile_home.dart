@@ -23,7 +23,7 @@ class _MobileHomeState extends State<MobileHome> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<HomeinvitationCubit, HomeinvitationState>(
-      buildWhen: (previous, current) => current is HomeinvitationInitial,
+      buildWhen: (previous, current) => current != previous,
       builder: (context, state) {
         final homeinvitation = context.read<HomeinvitationCubit>();
 

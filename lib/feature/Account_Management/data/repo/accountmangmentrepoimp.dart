@@ -208,10 +208,10 @@ class AccountMangmentrepoimp implements AccountMangmentrepo {
 
   @override
   Future<Either<Failure, List<BondsSummaryByYearModel>>>
-  getbondssummarybyyearbyvillanumber(int villa_number) async {
+  getbondssummarybyyearbyvillanumber(int villaNumber) async {
     try {
       final rawList =
-          await dioConsumer.get("${EndPoint.getbondssummarybyyearbyvillanumber}$villa_number")
+          await dioConsumer.get("${EndPoint.getbondssummarybyyearbyvillanumber}$villaNumber")
               as List<dynamic>;
 
       final bpmdsummarybyyearmodel =

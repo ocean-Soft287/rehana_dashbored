@@ -5,7 +5,6 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get_it/get_it.dart';
 import 'package:rehana_dashboared/core/utils/Network/local/flutter_secure_storage.dart';
 import 'package:hive_flutter/adapters.dart';
-
 import 'bloc_observer.dart';
 import 'core/utils/Network/local/sharedprefrences.dart';
 import 'core/utils/font/fonts.dart';

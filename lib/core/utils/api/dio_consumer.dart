@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
+import 'package:flutter/cupertino.dart';
 import '../Network/local/flutter_secure_storage.dart';
 import 'endpoint.dart';
 import 'api_consumer.dart';
@@ -179,9 +180,9 @@ class DioConsumer extends ApiConsumer {
 
   void handleDioExceptions(DioException e) {
     if (e.response != null) {
-      print('Dio error: ${e.response!.statusCode} - ${e.response!.data}');
+      debugPrint('Dio error: ${e.response!.statusCode} - ${e.response!.data}');
     } else {
-      print('Dio error: ${e.message}');
+      debugPrint('Dio error: ${e.message}');
     }
   }
 }

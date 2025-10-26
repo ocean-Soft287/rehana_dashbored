@@ -46,7 +46,7 @@ class CustomDropdownCrud extends StatelessWidget {
             ],
           ),
           child: DropdownButtonFormField<String>(
-            value: selectedItem,
+            initialValue: selectedItem,
             onChanged: onChanged,
             style: TextStyle( // النص المختار
               fontFamily: Fonts.font,

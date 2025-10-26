@@ -46,5 +46,5 @@ abstract class AccountMangmentrepo {
   Future<Either<Failure, CompoundDisbursementBondsPageModel>>
   getCompoundDisbursementBonds(int page, int pagesize);
   Future<Either<Failure, List<BondsSummaryByYearModel>>>
-  getbondssummarybyyearbyvillanumber(int villa_number);
+  getbondssummarybyyearbyvillanumber(int villaNumber);
 }
