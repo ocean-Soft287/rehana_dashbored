@@ -515,4 +515,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get add_user_successfully => 'تم إضافة المستخدم بنجاح';
+
+  @override
+  String get no_users_found => 'لم يتم العثور على مستخدمين';
 }

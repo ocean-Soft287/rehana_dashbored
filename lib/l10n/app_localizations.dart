@@ -1081,6 +1081,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'User added successfully'**
   String get add_user_successfully;
+
+  /// No description provided for @no_users_found.
+  ///
+  /// In en, this message translates to:
+  /// **'No users found'**
+  String get no_users_found;
 }
 
 class _AppLocalizationsDelegate

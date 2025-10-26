@@ -9,7 +9,6 @@ import 'package:rehana_dashboared/core/utils/appstyle/app_styles.dart';
 
 import '../../manger/user_cubit.dart';
 
-
 class ResponsiveUserManagement extends StatelessWidget {
   const ResponsiveUserManagement({super.key});
 
@@ -22,14 +21,27 @@ class ResponsiveUserManagement extends StatelessWidget {
   }
 }
 
-class _ResponsiveUserManagementView extends StatelessWidget {
-  const _ResponsiveUserManagementView({super.key});
+class _ResponsiveUserManagementView extends StatefulWidget {
+  const _ResponsiveUserManagementView();
+
+  @override
+  State<_ResponsiveUserManagementView> createState() => _ResponsiveUserManagementViewState();
+}
+
+class _ResponsiveUserManagementViewState extends State<_ResponsiveUserManagementView> {
+  late final UserCubit _userCubit;
+
+  @override
+  void initState() {
+    super.initState();
+    _userCubit = context.read<UserCubit>();
+    // Data is already loaded in BlocProvider.create, so no need to call again
+  }
 
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     final bool isMobile = width < 700;
-    final userCubit = context.read<UserCubit>();
 
     return Scaffold(
       floatingActionButton: isMobile
@@ -83,7 +95,7 @@ class _ResponsiveUserManagementView extends StatelessWidget {
               snap: false,
               backgroundColor: Colors.white,
               title: Text(
-               AppLocalizations.of(context)!.user_management,
+                AppLocalizations.of(context)!.user_management,
                 style: AppStyles.styleLogin(context),
               ),
             ),
@@ -106,7 +118,7 @@ class _ResponsiveUserManagementView extends StatelessWidget {
                     Expanded(
                       flex: 2,
                       child: Text(
-                       AppLocalizations.of(context)!.name,
+                        AppLocalizations.of(context)!.name,
                         textAlign: TextAlign.center,
                         style: AppStyles.styleLogin(context),
                       ),
@@ -114,7 +126,7 @@ class _ResponsiveUserManagementView extends StatelessWidget {
                     Expanded(
                       flex: 2,
                       child: Text(
-                       AppLocalizations.of(context)!.job,
+                        AppLocalizations.of(context)!.job,
                         textAlign: TextAlign.center,
                         style: AppStyles.styleLogin(context),
                       ),
@@ -125,9 +137,10 @@ class _ResponsiveUserManagementView extends StatelessWidget {
             ),
             const SliverToBoxAdapter(child: SizedBox(height: 20)),
             BlocConsumer<UserCubit, UserState>(
+              buildWhen: (previous, current) => current != previous,
               listener: (context, state) {
                 if (state is Addusersuccful) {
-                  userCubit.getallmemeber();
+                  _userCubit.getallmemeber(); // Refresh list after adding user
                 } else if (state is Adduserfailure ||
                     state is Getallmemeberfailure) {
                   final errorMessage = (state as dynamic).message;
@@ -140,7 +153,6 @@ class _ResponsiveUserManagementView extends StatelessWidget {
                 }
               },
               builder: (context, state) {
-                userCubit.getallmemeber();
 
                 if (state is Getallmemebersuccful) {
                   final users = state.userModel;
@@ -189,8 +201,28 @@ class _ResponsiveUserManagementView extends StatelessWidget {
                   );
                 }
 
+                // Handle loading state
+                if (state is GetallmemeberLoading || state is UserInitial) {
+                  return const SliverToBoxAdapter(
+                    child: Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  );
+                }
+
+                // Handle empty state
+                if (state is Getallmemebersuccful && state.userModel.isEmpty) {
+                  return SliverToBoxAdapter(
+                    child: Center(
+                      child: Text(AppLocalizations.of(context)!.no_users_found),
+                    ),
+                  );
+                }
+
                 return const SliverToBoxAdapter(
-                  child: Center(),
+                  child: Center(
+                    child: CircularProgressIndicator(),
+                  ),
                 );
               },
             ),

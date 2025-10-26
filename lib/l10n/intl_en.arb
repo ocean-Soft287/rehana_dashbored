@@ -162,6 +162,6 @@
   "hello": "Hello",
   "enter_villa_number": "Enter villa number",
   "login_successfully": "Login successfully",
-   "add_user_successfully": "User added successfully"
-
+  "add_user_successfully": "User added successfully",
+  "no_users_found": "No users found"
 }

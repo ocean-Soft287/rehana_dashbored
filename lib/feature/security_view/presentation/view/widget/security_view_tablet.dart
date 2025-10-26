@@ -157,7 +157,7 @@ class _SecurityViewTabletState extends State<SecurityViewTablet> {
                                 ),
                               ),
                               Expanded(
-                                flex: 2,
+                                flex: 3,
                                 child: StatusCell(
                                   accept: AppLocalizations.of(context)!.edit,
                                   refuse: AppLocalizations.of(context)!.delete,

@@ -162,5 +162,6 @@
   "hello": "مرحبا",
   "enter_villa_number": "أدخل رقم الفيلا",
   "login_successfully":"تم تسجيل الدخول بنجاح",
-   "add_user_successfully": "تم إضافة المستخدم بنجاح"
+  "add_user_successfully": "تم إضافة المستخدم بنجاح",
+  "no_users_found": "لم يتم العثور على مستخدمين"
 }

@@ -131,6 +131,7 @@ class _AddUsermangmentMobileState extends State<AddUsermangmentMobile> {
             const SizedBox(height: 50),
 
         BlocConsumer<UserCubit, UserState>(
+          buildWhen: (previous, current) => current != previous,
           listener: (context, state) {
 
         if(state is Adduserfailure){

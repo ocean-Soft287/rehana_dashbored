@@ -518,4 +518,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get add_user_successfully => 'User added successfully';
+
+  @override
+  String get no_users_found => 'No users found';
 }

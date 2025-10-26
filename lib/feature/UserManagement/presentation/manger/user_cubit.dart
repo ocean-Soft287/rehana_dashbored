@@ -18,6 +18,7 @@ class UserCubit extends Cubit<UserState> {
     required String phonenumber,
     required String role,
   }) async {
+    emit(AdduserLoading());
     final response = await userMangmentRepo.addOwner(
       email: email,
       password: password,
@@ -32,6 +33,7 @@ class UserCubit extends Cubit<UserState> {
     });
   }
   Future<void> getallmemeber() async {
+    emit(GetallmemeberLoading());
     final response = await userMangmentRepo.getallowner();
     response.fold((failure) {
       emit(Getallmemeberfailure(message: failure.message.toString()));
