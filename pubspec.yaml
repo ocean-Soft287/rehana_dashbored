@@ -33,6 +33,7 @@ dependencies:
   easy_date_timeline: ^2.0.9
   cached_network_image: ^3.4.1
   shared_preferences: ^2.5.3
+  firebase_core: ^4.2.1
 
 dev_dependencies:
   flutter_test:
