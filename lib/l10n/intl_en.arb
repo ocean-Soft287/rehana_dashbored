@@ -163,5 +163,17 @@
   "enter_villa_number": "Enter villa number",
   "login_successfully": "Login successfully",
   "add_user_successfully": "User added successfully",
-  "no_users_found": "No users found"
+  "no_users_found": "No users found",
+  "add_invitation": "Add Invitation",
+  "view_invitations": "View Invitations",
+  "add_security": "Add Security",
+  "view_security": "View Security",
+  "add_payment_voucher": "Add Payment Voucher",
+  "view_payment_vouchers": "View Payment Vouchers",
+  "add_receipt_voucher": "Add Receipt Voucher",
+  "view_receipt_vouchers": "View Receipt Vouchers",
+  "add_account": "Add Account",
+  "view_accounts": "View Accounts",
+  "add_member_statement": "Add Member Statement",
+  "view_all_members": "View All Members"
 }

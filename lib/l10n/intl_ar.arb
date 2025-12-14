@@ -163,5 +163,17 @@
   "enter_villa_number": "أدخل رقم الفيلا",
   "login_successfully":"تم تسجيل الدخول بنجاح",
   "add_user_successfully": "تم إضافة المستخدم بنجاح",
-  "no_users_found": "لم يتم العثور على مستخدمين"
+  "no_users_found": "لم يتم العثور على مستخدمين",
+  "add_invitation": "إضافة دعوة",
+  "view_invitations": "عرض الدعوات",
+  "add_security": "إضافة حارس أمن",
+  "view_security": "عرض حراس الأمن",
+  "add_payment_voucher": "إضافة سند صرف",
+  "view_payment_vouchers": "عرض سندات الصرف",
+  "add_receipt_voucher": "إضافة سند قبض",
+  "view_receipt_vouchers": "عرض سندات القبض",
+  "add_account": "إضافة حساب",
+  "view_accounts": "عرض الحسابات",
+  "add_member_statement": "إضافة كشف عضو",
+  "view_all_members": "عرض جميع الأعضاء"
 }

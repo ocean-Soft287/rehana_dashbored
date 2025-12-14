@@ -31,3 +31,13 @@ List<Object?> get props => [finance];
 }
 
 class Changevillanumber extends BottomState{}
+
+class BottomSubItemSelected extends BottomState {
+  final int mainIndex;
+  final int subIndex;
+
+  const BottomSubItemSelected(this.mainIndex, this.subIndex);
+
+  @override
+  List<Object?> get props => [mainIndex, subIndex];
+}

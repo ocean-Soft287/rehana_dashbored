@@ -4,16 +4,17 @@ import 'package:rehana_dashboared/feature/Account_Management/presentation/view/s
     show ReceiptsResponsive;
 import 'package:rehana_dashboared/feature/Account_Management/presentation/view/screen/exchangebonds_responsive.dart' show ExchangebondsResponsive;
 import 'package:rehana_dashboared/feature/add_users/presentaion/screen/responsive_add_security.dart';
-import 'package:rehana_dashboared/feature/add_users/presentaion/screen/responsive_add_user.dart';
+
 import 'package:rehana_dashboared/feature/bar_navigation/manger/bar_state.dart';
 import '../../../l10n/app_localizations.dart';
+import '../../../core/const/widget/expansion_sidebar_item.dart';
 import '../../Account_Management/presentation/view/screen/account_mangment_choose.dart';
 import '../../Account_Management/presentation/view/screen/create_receipt_bond_for_compound_responsive.dart';
 import '../../Account_Management/presentation/view/screen/summarybondbyyear_statement_responsive.dart'
     show  SummarybondbyyearStatementResponsive;
 import '../../Account_Management/presentation/view/screen/responsive_create_abond.dart';
 import '../../Account_Management/presentation/view/screen/responsive_members_account_statement.dart';
-import '../../Account_Management/presentation/view/screen/responsive_receipt_bond_for_compound.dart';
+
 import '../../Home/presentation/view/screen/responsive_home.dart';
 import '../../UserManagement/presentation/view/screen/responsive_usermangment.dart';
 import '../../add_users/presentaion/screen/add_account_mangment_responsive.dart';
@@ -28,14 +29,25 @@ class BottomCubit extends Cubit<BottomState> {
   static BottomCubit get(BuildContext context) =>
       BlocProvider.of<BottomCubit>(context);
 
-  int finnance = 0;
-int villa_number=0;
+  int finance = 0;
+  int villaNumber = 0;
+  int selectedMainIndex = 0;
+  int selectedSubIndex = 0;
+
   void changeItem(int index) {
+    selectedMainIndex = index;
+    selectedSubIndex = 0;
     emit(BottomItemSelected(index));
   }
 
-  void changefinnace(int value) {
-    finnance = value;
+  void changeSubItem(int mainIndex, int subIndex) {
+    selectedMainIndex = mainIndex;
+    selectedSubIndex = subIndex;
+    emit(BottomSubItemSelected(mainIndex, subIndex));
+  }
+
+  void changeFinance(int value) {
+    finance = value;
     emit(
       BottomItemSelected(
         state is BottomItemSelected ? (state as BottomItemSelected).index : 0,
@@ -43,56 +55,165 @@ int villa_number=0;
     );
   }
 
-  void changefinnaceAndItem(int value, int index) {
-    finnance = value;
+  void changeFinanceAndItem(int value, int index) {
+    finance = value;
     if (state is BottomItemSelected &&
         (state as BottomItemSelected).index == index) {
       emit(const BottomInitial());
     }
     emit(BottomItemSelected(index));
   }
-  void changevillanumber(int value){
-    villa_number=value;
+
+  // Legacy method names for backward compatibility
+  void changefinnaceAndItem(int value, int index) {
+    changeFinanceAndItem(value, index);
+  }
+
+  void changevillanumber(int value) {
+    changeVillaNumber(value);
+  }
+
+  // Getter for backward compatibility
+  int get villa_number => villaNumber;
+
+  void changeVillaNumber(int value) {
+    villaNumber = value;
     emit(Changevillanumber());
   }
 
-  List<Widget> get screens => [
-    const ResponsiveHome(),
-    ResponsiveCreateInvite(),
-    const ResponsiveAddUser(),
-    const ResponsiveAddSecurity(),
-    const ResponsiveSecurityView(),
-    finnance == 0
-        ? const AccountManagementChoose()
-        : finnance == 1
-        ? const AddAccountMangment()
-        : finnance == 2
-        ? ResponsiveCreateAbond()
-        : finnance == 3
-        ? ResponsiveMembersAccountStatement()
-        : finnance == 4
-        ? SummarybondbyyearStatementResponsive()
-        : finnance == 5
-        ? ReceiptsResponsive()
-        :finnance == 6? ExchangebondsResponsive():
-  finnance==7?  CreateReceiptBondForCompoundResponsive():
-  ResponsiveReceiptBondForCompound(),
-    // ExchangeBondsResponsive(),
-    const ResponsiveUserManagement(),
-    const Placeholder(),
-    // const Placeholder(),
-  ];
+  Widget get currentScreen {
+    switch (selectedMainIndex) {
+      case 0: // Home
+        return const ResponsiveHome();
+      case 1: // Invitations
+        switch (selectedSubIndex) {
+          case 0:
+            return ResponsiveCreateInvite(); // Add invitation
+          case 1:
+            return const ResponsiveHome(); // View invitations (placeholder)
+          default:
+            return ResponsiveCreateInvite();
+        }
+      case 2: // Security
+        switch (selectedSubIndex) {
+          case 0:
+            return const ResponsiveAddSecurity(); // Add security
+          case 1:
+            return const ResponsiveSecurityView(); // View security
+          default:
+            return const ResponsiveAddSecurity();
+        }
+      case 3: // Account Management
+        switch (selectedSubIndex) {
+          case 0: // Payment Vouchers
+            return finance == 0 ? ExchangebondsResponsive() : ResponsiveCreateAbond();
+          case 1: // Receipt Vouchers  
+            return finance == 0 ? ReceiptsResponsive() : CreateReceiptBondForCompoundResponsive();
+          case 2: // Create Account
+            return finance == 0 ? const AddAccountMangment() : ResponsiveCreateAbond();
+          case 3: // All Members Statement
+            return finance == 0 ? ResponsiveMembersAccountStatement() : SummarybondbyyearStatementResponsive();
+          default:
+            return const AccountManagementChoose();
+        }
+      case 4: // User Management
+        return const ResponsiveUserManagement();
+      case 5: // Chat
+        return const Placeholder();
+      default:
+        return const ResponsiveHome();
+    }
+  }
 
-  List<MenuEntry> menuItems(BuildContext context) => [
-    MenuEntry(AppLocalizations.of(context)!.invitations, Icons.groups),
-    MenuEntry(AppLocalizations.of(context)!.create_invitation, Icons.grid_view_rounded),
-    MenuEntry(AppLocalizations.of(context)!.add_member, Icons.edit),
-    MenuEntry(AppLocalizations.of(context)!.add_security_guard, Icons.security),
-    MenuEntry(AppLocalizations.of(context)!.security, Icons.lock),
-
-    MenuEntry(AppLocalizations.of(context)!.account_management, Icons.settings),
+  List<dynamic> menuItems(BuildContext context) => [
+    // Home - Simple item
+    MenuEntry("الرئيسية", Icons.home),
+    
+    // Invitations - Expansion item
+    ExpansionMenuEntry(
+      AppLocalizations.of(context)!.invitations, 
+      Icons.groups,
+      [
+        SidebarSubItem(
+          title: AppLocalizations.of(context)!.add_invitation,
+          icon: Icons.add,
+          isSelected: selectedMainIndex == 1 && selectedSubIndex == 0,
+          onTap: () => changeSubItem(1, 0),
+        ),
+        SidebarSubItem(
+          title: AppLocalizations.of(context)!.view_invitations,
+          icon: Icons.list,
+          isSelected: selectedMainIndex == 1 && selectedSubIndex == 1,
+          onTap: () => changeSubItem(1, 1),
+        ),
+      ]
+    ),
+    
+    // Security - Expansion item
+    ExpansionMenuEntry(
+      AppLocalizations.of(context)!.security, 
+      Icons.security,
+      [
+        SidebarSubItem(
+          title: AppLocalizations.of(context)!.add_security,
+          icon: Icons.add,
+          isSelected: selectedMainIndex == 2 && selectedSubIndex == 0,
+          onTap: () => changeSubItem(2, 0),
+        ),
+        SidebarSubItem(
+          title: AppLocalizations.of(context)!.view_security,
+          icon: Icons.list,
+          isSelected: selectedMainIndex == 2 && selectedSubIndex == 1,
+          onTap: () => changeSubItem(2, 1),
+        ),
+      ]
+    ),
+    
+    // Account Management - Expansion item
+    ExpansionMenuEntry(
+      AppLocalizations.of(context)!.account_management, 
+      Icons.settings,
+      [
+        SidebarSubItem(
+          title: AppLocalizations.of(context)!.payment_vouchers,
+          icon: Icons.receipt_long,
+          isSelected: selectedMainIndex == 3 && selectedSubIndex == 0,
+          onTap: () => changeSubItem(3, 0),
+        ),
+        SidebarSubItem(
+          title: AppLocalizations.of(context)!.receipt_vouchers,
+          icon: Icons.receipt,
+          isSelected: selectedMainIndex == 3 && selectedSubIndex == 1,
+          onTap: () => changeSubItem(3, 1),
+        ),
+        SidebarSubItem(
+          title: AppLocalizations.of(context)!.create_account,
+          icon: Icons.account_circle_outlined,
+          isSelected: selectedMainIndex == 3 && selectedSubIndex == 2,
+          onTap: () => changeSubItem(3, 2),
+        ),
+        SidebarSubItem(
+          title: AppLocalizations.of(context)!.members_account_statement,
+          icon: Icons.people_outline,
+          isSelected: selectedMainIndex == 3 && selectedSubIndex == 3,
+          onTap: () => changeSubItem(3, 3),
+        ),
+      ]
+    ),
+    
+    // User Management - Simple item
     MenuEntry(AppLocalizations.of(context)!.user_management, Icons.supervised_user_circle),
+    
+    // Chat - Simple item
     MenuEntry(AppLocalizations.of(context)!.chat, Icons.chat_bubble_outline),
   ];
 }
 
+
+class ExpansionMenuEntry {
+  final String title;
+  final IconData icon;
+  final List<SidebarSubItem> subItems;
+
+  ExpansionMenuEntry(this.title, this.icon, this.subItems);
+}

@@ -1087,6 +1087,78 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No users found'**
   String get no_users_found;
+
+  /// No description provided for @add_invitation.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Invitation'**
+  String get add_invitation;
+
+  /// No description provided for @view_invitations.
+  ///
+  /// In en, this message translates to:
+  /// **'View Invitations'**
+  String get view_invitations;
+
+  /// No description provided for @add_security.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Security'**
+  String get add_security;
+
+  /// No description provided for @view_security.
+  ///
+  /// In en, this message translates to:
+  /// **'View Security'**
+  String get view_security;
+
+  /// No description provided for @add_payment_voucher.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Payment Voucher'**
+  String get add_payment_voucher;
+
+  /// No description provided for @view_payment_vouchers.
+  ///
+  /// In en, this message translates to:
+  /// **'View Payment Vouchers'**
+  String get view_payment_vouchers;
+
+  /// No description provided for @add_receipt_voucher.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Receipt Voucher'**
+  String get add_receipt_voucher;
+
+  /// No description provided for @view_receipt_vouchers.
+  ///
+  /// In en, this message translates to:
+  /// **'View Receipt Vouchers'**
+  String get view_receipt_vouchers;
+
+  /// No description provided for @add_account.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Account'**
+  String get add_account;
+
+  /// No description provided for @view_accounts.
+  ///
+  /// In en, this message translates to:
+  /// **'View Accounts'**
+  String get view_accounts;
+
+  /// No description provided for @add_member_statement.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Member Statement'**
+  String get add_member_statement;
+
+  /// No description provided for @view_all_members.
+  ///
+  /// In en, this message translates to:
+  /// **'View All Members'**
+  String get view_all_members;
 }
 
 class _AppLocalizationsDelegate

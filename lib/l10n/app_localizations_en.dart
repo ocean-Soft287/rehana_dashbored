@@ -521,4 +521,40 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get no_users_found => 'No users found';
+
+  @override
+  String get add_invitation => 'Add Invitation';
+
+  @override
+  String get view_invitations => 'View Invitations';
+
+  @override
+  String get add_security => 'Add Security';
+
+  @override
+  String get view_security => 'View Security';
+
+  @override
+  String get add_payment_voucher => 'Add Payment Voucher';
+
+  @override
+  String get view_payment_vouchers => 'View Payment Vouchers';
+
+  @override
+  String get add_receipt_voucher => 'Add Receipt Voucher';
+
+  @override
+  String get view_receipt_vouchers => 'View Receipt Vouchers';
+
+  @override
+  String get add_account => 'Add Account';
+
+  @override
+  String get view_accounts => 'View Accounts';
+
+  @override
+  String get add_member_statement => 'Add Member Statement';
+
+  @override
+  String get view_all_members => 'View All Members';
 }

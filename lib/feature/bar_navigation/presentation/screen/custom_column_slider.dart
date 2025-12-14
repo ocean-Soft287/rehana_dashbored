@@ -44,10 +44,9 @@ class _SidebarMenuState extends State<SidebarMenu> {
         body: Builder(
           builder: (context) {
             return BlocBuilder<BottomCubit, BottomState>(
-              buildWhen: (previous, current) => current is BottomItemSelected,
+              buildWhen: (previous, current) => 
+                  current is BottomItemSelected || current is BottomSubItemSelected,
               builder: (context, state) {
-                final selectedIndex =
-                    state is BottomItemSelected ? state.index : 0;
                 BottomCubit bottomCubit = context.read<BottomCubit>();
                 return Directionality(
                   textDirection: TextDirection.rtl,
@@ -60,8 +59,8 @@ class _SidebarMenuState extends State<SidebarMenu> {
                           child: Row(
                             children: [
                               isMobile
-                                  ? SizedBox()
-                                  : Expanded(flex: 1, child: Sidebar()),
+                                  ? const SizedBox()
+                                  : Expanded(flex: 1, child: const Sidebar()),
                               Expanded(
                                 flex: 3,
                                 child: AnimatedSwitcher(
@@ -81,8 +80,8 @@ class _SidebarMenuState extends State<SidebarMenu> {
                                       ),
                                     );
                                   },
-                                  key: ValueKey<int>(selectedIndex),
-                                  child: bottomCubit.screens[selectedIndex],
+                                  key: ValueKey<String>('${bottomCubit.selectedMainIndex}-${bottomCubit.selectedSubIndex}'),
+                                  child: bottomCubit.currentScreen,
                                 ),
                               ),
                             ],

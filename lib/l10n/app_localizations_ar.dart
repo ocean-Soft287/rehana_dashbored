@@ -518,4 +518,40 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get no_users_found => 'لم يتم العثور على مستخدمين';
+
+  @override
+  String get add_invitation => 'إضافة دعوة';
+
+  @override
+  String get view_invitations => 'عرض الدعوات';
+
+  @override
+  String get add_security => 'إضافة حارس أمن';
+
+  @override
+  String get view_security => 'عرض حراس الأمن';
+
+  @override
+  String get add_payment_voucher => 'إضافة سند صرف';
+
+  @override
+  String get view_payment_vouchers => 'عرض سندات الصرف';
+
+  @override
+  String get add_receipt_voucher => 'إضافة سند قبض';
+
+  @override
+  String get view_receipt_vouchers => 'عرض سندات القبض';
+
+  @override
+  String get add_account => 'إضافة حساب';
+
+  @override
+  String get view_accounts => 'عرض الحسابات';
+
+  @override
+  String get add_member_statement => 'إضافة كشف عضو';
+
+  @override
+  String get view_all_members => 'عرض جميع الأعضاء';
 }
