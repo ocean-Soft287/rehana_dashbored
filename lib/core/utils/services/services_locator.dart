@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
+import 'package:rehana_dashboared/core/utils/firebase/firebase_conumer_impl.dart';
 import 'package:rehana_dashboared/feature/Account_Management/data/repo/accountmangmentrepoimp.dart';
 import 'package:rehana_dashboared/feature/Home/data/repo/invitation_repo_imp.dart';
 import 'package:rehana_dashboared/feature/add_users/data/repo/adduserrepoimp.dart';
@@ -28,6 +30,7 @@ import '../../../feature/Chat/data/datasource/chat_datasource.dart';
 import '../../../feature/Chat/data/repo/chat_repo.dart';
 import '../../../feature/Chat/data/repo/chat_repo_impl.dart';
 import '../../../feature/Chat/presentation/manager/chat_contacts_cubit.dart';
+import '../firebase/firebase_consumer.dart';
 
 final sl = GetIt.instance;
 void setup() {
@@ -44,6 +47,12 @@ void setup() {
           error: true,
         ),
       ),
+  );
+  sl.registerLazySingleton<FirebaseFirestore>(() => FirebaseFirestore.instance);
+
+  // Register Firebase Consumer
+  sl.registerLazySingleton<FirebaseConsumer>(
+    () => BaseFirebaseConsumer(firestore: sl<FirebaseFirestore>()),
   );
 
   /// Register DioConsumer
@@ -97,7 +106,9 @@ void setup() {
   sl.registerFactory<UserCubit>(() => UserCubit(sl<UserMangmentRepo>()));
 
   /// Chat Feature
-  sl.registerLazySingleton<ChatDataSource>(() => ChatDataSourceImpl());
+  sl.registerLazySingleton<ChatDataSource>(
+    () => ChatDataSourceImpl(firestore: sl<FirebaseFirestore>()),
+  );
   sl.registerLazySingleton<ChatRepository>(
     () => ChatRepositoryImpl(sl<ChatDataSource>()),
   );

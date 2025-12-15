@@ -1,5 +1,8 @@
 import 'dart:ui' as ui;
+
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'firebase_options.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get_it/get_it.dart';
@@ -15,9 +18,10 @@ import 'feature/localization/localizationmodel/localizationmodel.dart';
 import 'feature/localization/manger/localization_cubit.dart';
 import 'l10n/app_localizations.dart';
 
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   ui.channelBuffers.setListener('flutter/lifecycle', (data, _) {});
   setup();
   await Hive.initFlutter();
@@ -34,10 +38,14 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (_) => LocalizationCubit()..appLanguage(LanguageEventEnums.initialLanguage),
+          create:
+              (_) =>
+                  LocalizationCubit()
+                    ..appLanguage(LanguageEventEnums.initialLanguage),
         ),
         BlocProvider(
-          create: (_) => GetIt.instance<SecurityonetimeCubit>()..getvilanumber(),
+          create:
+              (_) => GetIt.instance<SecurityonetimeCubit>()..getvilanumber(),
         ),
       ],
       child: MaterialApp(
@@ -65,7 +73,8 @@ class Splashscreen extends StatefulWidget {
   State<Splashscreen> createState() => _SplashscreenState();
 }
 
-class _SplashscreenState extends State<Splashscreen> with SingleTickerProviderStateMixin {
+class _SplashscreenState extends State<Splashscreen>
+    with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _animation;
 
@@ -78,16 +87,18 @@ class _SplashscreenState extends State<Splashscreen> with SingleTickerProviderSt
       vsync: this,
     );
 
-    _animation = Tween<double>(begin: -200, end: 0).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
-    );
+    _animation = Tween<double>(
+      begin: -200,
+      end: 0,
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOut));
 
     _controller.forward();
 
     Future.delayed(const Duration(seconds: 2), () async {
       final token = await SecureStorageService.read(SecureStorageService.token);
       final role = await SecureStorageService.read(SecureStorageService.role);
-      final nextRoute = (token != null || role != null) ? Routes.home : Routes.login;
+      final nextRoute =
+          (token != null || role != null) ? Routes.home : Routes.login;
 
       if (mounted) {
         Navigator.pushReplacementNamed(context, nextRoute);
