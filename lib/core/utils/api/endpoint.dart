@@ -37,6 +37,7 @@ static String createBondForMember ="$baseUrl/Dashboard/createBondForMember";
 static String getbondssummarybyyearbyvillanumber="$baseUrl/Dashboard/GetBondsSummaryByYearByVillaNumber?villaNumber=";
   static String addOwner="$baseUrl/Dashboard/addOwner";
   static String getowner="$baseUrl/Dashboard/getAllOwners";
+  static String getAllMembers="$baseUrl/Dashboard/getAllMembers";
 
 //chat
 

@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/const/dropdownformcrud.dart';
@@ -112,12 +112,20 @@ class _AddAccountMangmentMobileState extends State<AddAccountMangmentMobile> {
                     _selectedstatus=null;
                     widget.address.clear();
                     widget.numofvila.clear();
-
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Center(child: Text('تم انشاء الحساب بنجاح')),
+                        backgroundColor: Appcolors.kprimary,
+                      ),
+                    );
 
                   }
                 },
   builder: (context, state) {
     final user=context.read<AdduserCubit>();
+    if(state is AdduserLoading){
+      return const Center(child: CircularProgressIndicator());
+    }
     return CustomButton(
               name:AppLocalizations.of(context)!.create_account,
               colors: Appcolors.brown,

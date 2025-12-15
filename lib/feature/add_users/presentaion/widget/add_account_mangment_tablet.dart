@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rehana_dashboared/feature/add_users/presentaion/manger/adduser_cubit.dart';
 
@@ -159,12 +160,24 @@ class _AddAccountMangmentTabletState extends State<AddAccountMangmentTablet> {
                       widget.address.clear();
                       widget.numofvila.clear();
 
-
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Center(child: Text('تم انشاء الحساب بنجاح')),
+                          backgroundColor: Appcolors.kprimary,
+                        ),
+                      );
                     }
                   },
                   builder: (context, state) {
                     final addUserCubit = context.read<AdduserCubit>();
-
+                    if(state is AdduserLoading){
+                      return Center(
+                        child: CircularProgressIndicator(
+                          color: Appcolors.kprimary,
+                          strokeWidth: 3,
+                        ),
+                      );
+                    }
                     return CustomButton(
                       name:AppLocalizations.of(context)!.create_account,
                       colors: Appcolors.brown,
