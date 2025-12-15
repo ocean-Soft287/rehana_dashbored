@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 import '../../../utils/font/fonts.dart';
 
@@ -15,7 +16,7 @@ class DataCell extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 6),
         child: Center(
-          child: Text(
+          child: SelectableText(
             text,
 
             style: const TextStyle(

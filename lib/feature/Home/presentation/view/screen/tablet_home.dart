@@ -54,10 +54,11 @@ class _TabletHomeState extends State<TabletHome> {
                         ),
                       ),
                       child: Row(
-                        children: [
+
+                          children: [
                           HeaderCell(
                             text: AppLocalizations.of(context)!.villa_number,
-                            flex: 2,
+
                           ),
                           HeaderCell(text: AppLocalizations.of(context)!.name),
                           HeaderCell(text: AppLocalizations.of(context)!.time),

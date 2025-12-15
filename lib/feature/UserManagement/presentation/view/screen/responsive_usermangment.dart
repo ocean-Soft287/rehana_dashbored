@@ -175,7 +175,7 @@ class _ResponsiveUserManagementViewState extends State<_ResponsiveUserManagement
                             children: [
                               Expanded(
                                 flex: 2,
-                                child: Text(
+                                child: SelectableText(
                                   user.fullName,
                                   textAlign: TextAlign.center,
                                   style: AppStyles.styleRegular16(context),
@@ -183,7 +183,7 @@ class _ResponsiveUserManagementViewState extends State<_ResponsiveUserManagement
                               ),
                               Expanded(
                                 flex: 2,
-                                child: Text(
+                                child: SelectableText(
                                   user.roles.isNotEmpty
                                       ? user.roles[0]
                                       : '-',

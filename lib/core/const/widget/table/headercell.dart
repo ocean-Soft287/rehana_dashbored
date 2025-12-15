@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:rehana_dashboared/core/utils/colors/colors.dart';
 import '../../../utils/font/fonts.dart';
 
@@ -15,7 +16,7 @@ class HeaderCell extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 6),
         child: Center(
-          child: Text(
+          child: SelectableText(
             text,
             style:  TextStyle(
               fontFamily: Fonts.font,

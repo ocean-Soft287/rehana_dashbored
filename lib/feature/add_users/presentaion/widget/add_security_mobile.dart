@@ -42,7 +42,7 @@ class AddSecurityMobile extends StatelessWidget {
                 children: [
                   Imageuser(),
                   const SizedBox(height: 8),
-                  Text(
+                  SelectableText(
                     AppLocalizations.of(context)!.security_guard_photo_upload,
                     style: const TextStyle(
                       fontFamily: Fonts.font,

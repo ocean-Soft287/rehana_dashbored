@@ -23,7 +23,7 @@ class CustomDropdownCrud extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
+        SelectableText(
           name,
           style: TextStyle(
             fontFamily: Fonts.font,
@@ -55,7 +55,7 @@ class CustomDropdownCrud extends StatelessWidget {
             items: items
                 .map((item) => DropdownMenuItem<String>(
               value: item,
-              child: Text(
+              child: SelectableText(
                 item,
                 style: TextStyle(
                   fontFamily: Fonts.font,
