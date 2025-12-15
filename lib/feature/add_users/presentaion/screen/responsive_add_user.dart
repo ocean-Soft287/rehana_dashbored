@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 
 import '../../../../core/utils/appstyle/size_config.dart';
+import '../../../../core/utils/responsive/responsive_builder.dart';
 import '../manger/adduser_cubit.dart';
 import '../widget/add_user_mobile.dart';
 import '../widget/add_user_tablet.dart';
@@ -14,28 +15,43 @@ class ResponsiveAddUser extends StatefulWidget {
   State<ResponsiveAddUser> createState() => _ResponsiveAddUserState();
 }
 
-class _ResponsiveAddUserState extends State<ResponsiveAddUser> {
+class _ResponsiveAddUserState extends State<ResponsiveAddUser> with StatePersistenceMixin {
+  late AdduserCubit _adduserCubit;
+
+  @override
+  void initState() {
+    super.initState();
+    _adduserCubit = GetIt.instance<AdduserCubit>();
+  }
+
+  @override
+  void dispose() {
+    _adduserCubit.close();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    TextEditingController name = TextEditingController();
-    TextEditingController phone = TextEditingController();
-    TextEditingController email = TextEditingController();
-    TextEditingController password = TextEditingController();
-    TextEditingController numoffloors = TextEditingController();
-    TextEditingController villanum = TextEditingController();
-    TextEditingController villaadress = TextEditingController();
-    TextEditingController street = TextEditingController();
-    TextEditingController area = TextEditingController();
-    TextEditingController villalocation = TextEditingController();
-    TextEditingController villaspace = TextEditingController();
-
     SizeConfig.init(context);
-    return BlocProvider(
-      create: (context) => GetIt.instance<AdduserCubit>(),
+    
+    return BlocProvider.value(
+      value: _adduserCubit,
       child: Scaffold(
-        body: LayoutBuilder(
-          builder: (context, constrains) {
-            if (constrains.maxWidth < 800) {
+        body: ResponsiveBuilder(
+          builder: (context, isMobile) {
+            final name = getController('name');
+            final phone = getController('phone');
+            final email = getController('email');
+            final password = getController('password');
+            final numoffloors = getController('numoffloors');
+            final villanum = getController('villanum');
+            final villaadress = getController('villaadress');
+            final street = getController('street');
+            final area = getController('area');
+            final villalocation = getController('villalocation');
+            final villaspace = getController('villaspace');
+
+            if (isMobile) {
               return AddUserMobile(
                 name: name,
                 phone: phone,
@@ -46,7 +62,8 @@ class _ResponsiveAddUserState extends State<ResponsiveAddUser> {
                 villaAddress: villaadress,
                 villaNumber: villanum,
                 villaLocation: villalocation,
-                numOfFloors: numoffloors, villaspace: villaspace,
+                numOfFloors: numoffloors,
+                villaspace: villaspace,
               );
             } else {
               return AddUserTablet(
@@ -59,7 +76,8 @@ class _ResponsiveAddUserState extends State<ResponsiveAddUser> {
                 villaAddress: villaadress,
                 villaNumber: villanum,
                 villaLocation: villalocation,
-                numOfFloors: numoffloors, villaspace: villaspace,
+                numOfFloors: numoffloors,
+                villaspace: villaspace,
               );
             }
           },

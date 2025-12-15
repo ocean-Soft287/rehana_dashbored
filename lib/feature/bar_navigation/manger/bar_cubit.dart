@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rehana_dashboared/feature/Account_Management/presentation/view/screen/receipts_responsive.dart'
     show ReceiptsResponsive;
-import 'package:rehana_dashboared/feature/Account_Management/presentation/view/screen/exchangebonds_responsive.dart' show ExchangebondsResponsive;
+import 'package:rehana_dashboared/feature/Account_Management/presentation/view/screen/exchangebonds_responsive.dart'
+    show ExchangebondsResponsive;
 import 'package:rehana_dashboared/feature/add_users/presentaion/screen/responsive_add_security.dart';
 
 import 'package:rehana_dashboared/feature/bar_navigation/manger/bar_state.dart';
@@ -11,7 +12,7 @@ import '../../../core/const/widget/expansion_sidebar_item.dart';
 import '../../Account_Management/presentation/view/screen/account_mangment_choose.dart';
 import '../../Account_Management/presentation/view/screen/create_receipt_bond_for_compound_responsive.dart';
 import '../../Account_Management/presentation/view/screen/summarybondbyyear_statement_responsive.dart'
-    show  SummarybondbyyearStatementResponsive;
+    show SummarybondbyyearStatementResponsive;
 import '../../Account_Management/presentation/view/screen/responsive_create_abond.dart';
 import '../../Account_Management/presentation/view/screen/responsive_members_account_statement.dart';
 
@@ -20,8 +21,8 @@ import '../../UserManagement/presentation/view/screen/responsive_usermangment.da
 import '../../add_users/presentaion/screen/add_account_mangment_responsive.dart';
 import '../../create_invite/presentation/view/screen/responsive_create_invite.dart';
 import '../../security_view/presentation/view/responsive_security_view.dart';
+import '../../Chat/presentation/view/screen/responsive_chat.dart';
 import '../data/model/menu_entry.dart';
-
 
 class BottomCubit extends Cubit<BottomState> {
   BottomCubit() : super(const BottomInitial());
@@ -106,20 +107,28 @@ class BottomCubit extends Cubit<BottomState> {
       case 3: // Account Management
         switch (selectedSubIndex) {
           case 0: // Payment Vouchers
-            return finance == 0 ? ExchangebondsResponsive() : ResponsiveCreateAbond();
-          case 1: // Receipt Vouchers  
-            return finance == 0 ? ReceiptsResponsive() : CreateReceiptBondForCompoundResponsive();
+            return finance == 0
+                ? ExchangebondsResponsive()
+                : ResponsiveCreateAbond();
+          case 1: // Receipt Vouchers
+            return finance == 0
+                ? ReceiptsResponsive()
+                : CreateReceiptBondForCompoundResponsive();
           case 2: // Create Account
-            return finance == 0 ? const AddAccountMangment() : ResponsiveCreateAbond();
+            return finance == 0
+                ? const AddAccountMangment()
+                : ResponsiveCreateAbond();
           case 3: // All Members Statement
-            return finance == 0 ? ResponsiveMembersAccountStatement() : SummarybondbyyearStatementResponsive();
+            return finance == 0
+                ? ResponsiveMembersAccountStatement()
+                : SummarybondbyyearStatementResponsive();
           default:
             return const AccountManagementChoose();
         }
       case 4: // User Management
         return const ResponsiveUserManagement();
       case 5: // Chat
-        return const Placeholder();
+        return const ResponsiveChat();
       default:
         return const ResponsiveHome();
     }
@@ -128,10 +137,10 @@ class BottomCubit extends Cubit<BottomState> {
   List<dynamic> menuItems(BuildContext context) => [
     // Home - Simple item
     MenuEntry("الرئيسية", Icons.home),
-    
+
     // Invitations - Expansion item
     ExpansionMenuEntry(
-      AppLocalizations.of(context)!.invitations, 
+      AppLocalizations.of(context)!.invitations,
       Icons.groups,
       [
         SidebarSubItem(
@@ -146,32 +155,28 @@ class BottomCubit extends Cubit<BottomState> {
           isSelected: selectedMainIndex == 1 && selectedSubIndex == 1,
           onTap: () => changeSubItem(1, 1),
         ),
-      ]
+      ],
     ),
-    
+
     // Security - Expansion item
-    ExpansionMenuEntry(
-      AppLocalizations.of(context)!.security, 
-      Icons.security,
-      [
-        SidebarSubItem(
-          title: AppLocalizations.of(context)!.add_security,
-          icon: Icons.add,
-          isSelected: selectedMainIndex == 2 && selectedSubIndex == 0,
-          onTap: () => changeSubItem(2, 0),
-        ),
-        SidebarSubItem(
-          title: AppLocalizations.of(context)!.view_security,
-          icon: Icons.list,
-          isSelected: selectedMainIndex == 2 && selectedSubIndex == 1,
-          onTap: () => changeSubItem(2, 1),
-        ),
-      ]
-    ),
-    
+    ExpansionMenuEntry(AppLocalizations.of(context)!.security, Icons.security, [
+      SidebarSubItem(
+        title: AppLocalizations.of(context)!.add_security,
+        icon: Icons.add,
+        isSelected: selectedMainIndex == 2 && selectedSubIndex == 0,
+        onTap: () => changeSubItem(2, 0),
+      ),
+      SidebarSubItem(
+        title: AppLocalizations.of(context)!.view_security,
+        icon: Icons.list,
+        isSelected: selectedMainIndex == 2 && selectedSubIndex == 1,
+        onTap: () => changeSubItem(2, 1),
+      ),
+    ]),
+
     // Account Management - Expansion item
     ExpansionMenuEntry(
-      AppLocalizations.of(context)!.account_management, 
+      AppLocalizations.of(context)!.account_management,
       Icons.settings,
       [
         SidebarSubItem(
@@ -198,17 +203,19 @@ class BottomCubit extends Cubit<BottomState> {
           isSelected: selectedMainIndex == 3 && selectedSubIndex == 3,
           onTap: () => changeSubItem(3, 3),
         ),
-      ]
+      ],
     ),
-    
+
     // User Management - Simple item
-    MenuEntry(AppLocalizations.of(context)!.user_management, Icons.supervised_user_circle),
-    
+    MenuEntry(
+      AppLocalizations.of(context)!.user_management,
+      Icons.supervised_user_circle,
+    ),
+
     // Chat - Simple item
     MenuEntry(AppLocalizations.of(context)!.chat, Icons.chat_bubble_outline),
   ];
 }
-
 
 class ExpansionMenuEntry {
   final String title;

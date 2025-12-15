@@ -24,6 +24,10 @@ import '../../../feature/security_view/presentation/manger/security_cubit.dart';
 import '../api/endpoint.dart';
 import '../api/api_consumer.dart';
 import '../api/dio_consumer.dart';
+import '../../../feature/Chat/data/datasource/chat_datasource.dart';
+import '../../../feature/Chat/data/repo/chat_repo.dart';
+import '../../../feature/Chat/data/repo/chat_repo_impl.dart';
+import '../../../feature/Chat/presentation/manager/chat_contacts_cubit.dart';
 
 final sl = GetIt.instance;
 void setup() {
@@ -54,40 +58,50 @@ void setup() {
 
   /// invitation
   sl.registerLazySingleton<Invitationrepo>(
-        () => Invitationrepoimp(dioConsumer: sl<DioConsumer>()),
+    () => Invitationrepoimp(dioConsumer: sl<DioConsumer>()),
   );
-  sl.registerFactory<HomeinvitationCubit>(() => HomeinvitationCubit(sl<Invitationrepo>()));
+  sl.registerFactory<HomeinvitationCubit>(
+    () => HomeinvitationCubit(sl<Invitationrepo>()),
+  );
 
   //
 
   sl.registerLazySingleton<InvitationsecurityRepo>(
-        () => Invitatiosecuritynrepoimp(dioConsumer: sl<DioConsumer>()),
+    () => Invitatiosecuritynrepoimp(dioConsumer: sl<DioConsumer>()),
   );
-  sl.registerFactory<SecurityonetimeCubit>(() => SecurityonetimeCubit(sl<InvitationsecurityRepo>()));
-//adduser
+  sl.registerFactory<SecurityonetimeCubit>(
+    () => SecurityonetimeCubit(sl<InvitationsecurityRepo>()),
+  );
+  //adduser
   sl.registerLazySingleton<Adduserrepo>(
-        () => AddUserRepoImpl(dioConsumer: sl<DioConsumer>()),
+    () => AddUserRepoImpl(dioConsumer: sl<DioConsumer>()),
   );
   sl.registerFactory<AdduserCubit>(() => AdduserCubit(sl<Adduserrepo>()));
 
-//security
+  //security
   sl.registerLazySingleton<Securityrepo>(
-        () => SecurityRepoImp(dioConsumer: sl<DioConsumer>()),
+    () => SecurityRepoImp(dioConsumer: sl<DioConsumer>()),
   );
   sl.registerFactory<SecurityCubit>(() => SecurityCubit(sl<Securityrepo>()));
-//person
+  //person
   sl.registerLazySingleton<AccountMangmentrepo>(
-        () => AccountMangmentrepoimp(dioConsumer: sl<DioConsumer>()),
+    () => AccountMangmentrepoimp(dioConsumer: sl<DioConsumer>()),
   );
 
-// ثم نسجل الكيوبت
-  sl.registerFactory<PersonCubit>(
-        () => PersonCubit(sl<AccountMangmentrepo>()),
-  );
+  // ثم نسجل الكيوبت
+  sl.registerFactory<PersonCubit>(() => PersonCubit(sl<AccountMangmentrepo>()));
 
   sl.registerLazySingleton<UserMangmentRepo>(
-        () => Usermangmentrepoimp(dioConsumer: sl<DioConsumer>()),
+    () => Usermangmentrepoimp(dioConsumer: sl<DioConsumer>()),
   );
   sl.registerFactory<UserCubit>(() => UserCubit(sl<UserMangmentRepo>()));
 
+  /// Chat Feature
+  sl.registerLazySingleton<ChatDataSource>(() => ChatDataSourceImpl());
+  sl.registerLazySingleton<ChatRepository>(
+    () => ChatRepositoryImpl(sl<ChatDataSource>()),
+  );
+  sl.registerFactory<ChatContactsCubit>(
+    () => ChatContactsCubit(sl<ChatRepository>()),
+  );
 }

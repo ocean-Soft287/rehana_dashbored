@@ -3,12 +3,13 @@ import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:image_picker/image_picker.dart';
+import '../../../../core/utils/state/api_request_mixin.dart';
 import '../../data/model/invitation.dart';
 import '../../data/repo/invitationsecurity_repo.dart';
 part 'securityonetime_state.dart';
 
 
-class SecurityonetimeCubit extends Cubit<SecurityonetimeState> {
+class SecurityonetimeCubit extends Cubit<SecurityonetimeState> with ApiRequestMixin {
   SecurityonetimeCubit(this.invitationRepo) : super(SecurityonetimeInitial());
 
   final InvitationsecurityRepo invitationRepo;
@@ -76,19 +77,34 @@ class SecurityonetimeCubit extends Cubit<SecurityonetimeState> {
   final List<int> vilanumber=[];
 
   void getvilanumber() async {
-    emit(GetVillaNumberLoading());
-    try {
-      final Dio dio = Dio();
-      final response = await dio.get("http://78.89.159.126:9393/TheOneAPIRehana/api/Member/villaNumbers");
+    // Check if we already have cached data
+    if (isApiCached('villa_numbers') && vilanumber.isNotEmpty) {
+      emit(GetVillaNumberSuccess(vilanumber));
+      return;
+    }
 
-      if (response.statusCode == 200 && response.data is List) {
-        vilanumber
-          ..clear()
-          ..addAll(List<int>.from(response.data));
-        emit(GetVillaNumberSuccess(vilanumber));
-      } else {
-        emit(GetVillaNumberError("Unexpected response format"));
-      }
+    emit(GetVillaNumberLoading());
+    
+    try {
+      final result = await executeApiRequest<List<int>>(
+        'villa_numbers',
+        () async {
+          final Dio dio = Dio();
+          final response = await dio.get("http://78.89.159.126:9393/TheOneAPIRehana/api/Member/villaNumbers");
+
+          if (response.statusCode == 200 && response.data is List) {
+            return List<int>.from(response.data);
+          } else {
+            throw Exception("Unexpected response format");
+          }
+        },
+        cacheDuration: const Duration(minutes: 10), // Cache for 10 minutes
+      );
+
+      vilanumber
+        ..clear()
+        ..addAll(result);
+      emit(GetVillaNumberSuccess(vilanumber));
     } catch (e) {
       emit(GetVillaNumberError(e.toString()));
     }
