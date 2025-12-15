@@ -25,7 +25,7 @@ class DropdownFormCrud extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
+        SelectableText(
           name,
           style: const TextStyle(
             fontFamily: Fonts.font,

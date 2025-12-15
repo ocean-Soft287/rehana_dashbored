@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import '../../../utils/font/fonts.dart';
 
 class RowItem extends StatelessWidget {
@@ -16,7 +17,7 @@ class RowItem extends StatelessWidget {
         children: [
           Expanded(
             flex: 2,
-            child: Text(
+            child: SelectableText(
               label,
               style: const TextStyle(
                 fontFamily: Fonts.font,
@@ -27,8 +28,8 @@ class RowItem extends StatelessWidget {
             ),
           ),
           Expanded(
-            flex: 3,
-            child: Text(
+            flex: 5,
+            child: SelectableText(
               value,
               textAlign: TextAlign.right,
               style: const TextStyle(

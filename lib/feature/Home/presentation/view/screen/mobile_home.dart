@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../core/const/paginationcontrols.dart';
 import '../../../../../core/const/widget/mobile_table/visit_card.dart';
+import '../../../../../core/utils/colors/colors.dart';
 import '../../manger/homeinvitation_cubit.dart';
 
 class MobileHome extends StatefulWidget {
@@ -32,6 +33,18 @@ class _MobileHomeState extends State<MobileHome> {
 
           return CustomScrollView(
             slivers: [
+              SliverToBoxAdapter(
+                child: Center(
+                  child: Text(
+                    'الدعوات',
+                    style: TextStyle(
+                      fontSize: 25,
+                      fontWeight: FontWeight.w600,
+                      color: Appcolors.kprimary,
+                    ),
+                  ),
+                ),
+              ),
               SliverPadding(
                 padding: const EdgeInsets.all(16),
                 sliver: SliverList.separated(

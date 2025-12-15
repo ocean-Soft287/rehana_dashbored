@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rehana_dashboared/core/utils/colors/colors.dart';
 import '../../../../feature/Home/data/model/visitinvitation.dart';
 import '../../../../l10n/app_localizations.dart';
 import 'row_item.dart';
@@ -20,8 +21,8 @@ class VisitCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: Colors.white,
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
@@ -30,33 +31,30 @@ class VisitCard extends StatelessWidget {
             offset: const Offset(0, 2),
           ),
         ],
-        border: Border.all(color: const Color(0xFFE2E2E2)),
+        border: Border.all(color: Appcolors.black, ),
       ),
-      child: Padding(
-        padding: const EdgeInsets.all(12),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            RowItem(label:AppLocalizations.of(context)!.villa_number, value: invitation.memberVillaNumber.toString()),
-            RowItem(label:AppLocalizations.of(context)!.name, value: invitation.memberUserName),
-            RowItem(
-              label:AppLocalizations.of(context)!.time,
-              value: "${invitation.dateFrom.toIso8601String()} - ${invitation.dateTo.toIso8601String()}",
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          RowItem(label:AppLocalizations.of(context)!.villa_number, value: invitation.memberVillaNumber.toString()),
+          RowItem(label:AppLocalizations.of(context)!.name, value: invitation.memberUserName),
+          RowItem(
+            label:AppLocalizations.of(context)!.time,
+            value: "${invitation.dateFrom.toIso8601String()} - ${invitation.dateTo.toIso8601String()}",
+          ),
+          RowItem(label:AppLocalizations.of(context)!.reason_for_visit, value: invitation.reasonForVisit),
+          RowItem(label:AppLocalizations.of(context)!.status, value: invitation.status),
+          const SizedBox(height: 8),
+          if (isButtons == true)
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                MobileButton(text:AppLocalizations.of(context)!.accept, color: const Color(0xFFB5CC6D), onPressed: onAccept),
+                const SizedBox(width: 10),
+                MobileButton(text:AppLocalizations.of(context)!.refuse, color: const Color(0xFFE74A3B), onPressed: onReject),
+              ],
             ),
-            RowItem(label:AppLocalizations.of(context)!.reason_for_visit, value: invitation.reasonForVisit),
-            RowItem(label:AppLocalizations.of(context)!.status, value: invitation.status),
-            const SizedBox(height: 8),
-            if (isButtons == true)
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  MobileButton(text:AppLocalizations.of(context)!.accept, color: const Color(0xFFB5CC6D), onPressed: onAccept),
-                  const SizedBox(width: 10),
-                  MobileButton(text:AppLocalizations.of(context)!.refuse, color: const Color(0xFFE74A3B), onPressed: onReject),
-                ],
-              ),
-          ],
-        ),
+        ],
       ),
     );
   }

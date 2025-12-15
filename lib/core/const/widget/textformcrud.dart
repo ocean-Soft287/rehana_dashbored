@@ -27,7 +27,7 @@ class Textformcrud extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
+        SelectableText(
           name,
           style: TextStyle(
             fontFamily: Fonts.font,
