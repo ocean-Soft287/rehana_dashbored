@@ -41,29 +41,36 @@ class _ExpansionSidebarItemState extends State<ExpansionSidebarItem> {
             widget.onTap?.call();
           },
           title: Directionality(
-            textDirection: TextDirection.ltr,
+            textDirection: TextDirection.rtl,
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  widget.title,
-                  style: TextStyle(
-                    color: widget.isSelected ? Appcolors.kprimary1 : Colors.white,
-                    fontFamily: Fonts.font,
-                    fontSize: 14,
-                    fontWeight: FontWeight.bold,
-                  ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Icon(
+                      widget.icon,
+                      color: widget.isSelected ? Appcolors.kprimary : Colors.white,
+                    ),
+                    const SizedBox(width: 8),
+                    Text(
+                      widget.title,
+                      style: TextStyle(
+                        color: widget.isSelected ? Appcolors.kprimary1 : Colors.white,
+                        fontFamily: Fonts.font,
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+
+
+
+                  ],
                 ),
-                const SizedBox(width: 8),
                 Icon(
                   isExpanded ? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down,
                   color: widget.isSelected ? Appcolors.kprimary : Colors.white,
                   size: 16,
-                ),
-                const SizedBox(width: 4),
-                Icon(
-                  widget.icon,
-                  color: widget.isSelected ? Appcolors.kprimary : Colors.white,
                 ),
               ],
             ),

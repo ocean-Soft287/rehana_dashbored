@@ -17,6 +17,7 @@ class DataCell extends StatelessWidget {
         child: Center(
           child: Text(
             text,
+
             style: const TextStyle(
               fontFamily: Fonts.font,
               color: Color(0xFF646464),
