@@ -4,8 +4,8 @@ import 'package:rehana_dashboared/core/utils/Failure/failure.dart';
 import 'package:rehana_dashboared/core/utils/api/dio_consumer.dart';
 import 'package:rehana_dashboared/feature/Auth/data/model/login_model.dart';
 import 'package:rehana_dashboared/feature/UserManagement/data/usermangmentrepo.dart';
-
-import '../../../core/utils/api/endpoint.dart';
+import '../../../../core/utils/api/endpoint.dart';
+import 'model/owner_model.dart';
 
 class Usermangmentrepoimp implements UserMangmentRepo{
   final DioConsumer dioConsumer;
@@ -50,7 +50,7 @@ class Usermangmentrepoimp implements UserMangmentRepo{
   }
 
   @override
-  Future<Either<Failure, List<UserModel>>> getallowner() async{
+  Future<Either<Failure, List<UserModel>>> getAllOwners() async{
     try {
       final rawList = await dioConsumer.get(EndPoint.getowner)
       as List<dynamic>;
@@ -80,6 +80,26 @@ class Usermangmentrepoimp implements UserMangmentRepo{
       return ServerFailure(firstError.toString());
     } else {
       return ServerFailure(error.message ?? "Unknown Dio error");
+    }
+  }
+
+
+  @override
+  Future<Either<Failure, List<OwnerModel>>> getAllMembers() async{
+    try {
+      final rawList = await dioConsumer.get(EndPoint.getAllMembers)
+      as List<dynamic>;
+
+      final usermodel = rawList
+          .map((json) =>
+          OwnerModel.fromJson(json as Map<String, dynamic>))
+          .toList();
+
+      return right(usermodel);
+    } on DioException catch (e) {
+      return left(_handleDioError(e));
+    } catch (e) {
+      return left(ServerFailure(e.toString()));
     }
   }
 

@@ -42,15 +42,15 @@ class AllOwnersMobile extends StatelessWidget {
                       margin: const EdgeInsets.only(bottom: 12),
                       child: ListTile(
                         leading: CircleAvatar(
-                          child: Text(owner.fullName.isNotEmpty
-                              ? owner.fullName[0].toUpperCase()
+                          child: Text(owner.userName.isNotEmpty
+                              ? owner.userName[0].toUpperCase()
                               : "?"),
                         ),
-                        title: Text(owner.fullName),
+                        title: Text(owner.userName),
                         subtitle: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            if (owner.phoneNumber != null) Text(owner.phoneNumber!),
+                            Text(owner.phoneNumber),
                             Text(owner.email),
                           ],
                         ),

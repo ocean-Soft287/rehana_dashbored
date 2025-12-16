@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 
 import '../../../core/utils/Failure/failure.dart';
+import 'model/owner_model.dart';
 import '../../Auth/data/model/login_model.dart';
 
 abstract class UserMangmentRepo{
@@ -11,5 +12,6 @@ abstract class UserMangmentRepo{
     required String phonenumber,
     required String role,
   });
-  Future<Either<Failure, List<UserModel>>>getallowner();
+  Future<Either<Failure, List<UserModel>>>getAllOwners();
+  Future<Either<Failure, List<OwnerModel>>>getAllMembers();
 }

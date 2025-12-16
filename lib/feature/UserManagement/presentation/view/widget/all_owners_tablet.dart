@@ -28,7 +28,7 @@ class AllOwnersTablet extends StatelessWidget {
                 borderRadius: BorderRadius.circular(16),
                 boxShadow: [
                   BoxShadow(
-                    color: CupertinoColors.systemGrey.withValues( alpha:0.1),
+                    color: CupertinoColors.systemGrey.withValues(alpha: 0.1),
                     blurRadius: 12,
                     spreadRadius: 2,
                     offset: const Offset(0, 4),
@@ -41,8 +41,10 @@ class AllOwnersTablet extends StatelessWidget {
                   Container(
                     padding: const EdgeInsets.all(16),
                     decoration: BoxDecoration(
-                      color: Appcolors.greenMember.withValues( alpha:0.3),
-                      borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
+                      color: Appcolors.greenMember.withValues(alpha: 0.3),
+                      borderRadius: const BorderRadius.vertical(
+                        top: Radius.circular(16),
+                      ),
                     ),
                     child: Row(
                       children: [
@@ -68,11 +70,12 @@ class AllOwnersTablet extends StatelessWidget {
                           ),
                         ),
                         Expanded(
-                            flex: 1,
-                            child: Text(
-                              AppLocalizations.of(context)!.job,
-                              style: AppStyles.styleLogin(context),
-                            )),
+                          flex: 1,
+                          child: Text(
+                            'رقم الفيلا',
+                            style: AppStyles.styleLogin(context),
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -80,56 +83,69 @@ class AllOwnersTablet extends StatelessWidget {
                   Expanded(
                     child: BlocBuilder<UserCubit, UserState>(
                       builder: (context, state) {
-                        if (state is GetallmemeberLoading || state is UserInitial) {
-                          return const Center(child: CircularProgressIndicator());
+                        if (state is GetallmemeberLoading ||
+                            state is UserInitial) {
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
                         } else if (state is Getallmemeberfailure) {
                           return Center(child: Text(state.message));
                         } else if (state is Getallmemebersuccful) {
                           final owners = state.userModel;
                           if (owners.isEmpty) {
                             return Center(
-                              child: Text(AppLocalizations.of(context)!.no_users_found),
+                              child: Text(
+                                AppLocalizations.of(context)!.no_users_found,
+                              ),
                             );
                           }
                           return ListView.separated(
                             padding: const EdgeInsets.all(16),
                             itemCount: owners.length,
-                            separatorBuilder: (context, index) =>
-                                const Divider(height: 1),
+                            separatorBuilder:
+                                (context, index) => const Divider(height: 1),
                             itemBuilder: (context, index) {
                               final owner = owners[index];
                               return Padding(
-                                padding: const EdgeInsets.symmetric(vertical: 12),
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 12,
+                                ),
                                 child: Row(
                                   children: [
                                     Expanded(
                                       flex: 2,
                                       child: Text(
-                                        owner.fullName,
-                                        style: AppStyles.styleRegular16(context),
+                                        owner.userName,
+                                        style: AppStyles.styleRegular16(
+                                          context,
+                                        ),
                                       ),
                                     ),
                                     Expanded(
                                       flex: 2,
                                       child: Text(
-                                        owner.phoneNumber ?? "-",
-                                        style: AppStyles.styleRegular16(context),
+                                        owner.phoneNumber,
+                                        style: AppStyles.styleRegular16(
+                                          context,
+                                        ),
                                       ),
                                     ),
                                     Expanded(
                                       flex: 2,
                                       child: Text(
                                         owner.email,
-                                        style: AppStyles.styleRegular16(context),
+                                        style: AppStyles.styleRegular16(
+                                          context,
+                                        ),
                                       ),
                                     ),
                                     Expanded(
                                       flex: 1,
                                       child: Text(
-                                        owner.roles.isNotEmpty
-                                            ? owner.roles.first
-                                            : "-",
-                                        style: AppStyles.styleRegular16(context),
+                                        owner.villaNumber.toString(),
+                                        style: AppStyles.styleRegular16(
+                                          context,
+                                        ),
                                       ),
                                     ),
                                   ],

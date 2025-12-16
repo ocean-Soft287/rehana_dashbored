@@ -15,7 +15,7 @@ class ResponsiveUserManagement extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<UserCubit>(
-      create: (_) => GetIt.instance<UserCubit>()..getallmemeber(),
+      create: (_) => GetIt.instance<UserCubit>()..getAllOwners(),
       child: const _ResponsiveUserManagementView(),
     );
   }
@@ -140,7 +140,7 @@ class _ResponsiveUserManagementViewState extends State<_ResponsiveUserManagement
               buildWhen: (previous, current) => current != previous,
               listener: (context, state) {
                 if (state is Addusersuccful) {
-                  _userCubit.getallmemeber(); // Refresh list after adding user
+                  _userCubit.getAllMembers(); // Refresh list after adding user
                 } else if (state is Adduserfailure ||
                     state is Getallmemeberfailure) {
                   final errorMessage = (state as dynamic).message;
@@ -154,7 +154,7 @@ class _ResponsiveUserManagementViewState extends State<_ResponsiveUserManagement
               },
               builder: (context, state) {
 
-                if (state is Getallmemebersuccful) {
+                if (state is GetAllUsersSuccessState) {
                   final users = state.userModel;
                   return SliverList(
                     delegate: SliverChildBuilderDelegate(
@@ -184,9 +184,7 @@ class _ResponsiveUserManagementViewState extends State<_ResponsiveUserManagement
                               Expanded(
                                 flex: 2,
                                 child: SelectableText(
-                                  user.roles.isNotEmpty
-                                      ? user.roles[0]
-                                      : '-',
+                                  user.roles.toString(),
                                   textAlign: TextAlign.center,
                                   style:
                                   AppStyles.textformfieldstyle(context),

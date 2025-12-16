@@ -17,7 +17,7 @@ class Addusersuccful extends UserState{
   Addusersuccful({required this.userModel});
 }
 class Getallmemebersuccful extends UserState{
-  final List<UserModel> userModel;
+  final List<OwnerModel> userModel;
 
   Getallmemebersuccful({required this.userModel});
 
@@ -29,4 +29,34 @@ class Getallmemeberfailure extends UserState {
 
   Getallmemeberfailure({required this.message});
 
+
+}
+
+class GetAllUsersSuccessState extends UserState{
+  final List<UserModel> userModel;
+
+  GetAllUsersSuccessState({required this.userModel});
+
+
+}
+class GetAllUsersLoadingState extends UserState {}
+class GetAllUsersFailureState extends UserState {
+  final String message;
+
+  GetAllUsersFailureState({required this.message});
+
+
+}
+
+
+
+
+class GetAllOwnersLoading extends UserState {}
+class GetAllOwnersSuccess extends UserState {
+  final List<OwnerModel> owners;
+  GetAllOwnersSuccess(this.owners);
+}
+class GetAllOwnersFailure extends UserState {
+  final String message;
+  GetAllOwnersFailure(this.message);
 }

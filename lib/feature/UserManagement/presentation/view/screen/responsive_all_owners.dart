@@ -19,7 +19,7 @@ class _ResponsiveAllOwnersState extends State<ResponsiveAllOwners> {
   @override
   void initState() {
     super.initState();
-    _userCubit = GetIt.instance<UserCubit>()..getallmemeber();
+    _userCubit = GetIt.instance<UserCubit>()..getAllMembers();
   }
 
   @override
