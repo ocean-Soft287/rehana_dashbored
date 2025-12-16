@@ -1,168 +1,152 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/material.dart' hide DataCell;
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../../core/utils/appstyle/app_styles.dart';
-import '../../../../../core/utils/colors/colors.dart';
+import '../../../../../core/const/widget/table/headercell.dart';
+import '../../../../../core/const/widget/table/data_cell.dart';
+import '../../../../../core/const/widget/table/status_cell.dart';
+import '../../../../../core/utils/colors/colors.dart' show Appcolors;
+import '../../../../../core/widgets/custom_snack_bar.dart';
 import '../../../../../l10n/app_localizations.dart';
 import '../../manger/user_cubit.dart';
 
-class AllOwnersTablet extends StatelessWidget {
+class AllOwnersTablet extends StatefulWidget {
   const AllOwnersTablet({super.key});
 
   @override
+  State<AllOwnersTablet> createState() => _AllOwnersTabletState();
+}
+
+class _AllOwnersTabletState extends State<AllOwnersTablet> {
+  @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(24.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            "كل الملاك", // All Owners
-            style: AppStyles.styleLogin(context),
-          ),
-          const SizedBox(height: 24),
-          Expanded(
-            child: Container(
-              decoration: BoxDecoration(
-                color: CupertinoColors.white,
-                borderRadius: BorderRadius.circular(16),
-                boxShadow: [
-                  BoxShadow(
-                    color: CupertinoColors.systemGrey.withValues(alpha: 0.1),
-                    blurRadius: 12,
-                    spreadRadius: 2,
-                    offset: const Offset(0, 4),
-                  ),
-                ],
-              ),
-              child: Column(
-                children: [
-                  // Header
-                  Container(
-                    padding: const EdgeInsets.all(16),
-                    decoration: BoxDecoration(
-                      color: Appcolors.greenMember.withValues(alpha: 0.3),
-                      borderRadius: const BorderRadius.vertical(
-                        top: Radius.circular(16),
+      padding: const EdgeInsets.all(24),
+      child: Material(
+        elevation: 5,
+        borderRadius: BorderRadius.circular(16),
+        child: BlocConsumer<UserCubit, UserState>(
+          listener: (context, state) {
+            if (state is Getallmemeberfailure) {
+              showCustomSnackBar(context, state.message);
+            }
+          },
+          builder: (context, state) {
+            if (state is Getallmemebersuccful) {
+              return CustomScrollView(
+                slivers: [
+                  SliverToBoxAdapter(
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Appcolors.kprimary,
+                        borderRadius: const BorderRadius.vertical(
+                          top: Radius.circular(16),
+                        ),
+                      ),
+                      child: Row(
+                        children: [
+                          HeaderCell(
+                            text: AppLocalizations.of(context)!.email,
+                            flex: 2,
+                          ),
+                          HeaderCell(
+                            text: AppLocalizations.of(context)!.name,
+                            flex: 2,
+                          ),
+                          HeaderCell(
+                            text: AppLocalizations.of(context)!.villa_number,
+                            flex: 2,
+                          ),
+                          HeaderCell(
+                            text: AppLocalizations.of(context)!.phone,
+                            flex: 2,
+                          ),
+                          HeaderCell(
+                            text: AppLocalizations.of(context)!.image,
+                            flex: 2,
+                          ),
+                          HeaderCell(
+                            text: AppLocalizations.of(context)!.action,
+                            flex: 2,
+                          ),
+                        ],
                       ),
                     ),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          flex: 2,
-                          child: Text(
-                            AppLocalizations.of(context)!.name,
-                            style: AppStyles.styleLogin(context),
-                          ),
-                        ),
-                        Expanded(
-                          flex: 2,
-                          child: Text(
-                            AppLocalizations.of(context)!.phone,
-                            style: AppStyles.styleLogin(context),
-                          ),
-                        ),
-                        Expanded(
-                          flex: 2,
-                          child: Text(
-                            AppLocalizations.of(context)!.email,
-                            style: AppStyles.styleLogin(context),
-                          ),
-                        ),
-                        Expanded(
-                          flex: 1,
-                          child: Text(
-                            'رقم الفيلا',
-                            style: AppStyles.styleLogin(context),
-                          ),
-                        ),
-                      ],
-                    ),
                   ),
-                  // List
-                  Expanded(
-                    child: BlocBuilder<UserCubit, UserState>(
-                      builder: (context, state) {
-                        if (state is GetallmemeberLoading ||
-                            state is UserInitial) {
-                          return const Center(
-                            child: CircularProgressIndicator(),
-                          );
-                        } else if (state is Getallmemeberfailure) {
-                          return Center(child: Text(state.message));
-                        } else if (state is Getallmemebersuccful) {
-                          final owners = state.userModel;
-                          if (owners.isEmpty) {
-                            return Center(
-                              child: Text(
-                                AppLocalizations.of(context)!.no_users_found,
+                  SliverList.separated(
+                    itemCount: state.userModel.length,
+                    itemBuilder: (_, index) {
+                      final item = state.userModel[index];
+                      final bgColor =
+                          index.isOdd ? const Color(0xFFF6F9ED) : Colors.white;
+
+                      return Container(
+                        color: bgColor,
+                        padding: const EdgeInsets.symmetric(vertical: 8),
+                        child: Row(
+                          children: [
+                            DataCell(text: item.email, flex: 2),
+                            DataCell(text: item.userName, flex: 2),
+                            DataCell(
+                              text: item.villaNumber.toString(),
+                              flex: 2,
+                            ),
+                            DataCell(text: item.phoneNumber, flex: 2),
+                            Expanded(
+                              flex: 2,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(20),
+                                    child: CachedNetworkImage(
+                                      imageUrl: item.pictureUrl,
+                                      width: 40,
+                                      height: 40,
+                                      fit: BoxFit.cover,
+                                      placeholder: (context, url) =>
+                                          const SizedBox(
+                                            width: 20,
+                                            height: 20,
+                                            child: CircularProgressIndicator(
+                                              strokeWidth: 2,
+                                            ),
+                                          ),
+                                      errorWidget: (context, url, error) =>
+                                          const Icon(Icons.error),
+                                    ),
+                                  ),
+                                ],
                               ),
-                            );
-                          }
-                          return ListView.separated(
-                            padding: const EdgeInsets.all(16),
-                            itemCount: owners.length,
-                            separatorBuilder:
-                                (context, index) => const Divider(height: 1),
-                            itemBuilder: (context, index) {
-                              final owner = owners[index];
-                              return Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  vertical: 12,
-                                ),
-                                child: Row(
-                                  children: [
-                                    Expanded(
-                                      flex: 2,
-                                      child: Text(
-                                        owner.userName,
-                                        style: AppStyles.styleRegular16(
-                                          context,
-                                        ),
-                                      ),
-                                    ),
-                                    Expanded(
-                                      flex: 2,
-                                      child: Text(
-                                        owner.phoneNumber,
-                                        style: AppStyles.styleRegular16(
-                                          context,
-                                        ),
-                                      ),
-                                    ),
-                                    Expanded(
-                                      flex: 2,
-                                      child: Text(
-                                        owner.email,
-                                        style: AppStyles.styleRegular16(
-                                          context,
-                                        ),
-                                      ),
-                                    ),
-                                    Expanded(
-                                      flex: 1,
-                                      child: Text(
-                                        owner.villaNumber.toString(),
-                                        style: AppStyles.styleRegular16(
-                                          context,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              );
-                            },
-                          );
-                        }
-                        return const SizedBox.shrink();
-                      },
+                            ),
+                            Expanded(
+                              flex: 3,
+                              child: StatusCell(
+                                accept: AppLocalizations.of(context)!.edit,
+                                refuse: AppLocalizations.of(context)!.delete,
+                                onAccept: () {
+                                  // Update logic placeholder
+                                },
+                                onReject: () {
+                                  // Delete logic placeholder
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                    separatorBuilder: (_, __) => const Divider(
+                      height: 0,
+                      color: Color(0xFFE2E2E2),
                     ),
                   ),
+                  SliverToBoxAdapter(child: SizedBox(height: 50)),
                 ],
-              ),
-            ),
-          ),
-        ],
+              );
+            }
+            return const Center(child: CircularProgressIndicator());
+          },
+        ),
       ),
     );
   }

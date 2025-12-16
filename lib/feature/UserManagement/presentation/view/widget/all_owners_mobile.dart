@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rehana_dashboared/feature/UserManagement/presentation/view/widget/owner_card_mobile.dart';
 import '../../../../../core/utils/appstyle/app_styles.dart';
 import '../../../../../l10n/app_localizations.dart';
 import '../../manger/user_cubit.dart';
@@ -11,14 +12,6 @@ class AllOwnersMobile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        AppBar(
-          title: Text(
-            "كل الملاك", // All Owners
-            style: AppStyles.styleLogin(context),
-          ),
-          backgroundColor: Colors.white,
-          elevation: 0,
-        ),
         Expanded(
           child: BlocBuilder<UserCubit, UserState>(
             builder: (context, state) {
@@ -33,30 +26,38 @@ class AllOwnersMobile extends StatelessWidget {
                     child: Text(AppLocalizations.of(context)!.no_users_found),
                   );
                 }
-                return ListView.builder(
-                  padding: const EdgeInsets.all(16),
-                  itemCount: owners.length,
-                  itemBuilder: (context, index) {
-                    final owner = owners[index];
-                    return Card(
-                      margin: const EdgeInsets.only(bottom: 12),
-                      child: ListTile(
-                        leading: CircleAvatar(
-                          child: Text(owner.userName.isNotEmpty
-                              ? owner.userName[0].toUpperCase()
-                              : "?"),
-                        ),
-                        title: Text(owner.userName),
-                        subtitle: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(owner.phoneNumber),
-                            Text(owner.email),
-                          ],
+                return CustomScrollView(
+                  slivers: [
+                    SliverToBoxAdapter(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                        child: Text(
+                          "كل الملاك", // All Owners
+                          style: AppStyles.styleLogin(context),
                         ),
                       ),
-                    );
-                  },
+                    ),
+                    SliverPadding(
+                      padding: const EdgeInsets.all(16),
+                      sliver: SliverList.separated(
+                        itemCount: owners.length,
+                        separatorBuilder: (_, __) => const SizedBox(height: 10),
+                        itemBuilder: (context, index) {
+
+                          return OwnerCardMobile(
+                            ownerModel:  owners[index],
+                            isButtons: true,
+                            onAccept: () {
+                              // Placeholder for Edit
+                            },
+                            onReject: () {
+                              // Placeholder for Delete
+                            },
+                          );
+                        },
+                      ),
+                    ),
+                  ],
                 );
               }
               return const SizedBox.shrink();
