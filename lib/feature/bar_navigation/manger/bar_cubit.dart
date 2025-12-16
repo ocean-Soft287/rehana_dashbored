@@ -18,6 +18,7 @@ import '../../Account_Management/presentation/view/screen/summarybondbyyear_stat
 import '../../Account_Management/presentation/view/screen/responsive_create_abond.dart';
 import '../../Account_Management/presentation/view/screen/responsive_members_account_statement.dart';
 
+import '../../Home/presentation/view/widget/screen/responsive_home.dart';
 import '../../UserManagement/presentation/view/screen/responsive_usermangment.dart';
 import '../../add_users/presentaion/screen/add_account_mangment_responsive.dart';
 import '../../create_invite/presentation/view/screen/responsive_create_invite.dart';
@@ -90,9 +91,9 @@ class BottomCubit extends Cubit<BottomState> {
           case 0:
             return ResponsiveCreateInvite(); // Add invitation
           case 1:
-            return const ResponsiveCreateInvite(); // View invitations (placeholder, default)
+            return const ResponsiveHome(); // View invitations (placeholder, default)
           default:
-            return ResponsiveCreateInvite();
+            return ResponsiveHome();
         }
       case 1: // Security (Previously 2)
         switch (selectedSubIndex) {
