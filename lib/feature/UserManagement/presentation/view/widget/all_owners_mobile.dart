@@ -4,6 +4,7 @@ import 'package:rehana_dashboared/feature/UserManagement/presentation/view/widge
 import '../../../../../core/utils/appstyle/app_styles.dart';
 import '../../../../../l10n/app_localizations.dart';
 import '../../manger/user_cubit.dart';
+import 'owner_edit_alert_dialog.dart';
 
 class AllOwnersMobile extends StatelessWidget {
   const AllOwnersMobile({super.key});
@@ -43,15 +44,17 @@ class AllOwnersMobile extends StatelessWidget {
                         itemCount: owners.length,
                         separatorBuilder: (_, __) => const SizedBox(height: 10),
                         itemBuilder: (context, index) {
-
                           return OwnerCardMobile(
                             ownerModel:  owners[index],
                             isButtons: true,
                             onAccept: () {
-                              // Placeholder for Edit
+                              showDialog(
+                                context: context,
+                                builder: (context) => OwnerEditAlertDialog(ownerModel: owners[index]),
+                              );
                             },
                             onReject: () {
-                              // Placeholder for Delete
+                              context.read<UserCubit>().deleteOwner(owners[index].id);
                             },
                           );
                         },

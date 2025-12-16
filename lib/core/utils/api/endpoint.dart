@@ -42,4 +42,7 @@ static String getbondssummarybyyearbyvillanumber="$baseUrl/Dashboard/GetBondsSum
 //chat
 
 
+
+  static String updateMember = "$baseUrl/Dashboard/updateMember";
+  static String deleteMember = "$baseUrl/Dashboard/deleteMember?id=";
 }

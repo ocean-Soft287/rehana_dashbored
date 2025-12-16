@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart' hide DataCell;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../core/const/widget/table/headercell.dart';
@@ -8,6 +7,7 @@ import '../../../../../core/utils/colors/colors.dart' show Appcolors;
 import '../../../../../core/widgets/custom_snack_bar.dart';
 import '../../../../../l10n/app_localizations.dart';
 import '../../manger/user_cubit.dart';
+import 'owner_edit_alert_dialog.dart';
 
 class AllOwnersTablet extends StatefulWidget {
   const AllOwnersTablet({super.key});
@@ -32,6 +32,7 @@ class _AllOwnersTabletState extends State<AllOwnersTablet> {
           },
           builder: (context, state) {
             if (state is Getallmemebersuccful) {
+
               return CustomScrollView(
                 slivers: [
                   SliverToBoxAdapter(
@@ -76,6 +77,7 @@ class _AllOwnersTabletState extends State<AllOwnersTablet> {
                     itemCount: state.userModel.length,
                     itemBuilder: (_, index) {
                       final item = state.userModel[index];
+                      print("http://78.89.159.126:9393/TheOneAPIRehana${item.pictureUrl}");
                       final bgColor =
                           index.isOdd ? const Color(0xFFF6F9ED) : Colors.white;
 
@@ -98,21 +100,22 @@ class _AllOwnersTabletState extends State<AllOwnersTablet> {
                                 children: [
                                   ClipRRect(
                                     borderRadius: BorderRadius.circular(20),
-                                    child: CachedNetworkImage(
-                                      imageUrl: item.pictureUrl,
+                                    child: Image.network(
+                                      "http://78.89.159.126:9393/TheOneAPIRehana${item.pictureUrl}",
                                       width: 40,
                                       height: 40,
                                       fit: BoxFit.cover,
-                                      placeholder: (context, url) =>
-                                          const SizedBox(
-                                            width: 20,
-                                            height: 20,
-                                            child: CircularProgressIndicator(
-                                              strokeWidth: 2,
-                                            ),
-                                          ),
-                                      errorWidget: (context, url, error) =>
-                                          const Icon(Icons.error),
+                                      loadingBuilder: (context, child, loadingProgress) {
+                                        if (loadingProgress == null) return child;
+                                        return const SizedBox(
+                                          width: 20,
+                                          height: 20,
+                                          child: CircularProgressIndicator(strokeWidth: 2),
+                                        );
+                                      },
+                                      errorBuilder: (context, error, stackTrace) {
+                                        return const Icon(Icons.error);
+                                      },
                                     ),
                                   ),
                                 ],
@@ -124,10 +127,13 @@ class _AllOwnersTabletState extends State<AllOwnersTablet> {
                                 accept: AppLocalizations.of(context)!.edit,
                                 refuse: AppLocalizations.of(context)!.delete,
                                 onAccept: () {
-                                  // Update logic placeholder
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) => OwnerEditAlertDialog(ownerModel: item),
+                                  );
                                 },
                                 onReject: () {
-                                  // Delete logic placeholder
+                                  context.read<UserCubit>().deleteOwner(item.id);
                                 },
                               ),
                             ),

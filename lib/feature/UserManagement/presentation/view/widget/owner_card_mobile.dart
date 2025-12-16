@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:rehana_dashboared/core/const/widget/mobile_table/row_item.dart'
     show RowItem;
 import 'package:rehana_dashboared/l10n/app_localizations.dart';
@@ -43,14 +42,22 @@ class OwnerCardMobile extends StatelessWidget {
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(8),
-              child: CachedNetworkImage(
-                imageUrl: ownerModel.pictureUrl,
-                height: 180,
-                width: double.infinity,
+              child: Image.network(
+                "http://78.89.159.126:9393/TheOneAPIRehana${ownerModel.pictureUrl}",
+                width: 40,
+                height: 40,
                 fit: BoxFit.cover,
-                progressIndicatorBuilder: (context, url, downloadProgress) =>
-                    Center(child: CircularProgressIndicator(value: downloadProgress.progress)),
-                errorWidget: (context, url, error) => const Icon(Icons.error),
+                loadingBuilder: (context, child, loadingProgress) {
+                  if (loadingProgress == null) return child;
+                  return const SizedBox(
+                    width: 20,
+                    height: 20,
+                    child: CircularProgressIndicator(strokeWidth: 2),
+                  );
+                },
+                errorBuilder: (context, error, stackTrace) {
+                  return const Icon(Icons.error);
+                },
               ),
             ),
             const SizedBox(height: 12),

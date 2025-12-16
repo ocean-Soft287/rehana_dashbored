@@ -103,5 +103,66 @@ class Usermangmentrepoimp implements UserMangmentRepo{
     }
   }
 
+  @override
+  Future<Either<Failure, void>> updateOwner({
+    required int id,
+    required String email,
+    required String name,
+    required String phoneNumber,
+    required String password,
+    required String villaAddress,
+    required int villaNumber,
+    required String villaLocation,
+    required String villaSpace,
+    required String villaStreet,
+    required int villaFloorsNumber,
+    dynamic image,
+  }) async {
+    try {
+      final formData = FormData.fromMap({
+        'Id': id,
+        'Email': email,
+        'Name': name,
+        'PhoneNumber': phoneNumber,
+        'Password': password,
+        'VillaAddress': villaAddress,
+        'VillaNumber': villaNumber,
+        'VillaLocation': villaLocation,
+        'VillaSpace': villaSpace,
+        'VillaStreet': villaStreet,
+        'VillaFloorsNumber': villaFloorsNumber,
+        if (image != null)
+          'Image': await MultipartFile.fromFile(
+            image.path,
+            filename: image.path.split('/').last,
+          ),
+      });
+
+      await dioConsumer.put(
+        EndPoint.updateMember,
+        data: formData,
+        isFromData: true,
+      );
+
+      return right(null);
+    } on DioException catch (e) {
+      return left(_handleDioError(e));
+    } catch (e) {
+      return left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> deleteOwner(int id) async {
+    try {
+      await dioConsumer.delete("${EndPoint.deleteMember}$id");
+      return right(null);
+    } on DioException catch (e) {
+      return left(_handleDioError(e));
+    } catch (e) {
+      return left(ServerFailure(e.toString()));
+    }
+  }
+
 
 }

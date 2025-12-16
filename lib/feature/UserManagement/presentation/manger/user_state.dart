@@ -58,5 +58,19 @@ class GetAllOwnersSuccess extends UserState {
 }
 class GetAllOwnersFailure extends UserState {
   final String message;
+
   GetAllOwnersFailure(this.message);
+}
+class UpdateOwnerLoading extends UserState {}
+class UpdateOwnerSuccess extends UserState {}
+class UpdateOwnerFailure extends UserState {
+  final String message;
+  UpdateOwnerFailure(this.message);
+}
+
+class DeleteOwnerLoading extends UserState {}
+class DeleteOwnerSuccess extends UserState {}
+class DeleteOwnerFailure extends UserState {
+  final String message;
+  DeleteOwnerFailure(this.message);
 }

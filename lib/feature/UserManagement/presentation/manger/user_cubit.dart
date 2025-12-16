@@ -59,4 +59,54 @@ class UserCubit extends Cubit<UserState> {
 
 
 
+
+  Future<void> updateOwner({
+    required int id,
+    required String email,
+    required String name,
+    required String phoneNumber,
+    required String password,
+    required String villaAddress,
+    required int villaNumber,
+    required String villaLocation,
+    required String villaSpace,
+    required String villaStreet,
+    required int villaFloorsNumber,
+    dynamic image,
+  }) async {
+    emit(UpdateOwnerLoading());
+    final result = await userMangmentRepo.updateOwner(
+      id: id,
+      email: email,
+      name: name,
+      phoneNumber: phoneNumber,
+      password: password,
+      villaAddress: villaAddress,
+      villaNumber: villaNumber,
+      villaLocation: villaLocation,
+      villaSpace: villaSpace,
+      villaStreet: villaStreet,
+      villaFloorsNumber: villaFloorsNumber,
+      image: image,
+    );
+    result.fold(
+          (failure) => emit(UpdateOwnerFailure(failure.message)),
+          (success) {
+        emit(UpdateOwnerSuccess());
+        getAllMembers();
+      },
+    );
+  }
+
+  Future<void> deleteOwner(int id) async {
+    emit(DeleteOwnerLoading());
+    final result = await userMangmentRepo.deleteOwner(id);
+    result.fold(
+          (failure) => emit(DeleteOwnerFailure(failure.message)),
+          (success) {
+        emit(DeleteOwnerSuccess());
+        getAllMembers();
+      },
+    );
+  }
 }
