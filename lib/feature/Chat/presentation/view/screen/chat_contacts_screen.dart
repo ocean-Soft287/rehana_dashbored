@@ -9,6 +9,9 @@ import 'package:rehana_dashboared/feature/Chat/data/model/chat_user.dart';
 import 'package:rehana_dashboared/feature/Chat/presentation/manager/chat_contacts_cubit.dart';
 import 'package:rehana_dashboared/feature/Chat/presentation/view/screen/chat_screen.dart';
 
+import '../../../../../core/utils/services/services_locator.dart';
+import '../../manager/chat_messages_cubit.dart';
+
 class ChatContactsScreen extends StatefulWidget {
   const ChatContactsScreen({super.key});
 
@@ -242,7 +245,12 @@ class _ChatContactsScreenState extends State<ChatContactsScreen> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => ChatScreen(user: user),
+                        builder: (context) => BlocProvider(
+                            create:
+                                (context) =>
+                            sl<ChatMessagesCubit>()
+                              ..add(ListenToMessagesEvent(user.id)),
+                            child: ChatScreen(user: user)),
                       ),
                     );
                   },

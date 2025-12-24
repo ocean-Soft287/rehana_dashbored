@@ -220,9 +220,7 @@ class _TabletLoginScreenState extends State<TabletLoginScreen> {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
                                       content: Text(
-                                        AppLocalizations.of(
-                                          context,
-                                        )!.invalid_email_password,
+                                        state.message
                                       ),
                                       backgroundColor: Colors.red,
                                     ),

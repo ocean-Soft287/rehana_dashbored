@@ -139,9 +139,7 @@ bool isobsecure=true;
                           if (state is AuthFailure) {
                             showCustomSnackBar(
                               context,
-                              AppLocalizations.of(
-                                context,
-                              )!.invalid_email_password,
+                              state.message
                             );
                           }
                         },

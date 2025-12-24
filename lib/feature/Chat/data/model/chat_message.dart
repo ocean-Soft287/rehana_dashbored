@@ -26,7 +26,7 @@ class ChatMessage {
       id: json['id'] ?? '',
       senderId: json['senderId'] ?? '',
       receiverId: json['receiverId'] ?? '',
-      content: json['content'] ?? '',
+      content: json['text'] ??json['content']?? '',
       timestamp: (json['timestamp'] as Timestamp?)?.toDate() ?? DateTime.now(),
       type: MessageType.values.firstWhere(
         (e) => e.name == (json['type'] ?? 'text'),
