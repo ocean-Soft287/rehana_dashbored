@@ -45,7 +45,8 @@ final role=SecureStorageService.read(SecureStorageService.role);
 print("token$token");
 print("role$role");
       return right(model);
-    } on DioException catch (e) {
+    } on DioException catch (e,stackTrace) {
+      print("error is $e  stack trace is $stackTrace");
       return left(_handleDioError(e));
     } catch (e) {
       return left(ServerFailure("Login failed: ${e.toString()}"));
