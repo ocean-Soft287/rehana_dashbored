@@ -1,61 +1,88 @@
+import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../../core/bloc/base_state.dart';
 import '../../data/repo/chat_repo.dart';
 import '../../data/model/chat_message.dart';
-import 'chat_messages_state.dart';
 
-class ChatMessagesCubit extends Cubit<ChatMessagesState> {
+part 'chat_messages_event.dart';
+
+class ChatMessagesCubit extends Bloc<ChatMessageEvent, BaseState<ChatMessage>> {
   final ChatRepository repo;
-  final String chatUserId; // The ID of the user we are chatting with
 
-  ChatMessagesCubit(this.repo, this.chatUserId) : super(ChatMessagesInitial());
+  ChatMessagesCubit(this.repo) : super(const BaseState<ChatMessage>()) {
+    on<ListenToMessagesEvent>(_onListenToMessages);
+    on<SendMessageEvent>(_onSendMessage);
+    on<MarkMessageAsReadEvent>(_onMarkMessageAsRead);
+  }
 
   static ChatMessagesCubit get(context) => BlocProvider.of(context);
 
-  void getMessages() {
-    emit(ChatMessagesLoading());
-    try {
-      repo
-          .getMessages(chatUserId)
-          .listen(
-            (messages) {
-              emit(ChatMessagesLoaded(messages));
-            },
-            onError: (error) {
-              emit(ChatMessagesError(error.toString()));
-            },
-          );
-    } catch (e) {
-      emit(ChatMessagesError(e.toString()));
-    }
+  Future<void> _onListenToMessages(
+    ListenToMessagesEvent event,
+    Emitter<BaseState<ChatMessage>> emit,
+  ) async {
+    emit(state.copyWith(status: Status.loading));
+
+    await emit.forEach(
+      repo.getMessages(conversationId: event.conversationId),
+      onData: (either) {
+        return either.fold(
+          (failure) => state.copyWith(
+            status: Status.failure,
+            errorMessage: failure.message,
+            failure: failure,
+          ),
+          (messages) => state.copyWith(status: Status.success, items: messages),
+        );
+      },
+      onError: (error, stackTrace) {
+        return state.copyWith(
+          status: Status.failure,
+          errorMessage: error.toString(),
+        );
+      },
+    );
   }
 
-  Future<void> sendMessage({
-    required String senderId, // Admin ID
-    required String content,
-    MessageType type = MessageType.text,
-  }) async {
-    // Avoid emitting Loading here to keep the list visible?
-    // Usually we optimistic update or just wait for stream update.
-    // But we might want to show a sending indicator.
-
-    final message = ChatMessage(
-      id: '', // Firestore auto-id, but we are passing object. Will be handled or ignored in toFirestore if we use .add()
-      senderId: senderId,
-      receiverId: chatUserId,
-      content: content,
-      timestamp: DateTime.now(),
-      type: type,
-    );
-
+  Future<void> _onSendMessage(
+    SendMessageEvent event,
+    Emitter<BaseState<ChatMessage>> emit,
+  ) async {
     final result = await repo.sendMessage(
-      receiverId: chatUserId,
-      message: message,
+      conversationId: event.conversationId,
+      senderId: event.senderId,
+      receiverId: event.receiverId,
+      content: event.text,
+      type: event.type,
+      senderName: event.senderName,
+      receiverName: event.receiverName,
+      senderProfilePic: event.senderProfilePic,
+      receiverProfilePic: event.receiverProfilePic,
     );
 
-    result.fold((failure) => emit(ChatMessagesError(failure.message)), (
-      success,
-    ) {
-      // Success. Stream will update the UI.
-    });
+    result.fold(
+      (failure) {
+        emit(
+          state.copyWith(
+            status: Status.failure,
+            errorMessage: failure.message,
+            failure: failure,
+          ),
+        );
+      },
+      (messageId) {
+        // Message sent successfully - stream will update automatically
+      },
+    );
+  }
+
+  Future<void> _onMarkMessageAsRead(
+    MarkMessageAsReadEvent event,
+    Emitter<BaseState<ChatMessage>> emit,
+  ) async {
+    await repo.markMessageAsRead(
+      conversationId: event.conversationId,
+      messageId: event.messageId,
+    );
   }
 }

@@ -1,25 +1,26 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get_it/get_it.dart';
-import 'package:rehana_dashboared/core/utils/font/fonts.dart';
+import 'package:intl/intl.dart';
+import 'package:rehana_dashboared/core/bloc/base_state.dart';
 import 'package:rehana_dashboared/core/utils/colors/colors.dart';
+import 'package:rehana_dashboared/core/utils/services/services_locator.dart';
 import 'package:rehana_dashboared/core/utils/Network/local/flutter_secure_storage.dart';
-import 'package:rehana_dashboared/feature/Chat/data/repo/chat_repo.dart';
+import 'package:rehana_dashboared/feature/Chat/data/model/chat_message.dart';
 import 'package:rehana_dashboared/feature/Chat/data/model/chat_user.dart';
 import 'package:rehana_dashboared/feature/Chat/presentation/manager/chat_messages_cubit.dart';
-import 'package:rehana_dashboared/feature/Chat/presentation/manager/chat_messages_state.dart';
 
 class ChatScreen extends StatefulWidget {
   final ChatUser user;
+
   const ChatScreen({super.key, required this.user});
 
   @override
-  State<ChatScreen> createState() => _ChatScreenState();
+  _ChatScreenState createState() => _ChatScreenState();
 }
 
 class _ChatScreenState extends State<ChatScreen> {
   final TextEditingController _controller = TextEditingController();
+  final ScrollController _scrollController = ScrollController();
   String? _myId;
 
   @override
@@ -29,184 +30,441 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   Future<void> _getMyId() async {
-    // Assuming we store some ID in secure storage, or we use email as ID fallback
-    // The user said they have "id" but SecureStorage showed "token", "mobile", "email", "name".
-    // I'll use "email" if id is not there, or maybe "name".
-    // Ideally, we should store UID.
-    // For now, I'll attempt to read "id", if null use email.
-    String? id = await SecureStorageService.read("id");
-    if (id == null) {
-      id = await SecureStorageService.read("email");
-    }
+    // As per user request, it's only one admin
     setState(() {
-      _myId = id;
+      _myId = "admin";
     });
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  Future<void> _sendMessage() async {
+    if (_controller.text.trim().isNotEmpty && _myId != null) {
+      final text = _controller.text.trim();
+      final senderName =
+          await SecureStorageService.read(SecureStorageService.name) ?? "Admin";
+
+      context.read<ChatMessagesCubit>().add(
+        SendMessageEvent(
+          conversationId: _getConversationId(),
+          senderId: _myId!,
+          receiverId: widget.user.id,
+          text: text,
+          senderName: senderName,
+          receiverName: widget.user.name,
+        ),
+      );
+      _controller.clear();
+      Future.delayed(const Duration(milliseconds: 100), () {
+        if (_scrollController.hasClients) {
+          _scrollController.animateTo(
+            _scrollController.position.maxScrollExtent,
+            duration: const Duration(milliseconds: 300),
+            curve: Curves.easeOut,
+          );
+        }
+      });
+    }
+  }
+
+  String _getConversationId() {
+    // In this app structure, the conversation ID is the user's ID
+    return widget.user.id;
+  }
+
+  String _formatTime(DateTime dateTime) {
+    return DateFormat('hh:mm a', 'ar').format(dateTime);
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create:
-          (context) => ChatMessagesCubit(
-            GetIt.instance<ChatRepository>(),
-            widget.user.id,
-          )..getMessages(),
+          (context) =>
+              sl<ChatMessagesCubit>()
+                ..add(ListenToMessagesEvent(_getConversationId())),
       child: Scaffold(
         backgroundColor: const Color(0xFFF5F5F5),
         appBar: AppBar(
           backgroundColor: Colors.white,
-          elevation: 1,
+          elevation: 2,
+          shadowColor: Colors.black12,
           leading: IconButton(
-            icon: const Icon(Icons.arrow_back, color: Colors.black),
+            icon: const Icon(
+              Icons.arrow_back_ios,
+              color: Appcolors.kprimary,
+              size: 22,
+            ),
             onPressed: () => Navigator.pop(context),
           ),
           title: Row(
             children: [
-              CircleAvatar(
-                radius: 18,
-                backgroundColor: Appcolors.kprimary,
-                backgroundImage:
-                    widget.user.image != null
-                        ? CachedNetworkImageProvider(widget.user.image!)
-                        : null,
-                child:
-                    widget.user.image == null
-                        ? Text(widget.user.name.substring(0, 1).toUpperCase())
-                        : null,
+              Stack(
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Appcolors.kprimary.withOpacity(0.3),
+                          blurRadius: 8,
+                          offset: const Offset(0, 2),
+                        ),
+                      ],
+                    ),
+                    child: CircleAvatar(
+                      radius: 20,
+                      backgroundColor: Appcolors.kprimary,
+                      backgroundImage:
+                          widget.user.image != null
+                              ? NetworkImage(widget.user.image!)
+                              : null,
+                      child:
+                          widget.user.image == null
+                              ? Text(
+                                widget.user.name.isNotEmpty
+                                    ? widget.user.name[0].toUpperCase()
+                                    : "?",
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              )
+                              : null,
+                    ),
+                  ),
+                  if (widget.user.isOnline ?? false)
+                    Positioned(
+                      bottom: 0,
+                      right: 0,
+                      child: Container(
+                        width: 14,
+                        height: 14,
+                        decoration: BoxDecoration(
+                          color: const Color(0xFF4CAF50),
+                          shape: BoxShape.circle,
+                          border: Border.all(color: Colors.white, width: 2.5),
+                        ),
+                      ),
+                    ),
+                ],
               ),
-              const SizedBox(width: 10),
-              Text(
-                widget.user.name,
-                style: const TextStyle(
-                  color: Colors.black,
-                  fontFamily: Fonts.font,
-                  fontSize: 16,
+              const SizedBox(width: 12),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      widget.user.name,
+                      style: const TextStyle(
+                        color: Colors.black87,
+                        fontSize: 17,
+                        fontWeight: FontWeight.w600,
+                        letterSpacing: 0.2,
+                      ),
+                    ),
+                    const SizedBox(height: 2),
+                    Text(
+                      (widget.user.isOnline ?? false) ? 'نشط الآن' : 'غير متصل',
+                      style: TextStyle(
+                        color:
+                            (widget.user.isOnline ?? false)
+                                ? const Color(0xFF4CAF50)
+                                : Colors.grey[600],
+                        fontSize: 12,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ],
           ),
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.more_vert, color: Appcolors.kprimary),
+              onPressed: () {},
+            ),
+          ],
         ),
         body: Column(
           children: [
             Expanded(
-              child: BlocBuilder<ChatMessagesCubit, ChatMessagesState>(
+              child: BlocBuilder<ChatMessagesCubit, BaseState<ChatMessage>>(
                 builder: (context, state) {
-                  if (state is ChatMessagesLoading) {
+                  if (state.isLoading) {
                     return const Center(child: CircularProgressIndicator());
                   }
-                  if (state is ChatMessagesError) {
-                    return Center(child: Text("Error: ${state.message}"));
-                  }
-                  if (state is ChatMessagesLoaded) {
-                    final messages = state.messages;
-                    if (messages.isEmpty) {
-                      return const Center(child: Text("No messages yet"));
-                    }
-                    return ListView.builder(
-                      reverse: true, // Standard chat behavior
-                      padding: const EdgeInsets.all(16),
-                      itemCount: messages.length,
-                      itemBuilder: (context, index) {
-                        final message = messages[index];
-                        final isMe = message.senderId == _myId;
-                        return Align(
-                          alignment:
-                              isMe
-                                  ? Alignment.centerRight
-                                  : Alignment.centerLeft,
-                          child: Container(
-                            margin: const EdgeInsets.symmetric(vertical: 4),
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 16,
-                              vertical: 10,
-                            ),
-                            decoration: BoxDecoration(
-                              color: isMe ? Appcolors.kprimary : Colors.white,
-                              borderRadius: BorderRadius.only(
-                                topLeft: const Radius.circular(12),
-                                topRight: const Radius.circular(12),
-                                bottomLeft:
-                                    isMe
-                                        ? const Radius.circular(12)
-                                        : Radius.zero,
-                                bottomRight:
-                                    isMe
-                                        ? Radius.zero
-                                        : const Radius.circular(12),
-                              ),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black.withOpacity(0.05),
-                                  blurRadius: 5,
-                                  offset: const Offset(0, 2),
-                                ),
-                              ],
-                            ),
-                            child: Text(
-                              message.content,
-                              style: TextStyle(
-                                fontFamily: Fonts.font,
-                                color: isMe ? Colors.white : Colors.black87,
-                              ),
-                            ),
-                          ),
-                        );
-                      },
+
+                  if (state.isFailure) {
+                    return Center(
+                      child: Text(
+                        state.errorMessage ?? 'Error loading messages',
+                        style: const TextStyle(color: Colors.red),
+                      ),
                     );
                   }
-                  return const SizedBox();
+
+                  final messages = state.items;
+
+                  if (messages.isEmpty) {
+                    return const Center(
+                      child: Text(
+                        'لا توجد رسائل',
+                        style: TextStyle(color: Colors.grey, fontSize: 16),
+                      ),
+                    );
+                  }
+
+                  return ListView.builder(
+                    controller: _scrollController,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 12,
+                      vertical: 16,
+                    ),
+                    itemCount: messages.length,
+                    itemBuilder: (context, index) {
+                      final msg = messages[index];
+                      final bool isSent = msg.senderId == _myId;
+                      final bool showAvatar =
+                          index == 0 ||
+                          messages[index - 1].senderId != msg.senderId;
+
+                      return Padding(
+                        padding: const EdgeInsets.only(bottom: 12),
+                        child: Row(
+                          mainAxisAlignment:
+                              isSent
+                                  ? MainAxisAlignment.end
+                                  : MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            if (!isSent)
+                              Container(
+                                margin: const EdgeInsets.only(bottom: 20),
+                                child:
+                                    showAvatar
+                                        ? CircleAvatar(
+                                          radius: 16,
+                                          backgroundColor: Appcolors.kprimary,
+                                          backgroundImage:
+                                              widget.user.image != null
+                                                  ? NetworkImage(
+                                                    widget.user.image!,
+                                                  )
+                                                  : null,
+                                          child:
+                                              widget.user.image == null
+                                                  ? Text(
+                                                    widget.user.name.isNotEmpty
+                                                        ? widget.user.name[0]
+                                                            .toUpperCase()
+                                                        : "?",
+                                                    style: const TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: 14,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                                  )
+                                                  : null,
+                                        )
+                                        : const SizedBox(width: 32),
+                              ),
+                            if (!isSent) const SizedBox(width: 8),
+                            Flexible(
+                              child: Column(
+                                crossAxisAlignment:
+                                    isSent
+                                        ? CrossAxisAlignment.end
+                                        : CrossAxisAlignment.start,
+                                children: [
+                                  Container(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 16,
+                                      vertical: 12,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      gradient:
+                                          isSent
+                                              ? LinearGradient(
+                                                colors: [
+                                                  Appcolors.kprimary,
+                                                  Appcolors.kprimary
+                                                      .withOpacity(0.85),
+                                                ],
+                                                begin: Alignment.topLeft,
+                                                end: Alignment.bottomRight,
+                                              )
+                                              : null,
+                                      color: isSent ? null : Colors.white,
+                                      borderRadius: BorderRadius.only(
+                                        topLeft: const Radius.circular(20),
+                                        topRight: const Radius.circular(20),
+                                        bottomLeft: Radius.circular(
+                                          isSent ? 20 : 4,
+                                        ),
+                                        bottomRight: Radius.circular(
+                                          isSent ? 4 : 20,
+                                        ),
+                                      ),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color:
+                                              isSent
+                                                  ? Appcolors.kprimary
+                                                      .withOpacity(0.3)
+                                                  : Colors.black.withOpacity(
+                                                    0.08,
+                                                  ),
+                                          blurRadius: 8,
+                                          offset: const Offset(0, 2),
+                                        ),
+                                      ],
+                                    ),
+                                    child: Text(
+                                      msg.content,
+                                      style: TextStyle(
+                                        color:
+                                            isSent
+                                                ? Colors.white
+                                                : Colors.black87,
+                                        fontSize: 15,
+                                        height: 1.4,
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(height: 4),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 4,
+                                    ),
+                                    child: Text(
+                                      _formatTime(msg.timestamp),
+                                      style: TextStyle(
+                                        color: Colors.grey[600],
+                                        fontSize: 11,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                  );
                 },
               ),
             ),
-            _buildMessageInput(context),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildMessageInput(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      color: Colors.white,
-      child: Row(
-        children: [
-          Expanded(
-            child: TextField(
-              controller: _controller,
-              decoration: InputDecoration(
-                hintText: "Type a message...",
-                hintStyle: const TextStyle(fontFamily: Fonts.font),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(25),
-                  borderSide: BorderSide.none,
-                ),
-                filled: true,
-                fillColor: Colors.grey[100],
-                contentPadding: const EdgeInsets.symmetric(
-                  horizontal: 20,
-                  vertical: 10,
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.08),
+                    blurRadius: 10,
+                    offset: const Offset(0, -2),
+                  ),
+                ],
+              ),
+              child: SafeArea(
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 18,
+                          vertical: 2,
+                        ),
+                        decoration: BoxDecoration(
+                          color: Colors.grey[100],
+                          borderRadius: BorderRadius.circular(26),
+                          border: Border.all(
+                            color: Colors.grey[300]!,
+                            width: 1,
+                          ),
+                        ),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: TextField(
+                                controller: _controller,
+                                decoration: InputDecoration(
+                                  hintText: 'اكتب رسالة...',
+                                  hintStyle: TextStyle(
+                                    color: Colors.grey[500],
+                                    fontSize: 15,
+                                  ),
+                                  border: InputBorder.none,
+                                  contentPadding: const EdgeInsets.symmetric(
+                                    vertical: 10,
+                                  ),
+                                ),
+                                style: const TextStyle(fontSize: 15),
+                                onSubmitted: (value) => _sendMessage(),
+                                textInputAction: TextInputAction.send,
+                              ),
+                            ),
+                            IconButton(
+                              icon: Icon(
+                                Icons.emoji_emotions_outlined,
+                                color: Colors.grey[600],
+                                size: 24,
+                              ),
+                              onPressed: () {},
+                              padding: EdgeInsets.zero,
+                              constraints: const BoxConstraints(),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                    Material(
+                      color: Appcolors.kprimary,
+                      borderRadius: BorderRadius.circular(26),
+                      elevation: 2,
+                      shadowColor: Appcolors.kprimary.withOpacity(0.4),
+                      child: InkWell(
+                        onTap: _sendMessage,
+                        borderRadius: BorderRadius.circular(26),
+                        child: Container(
+                          width: 48,
+                          height: 48,
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              colors: [
+                                Appcolors.kprimary,
+                                Appcolors.kprimary.withOpacity(0.85),
+                              ],
+                            ),
+                            borderRadius: BorderRadius.circular(26),
+                          ),
+                          child: const Icon(
+                            Icons.send_rounded,
+                            color: Colors.white,
+                            size: 22,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
-          ),
-          const SizedBox(width: 8),
-          CircleAvatar(
-            backgroundColor: Appcolors.kprimary,
-            child: IconButton(
-              icon: const Icon(Icons.send, color: Colors.white, size: 20),
-              onPressed: () {
-                if (_controller.text.trim().isEmpty || _myId == null) return;
-
-                ChatMessagesCubit.get(context).sendMessage(
-                  senderId: _myId!,
-                  content: _controller.text.trim(),
-                );
-                _controller.clear();
-              },
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

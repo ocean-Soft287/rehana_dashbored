@@ -21,28 +21,27 @@ class ChatMessage {
     this.isRead = false,
   });
 
-  factory ChatMessage.fromFirestore(DocumentSnapshot doc) {
-    final data = doc.data() as Map<String, dynamic>;
+  factory ChatMessage.fromJson(Map<String, dynamic> json) {
     return ChatMessage(
-      id: doc.id,
-      senderId: data['senderId'] ?? '',
-      receiverId: data['receiverId'] ?? '',
-      content: data['content'] ?? '',
-      timestamp: (data['timestamp'] as Timestamp?)?.toDate() ?? DateTime.now(),
+      id: json['id'] ?? '',
+      senderId: json['senderId'] ?? '',
+      receiverId: json['receiverId'] ?? '',
+      content: json['content'] ?? '',
+      timestamp: (json['timestamp'] as Timestamp?)?.toDate() ?? DateTime.now(),
       type: MessageType.values.firstWhere(
-        (e) => e.toString() == 'MessageType.${data['type'] ?? 'text'}',
+        (e) => e.name == (json['type'] ?? 'text'),
         orElse: () => MessageType.text,
       ),
-      isRead: data['isRead'] ?? false,
+      isRead: json['isRead'] ?? false,
     );
   }
 
-  Map<String, dynamic> toFirestore() {
+  Map<String, dynamic> toJson() {
     return {
       'senderId': senderId,
       'receiverId': receiverId,
       'content': content,
-      'timestamp': FieldValue.serverTimestamp(),
+      'timestamp': timestamp,
       'type': type.name,
       'isRead': isRead,
     };

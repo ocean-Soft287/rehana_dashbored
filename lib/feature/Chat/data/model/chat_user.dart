@@ -8,6 +8,9 @@ class ChatUser {
   final bool? isOnline;
   final DateTime? lastSeen;
 
+  final String? lastMessage;
+  final DateTime? lastMessageTime;
+
   ChatUser({
     required this.id,
     required this.name,
@@ -15,6 +18,8 @@ class ChatUser {
     this.email,
     this.isOnline,
     this.lastSeen,
+    this.lastMessage,
+    this.lastMessageTime,
   });
 
   factory ChatUser.fromJson(Map<String, dynamic> json) {
@@ -22,16 +27,28 @@ class ChatUser {
       // Parsing ID with fallbacks similar to what was requested
       id:
           json['id']?.toString() ??
+          json['otherUserId']?.toString() ??
           json['userId']?.toString() ??
           json['uid']?.toString() ??
           '',
-      name: json['name'] ?? json['userName'] ?? json['fullName'] ?? 'Unknown',
-      image: json['image'] ?? json['profileImage'],
+      name:
+          json['name'] ??
+          json['otherUserName'] ??
+          json['userName'] ??
+          json['fullName'] ??
+          'Unknown',
+      image:
+          json['image'] ?? json['otherUserProfilePic'] ?? json['profileImage'],
       email: json['email'],
       isOnline: json['isOnline'],
       lastSeen:
           json['lastSeen'] != null
               ? (json['lastSeen'] as Timestamp).toDate()
+              : null,
+      lastMessage: json['lastMessage'],
+      lastMessageTime:
+          json['lastMessageTime'] != null
+              ? (json['lastMessageTime'] as Timestamp).toDate()
               : null,
     );
   }
@@ -44,6 +61,8 @@ class ChatUser {
       'email': email,
       'isOnline': isOnline,
       'lastSeen': lastSeen,
+      'lastMessage': lastMessage,
+      'lastMessageTime': lastMessageTime,
     };
   }
 }
