@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:rehana_dashboared/core/utils/Network/local/flutter_secure_storage.dart';
+import 'package:rehana_dashboared/core/utils/Network/local/cache_manager.dart';
 import 'package:rehana_dashboared/core/utils/colors/colors.dart';
 
 import '../../../../core/const/widget/expansion_sidebar_item.dart';
@@ -148,7 +148,8 @@ class Sidebar extends StatelessWidget {
                             ),
                             (route) => false,
                           );
-                          SecureStorageService.clearAll();
+                          CacheManager.clear();
+                          // SecureStorageService.clearAll();
                         },
                         icon: const Icon(Icons.logout, color: Colors.white),
                         label: const Text(

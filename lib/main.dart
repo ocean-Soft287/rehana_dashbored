@@ -2,11 +2,11 @@ import 'dart:ui' as ui;
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:rehana_dashboared/core/utils/Network/local/cache_manager.dart';
 import 'firebase_options.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get_it/get_it.dart';
-import 'package:rehana_dashboared/core/utils/Network/local/flutter_secure_storage.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'bloc_observer.dart';
 import 'core/utils/Network/local/sharedprefrences.dart';
@@ -20,7 +20,8 @@ import 'l10n/app_localizations.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  WidgetsFlutterBinding.ensureInitialized();
+  // WidgetsFlutterBinding.ensureInitialized();
+  await CacheManager.init();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   ui.channelBuffers.setListener('flutter/lifecycle', (data, _) {});
   setup();
@@ -94,9 +95,11 @@ class _SplashscreenState extends State<Splashscreen>
 
     _controller.forward();
 
-    Future.delayed(const Duration(seconds: 2), () async {
-      final token = await SecureStorageService.read(SecureStorageService.token);
-      final role = await SecureStorageService.read(SecureStorageService.role);
+    Future.delayed(const Duration(milliseconds: 500), () async {
+      final token = await CacheManager.getAccessToken();
+      final role = await CacheManager().getData(key: "role");
+      // final token = await SecureStorageService.read(SecureStorageService.token);
+      // final role = await SecureStorageService.read(SecureStorageService.role);
       final nextRoute =
           (token != null || role != null) ? Routes.home : Routes.login;
 

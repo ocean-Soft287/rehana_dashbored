@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
 import 'package:flutter/cupertino.dart';
-import '../Network/local/flutter_secure_storage.dart';
+import 'package:rehana_dashboared/core/utils/Network/local/cache_manager.dart';
 import 'endpoint.dart';
 import 'api_consumer.dart';
 
@@ -38,7 +38,8 @@ class DioConsumer extends ApiConsumer {
   }
 
   Future<Map<String, String>> _buildHeaders({bool withAuth = true}) async {
-    final token = await SecureStorageService.read(SecureStorageService.token);
+    final token = await CacheManager.getAccessToken();
+    // final token = await SecureStorageService.read(SecureStorageService.token);
     return {
       'Accept-Language': 'ar',
       if (token != null)

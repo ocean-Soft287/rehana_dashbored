@@ -5,7 +5,7 @@ import 'package:dio/dio.dart';
 import 'package:rehana_dashboared/feature/Auth/data/repo/auth_repo.dart';
 
 import '../../../../core/utils/Failure/failure.dart';
-import '../../../../core/utils/Network/local/flutter_secure_storage.dart';
+import '../../../../core/utils/Network/local/cache_manager.dart';
 import '../../../../core/utils/api/dio_consumer.dart';
 import '../../../../core/utils/api/endpoint.dart';
 import '../model/login_model.dart';
@@ -30,28 +30,56 @@ class Loginrepoimp implements LoginRepo {
       final json = response as Map<String, dynamic>;
       final model = UserModel.fromJson(json);
 
+      // ✅ تأكيد التوكن
       if (model.token.isEmpty) {
-        return left(ServerFailure("Missing token in response."));
+        return left(ServerFailure("Missing token in response"));
       }
 
-      // SecureStorage writes
-      await SecureStorageService.write(SecureStorageService.token, model.token);
-      await SecureStorageService.write(
-        SecureStorageService.role,
-        model.roles[0],
+      // ✅ حفظ التوكن
+      await CacheManager.saveAccessToken(model.token);
+      await CacheManager().saveData(key: "name", value: model.userName);
+
+      // ✅ حفظ الدور (بأمان)
+      final role =
+      model.roles.isNotEmpty ? model.roles.first : 'user';
+
+      await CacheManager().saveData(
+        key: 'role',
+        value: role,
       );
-final token= SecureStorageService.read(SecureStorageService.token);
-final role=SecureStorageService.read(SecureStorageService.role);
-print("token$token");
-print("role$role");
+
+      // (اختياري للتأكد)
+      final savedToken = await CacheManager.getAccessToken();
+      final savedRole = CacheManager().getData(key: 'role');
+
+      print('Saved Token => $savedToken');
+      print('Saved Role  => $savedRole');
+
       return right(model);
-    } on DioException catch (e,stackTrace) {
-      print("error is $e  stack trace is $stackTrace");
+    } on DioException catch (e, stackTrace) {
+      print("Dio error: $e");
+      print("StackTrace: $stackTrace");
       return left(_handleDioError(e));
-    } catch (e) {
-      return left(ServerFailure("Login failed: ${e.toString()}"));
+    } catch (e, stackTrace) {
+      print("Unexpected error: $e");
+      print("StackTrace: $stackTrace");
+      return left(
+        ServerFailure("Login failed: ${e.toString()}"),
+      );
     }
   }
+
+  Failure _handleDioError(DioException error) {
+    return ServerFailure(
+      error.message ?? "Unknown error occurred",
+    );
+  }
+
+
+
+
+
+
 
   @override
   Future<Either<Failure, String>> forgetpassword({
@@ -109,7 +137,7 @@ print("role$role");
     }
   }
 
-  Failure _handleDioError(DioException error) {
-    return ServerFailure(error.message ?? "Unknown error occurred");
-  }
+  // Failure _handleDioError(DioException error) {
+  //   return ServerFailure(error.message ?? "Unknown error occurred");
+  // }
 }

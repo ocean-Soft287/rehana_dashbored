@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:rehana_dashboared/core/bloc/base_state.dart';
+import 'package:rehana_dashboared/core/utils/Network/local/cache_manager.dart';
 import 'package:rehana_dashboared/core/utils/colors/colors.dart';
-import 'package:rehana_dashboared/core/utils/services/services_locator.dart';
-import 'package:rehana_dashboared/core/utils/Network/local/flutter_secure_storage.dart';
 import 'package:rehana_dashboared/feature/Chat/data/model/chat_message.dart';
 import 'package:rehana_dashboared/feature/Chat/data/model/chat_user.dart';
 import 'package:rehana_dashboared/feature/Chat/presentation/manager/chat_messages_cubit.dart';
@@ -46,8 +45,9 @@ class _ChatScreenState extends State<ChatScreen> {
   Future<void> _sendMessage() async {
     if (_controller.text.trim().isNotEmpty && _myId != null) {
       final text = _controller.text.trim();
-      final senderName =
-          await SecureStorageService.read(SecureStorageService.name) ?? "Admin";
+      final senderName = await CacheManager().getData(key: "name");
+      // final senderName =
+      //     await SecureStorageService.read(SecureStorageService.name) ?? "Admin";
 
       context.read<ChatMessagesCubit>().add(
         SendMessageEvent(
@@ -106,7 +106,7 @@ class _ChatScreenState extends State<ChatScreen> {
                     shape: BoxShape.circle,
                     boxShadow: [
                       BoxShadow(
-                        color: Appcolors.kprimary.withOpacity(0.3),
+                        color: Appcolors.kprimary.withValues(alpha: 0.3),
                         blurRadius: 8,
                         offset: const Offset(0, 2),
                       ),
@@ -165,17 +165,6 @@ class _ChatScreenState extends State<ChatScreen> {
                     ),
                   ),
                   const SizedBox(height: 2),
-                  Text(
-                    (widget.user.isOnline ?? false) ? 'نشط الآن' : 'غير متصل',
-                    style: TextStyle(
-                      color:
-                          (widget.user.isOnline ?? false)
-                              ? const Color(0xFF4CAF50)
-                              : Colors.grey[600],
-                      fontSize: 12,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
                 ],
               ),
             ),
@@ -291,7 +280,7 @@ class _ChatScreenState extends State<ChatScreen> {
                                             ? LinearGradient(
                                               colors: [
                                                 Appcolors.kprimary,
-                                                Appcolors.kprimary.withOpacity(
+                                                Appcolors.kprimary.withValues(alpha:
                                                   0.85,
                                                 ),
                                               ],
@@ -315,8 +304,8 @@ class _ChatScreenState extends State<ChatScreen> {
                                         color:
                                             isSent
                                                 ? Appcolors.kprimary
-                                                    .withOpacity(0.3)
-                                                : Colors.black.withOpacity(
+                                                    .withValues(alpha: 0.3)
+                                                : Colors.black.withValues(alpha:
                                                   0.08,
                                                 ),
                                         blurRadius: 8,
@@ -368,7 +357,7 @@ class _ChatScreenState extends State<ChatScreen> {
               color: Colors.white,
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withOpacity(0.08),
+                  color: Colors.black.withValues(alpha: 0.08),
                   blurRadius: 10,
                   offset: const Offset(0, -2),
                 ),
@@ -428,7 +417,7 @@ class _ChatScreenState extends State<ChatScreen> {
                     color: Appcolors.kprimary,
                     borderRadius: BorderRadius.circular(26),
                     elevation: 2,
-                    shadowColor: Appcolors.kprimary.withOpacity(0.4),
+                    shadowColor: Appcolors.kprimary.withValues(alpha: 0.4),
                     child: InkWell(
                       onTap: _sendMessage,
                       borderRadius: BorderRadius.circular(26),
@@ -439,7 +428,7 @@ class _ChatScreenState extends State<ChatScreen> {
                           gradient: LinearGradient(
                             colors: [
                               Appcolors.kprimary,
-                              Appcolors.kprimary.withOpacity(0.85),
+                              Appcolors.kprimary.withValues(alpha: 0.85),
                             ],
                           ),
                           borderRadius: BorderRadius.circular(26),

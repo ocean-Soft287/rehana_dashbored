@@ -56,13 +56,13 @@ bool isobsecure=true;
                   key: _formKey,
                   child: Column(
                     children: [
-                      Text(AppLocalizations.of(context)!.login,
+                      Text(AppLocalizations.of(context)?.login?? "Login",
                           style: AppStyles.styleLogin(context)),
                       const SizedBox(height: 20),
                       TextFormField(
                         controller: widget.emailController,
                         decoration: InputDecoration(
-                          labelText:AppLocalizations.of(context)!.email,
+                          labelText:AppLocalizations.of(context)?.email ?? "Email",
                           labelStyle: AppStyles.textformfieldstyle(context),
                           border: const OutlineInputBorder(),
                           focusedBorder: OutlineInputBorder(
@@ -72,10 +72,10 @@ bool isobsecure=true;
                         keyboardType: TextInputType.emailAddress,
                         validator: (value) {
                           if (value == null || value.trim().isEmpty) {
-                            return AppLocalizations.of(context)!.please;
+                            return AppLocalizations.of(context)?.please;
                           }
                           if (!value.contains('@')) {
-                            return AppLocalizations.of(context)!.invalid_email;
+                            return AppLocalizations.of(context)?.invalid_email;
                           }
                           return null;
                         },
@@ -85,7 +85,7 @@ bool isobsecure=true;
                         controller: widget.passwordController,
                         obscureText:isobsecure ,
                         decoration: InputDecoration(
-                          labelText:AppLocalizations.of(context)!.password,
+                          labelText:AppLocalizations.of(context)?.password,
                           labelStyle: AppStyles.textformfieldstyle(context),
                           border: const OutlineInputBorder(),
                           focusedBorder: OutlineInputBorder(
@@ -101,7 +101,7 @@ bool isobsecure=true;
                         ),
                         validator: (value) {
                           if (value == null || value.trim().isEmpty) {
-                            return AppLocalizations.of(context)!.please;
+                            return AppLocalizations.of(context)?.please ?? "";
                           }
                           return null;
                         },
@@ -113,7 +113,7 @@ bool isobsecure=true;
                           onPressed: () =>
                               Navigator.pushNamed(context, Routes.forgetPassword),
                           child: Text(
-                           AppLocalizations.of(context)!.did_you_forget_your_password,
+                           AppLocalizations.of(context)?.did_you_forget_your_password ?? "هل نسيت كلمة السر ؟",
                             style: TextStyle(
                                 fontFamily: Fonts.font, color: Colors.red),
                           ),
@@ -127,7 +127,7 @@ bool isobsecure=true;
                               context,
                               AppLocalizations.of(
                                 context,
-                              )!.login_successfully,
+                              )?.login_successfully ?? "تم تسجيل الدخول بنجاح",
                             );
                             Navigator.pushAndRemoveUntil(
                               context,
@@ -154,7 +154,7 @@ bool isobsecure=true;
                           return SizedBox(
                             width: double.infinity,
                             child: CustomButton(
-                              name:AppLocalizations.of(context)!.login,
+                              name:AppLocalizations.of(context)?.login ?? '',
                               textcolor: Appcolors.kprimary,
                               onTap: () {
                                 if (_formKey.currentState!.validate()) {
