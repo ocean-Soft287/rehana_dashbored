@@ -45,54 +45,54 @@ class Sidebar extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
-                        BlocBuilder<LocalizationCubit, LocalizationState>(
-                          builder: (context, langState) {
-                            String currentLanguageCode = 'ar';
-                            if (langState is ChangeLanguage &&
-                                langState.languageCode != null) {
-                              currentLanguageCode = langState.languageCode!;
-                            }
-                            return Align(
-                              alignment: Alignment.topRight,
-                              child: GestureDetector(
-                                onTap: () {
-                                  if (currentLanguageCode == 'en') {
-                                    BlocProvider.of<LocalizationCubit>(
-                                      context,
-                                    ).appLanguage(
-                                      LanguageEventEnums.arabicLanguage,
-                                    );
-                                  } else {
-                                    BlocProvider.of<LocalizationCubit>(
-                                      context,
-                                    ).appLanguage(
-                                      LanguageEventEnums.englishLanguage,
-                                    );
-                                  }
-                                },
-                                child: Container(
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 8,
-                                    vertical: 4,
-                                  ),
-                                  decoration: BoxDecoration(
-                                    color: Colors.transparent,
-                                    borderRadius: BorderRadius.circular(6),
-                                    border: Border.all(color: Appcolors.kwhite),
-                                  ),
-                                  child: const Text(
-                                    "EN",
-                                    style: TextStyle(
-                                      fontFamily: Fonts.font,
-                                      fontSize: 12,
-                                      color: Appcolors.kwhite,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            );
-                          },
-                        ),
+                        // BlocBuilder<LocalizationCubit, LocalizationState>(
+                        //   builder: (context, langState) {
+                        //     String currentLanguageCode = 'ar';
+                        //     if (langState is ChangeLanguage &&
+                        //         langState.languageCode != null) {
+                        //       currentLanguageCode = langState.languageCode!;
+                        //     }
+                        //     return Align(
+                        //       alignment: Alignment.topRight,
+                        //       child: GestureDetector(
+                        //         onTap: () {
+                        //           if (currentLanguageCode == 'en') {
+                        //             BlocProvider.of<LocalizationCubit>(
+                        //               context,
+                        //             ).appLanguage(
+                        //               LanguageEventEnums.arabicLanguage,
+                        //             );
+                        //           } else {
+                        //             BlocProvider.of<LocalizationCubit>(
+                        //               context,
+                        //             ).appLanguage(
+                        //               LanguageEventEnums.englishLanguage,
+                        //             );
+                        //           }
+                        //         },
+                        //         child: Container(
+                        //           padding: const EdgeInsets.symmetric(
+                        //             horizontal: 8,
+                        //             vertical: 4,
+                        //           ),
+                        //           decoration: BoxDecoration(
+                        //             color: Colors.transparent,
+                        //             borderRadius: BorderRadius.circular(6),
+                        //             border: Border.all(color: Appcolors.kwhite),
+                        //           ),
+                        //           child: const Text(
+                        //             "EN",
+                        //             style: TextStyle(
+                        //               fontFamily: Fonts.font,
+                        //               fontSize: 12,
+                        //               color: Appcolors.kwhite,
+                        //             ),
+                        //           ),
+                        //         ),
+                        //       ),
+                        //     );
+                        //   },
+                        // ),
                         const SizedBox(height: 20),
                         Center(child: Image.asset(Images.logo, height: 120)),
 
@@ -107,23 +107,29 @@ class Sidebar extends StatelessWidget {
 
                     // Check if it's an expansion item or regular item
                     if (item is ExpansionMenuEntry) {
-                      return ExpansionSidebarItem(
-                        title: item.title,
-                        icon: item.icon,
-                        subItems: item.subItems,
-                        isSelected: cubit.selectedMainIndex == idx,
-                        onTap: () {
-                          // Handle expansion panel tap if needed
-                        },
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(horizontal:  10.0),
+                        child: ExpansionSidebarItem(
+                          title: item.title,
+                          icon: item.icon,
+                          subItems: item.subItems,
+                          isSelected: cubit.selectedMainIndex == idx,
+                          onTap: () {
+                            // Handle expansion panel tap if needed
+                          },
+                        ),
                       );
                     } else if (item is MenuEntry) {
-                      return SidebarItem(
-                        title: item.title,
-                        icon: item.icon,
-                        isSelected: cubit.selectedMainIndex == idx,
-                        onTap: () {
-                          cubit.changeItem(idx);
-                        },
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(horizontal:  10.0),
+                        child: SidebarItem(
+                          title: item.title,
+                          icon: item.icon,
+                          isSelected: cubit.selectedMainIndex == idx,
+                          onTap: () {
+                            cubit.changeItem(idx);
+                          },
+                        ),
                       );
                     }
                     return const SizedBox.shrink();

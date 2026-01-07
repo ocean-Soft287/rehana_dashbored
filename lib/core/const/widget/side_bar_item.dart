@@ -33,18 +33,18 @@ class SidebarItem extends StatelessWidget {
             Text(
               title,
               style: TextStyle(
-
+    
                 color:isSelected?Appcolors.kprimary1: Colors.white,
                 fontFamily: TextStyle(
-                           fontFamily: Fonts.font,).fontFamily,
+                fontFamily: Fonts.font,).fontFamily,
                 fontSize: 14,
                 fontWeight: FontWeight.bold,
               ),
             ),
-
+    
             const SizedBox(width: 12),
             Icon(icon, color:isSelected?Appcolors.kprimary :Colors.white),
-
+    
           ],
         ),
       ),

@@ -62,9 +62,6 @@ class _ExpansionSidebarItemState extends State<ExpansionSidebarItem> {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-
-
-
                   ],
                 ),
                 Icon(
