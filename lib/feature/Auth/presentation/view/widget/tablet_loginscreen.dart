@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rehana_dashboared/core/utils/appstyle/app_styles.dart';
 import 'package:rehana_dashboared/core/utils/font/fonts.dart';
-import 'package:rehana_dashboared/core/widgets/custom_snack_bar.dart';
+import 'package:rehana_dashboared/core/widgets/loading_widget.dart';
 import 'package:rehana_dashboared/feature/Auth/presentation/manger/auth_cubit.dart';
 import 'package:rehana_dashboared/l10n/app_localizations.dart';
-
 import '../../../../../core/const/widget/custom_button.dart';
 import '../../../../../core/utils/colors/colors.dart';
 import '../../../../../core/utils/image/images.dart';
@@ -250,7 +249,7 @@ class _TabletLoginScreenState extends State<TabletLoginScreen> {
                               builder: (context, state) {
                                 if (state is AuthLoading) {
                                   return const Center(
-                                    child: CircularProgressIndicator(),
+                                    child: LoadingButton(color:Colors.white),
                                   );
                                 }
                                 final auth = context.read<AuthCubit>();
