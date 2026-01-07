@@ -29,6 +29,7 @@ void main() async {
   await CacheHelper.init();
   Bloc.observer = MyBlocObserver();
   runApp(const MyApp());
+  ////
 }
 
 class MyApp extends StatelessWidget {
