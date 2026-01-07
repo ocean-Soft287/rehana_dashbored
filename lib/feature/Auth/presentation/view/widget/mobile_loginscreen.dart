@@ -11,6 +11,7 @@ import 'package:rehana_dashboared/l10n/app_localizations.dart';
 import '../../../../../core/widgets/custom_snack_bar.dart';
 import '../../../../bar_navigation/presentation/screen/custom_column_slider.dart';
 import '../../manger/auth_cubit.dart';
+
 class MobileLoginScreen extends StatefulWidget {
   const MobileLoginScreen({
     super.key,
@@ -27,7 +28,7 @@ class MobileLoginScreen extends StatefulWidget {
 
 class _MobileLoginScreenState extends State<MobileLoginScreen> {
   final _formKey = GlobalKey<FormState>();
-bool isobsecure=true;
+  bool isobsecure = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,7 +44,7 @@ bool isobsecure=true;
                 color: Appcolors.kwhite,
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withValues( alpha:0.1),
+                    color: Colors.black.withValues(alpha: 0.1),
                     spreadRadius: 2,
                     blurRadius: 5,
                     offset: const Offset(0, 3),
@@ -56,18 +57,23 @@ bool isobsecure=true;
                   key: _formKey,
                   child: Column(
                     children: [
-                      Text(AppLocalizations.of(context)?.login?? "Login",
-                          style: AppStyles.styleLogin(context)),
+                      Text(
+                        AppLocalizations.of(context)?.login ?? "Login",
+                        style: AppStyles.styleLogin(context),
+                      ),
                       const SizedBox(height: 20),
                       TextFormField(
                         controller: widget.emailController,
                         decoration: InputDecoration(
-                          labelText:AppLocalizations.of(context)?.email ?? "Email",
+                          labelText:
+                              AppLocalizations.of(context)?.email ?? "Email",
                           labelStyle: AppStyles.textformfieldstyle(context),
                           border: const OutlineInputBorder(),
                           focusedBorder: OutlineInputBorder(
-                              borderSide:
-                              BorderSide(color: Colors.green.shade700)),
+                            borderSide: BorderSide(
+                              color: Colors.green.shade700,
+                            ),
+                          ),
                         ),
                         keyboardType: TextInputType.emailAddress,
                         validator: (value) {
@@ -83,21 +89,28 @@ bool isobsecure=true;
                       const SizedBox(height: 15),
                       TextFormField(
                         controller: widget.passwordController,
-                        obscureText:isobsecure ,
+                        obscureText: isobsecure,
                         decoration: InputDecoration(
-                          labelText:AppLocalizations.of(context)?.password,
+                          labelText: AppLocalizations.of(context)?.password,
                           labelStyle: AppStyles.textformfieldstyle(context),
                           border: const OutlineInputBorder(),
                           focusedBorder: OutlineInputBorder(
-                              borderSide:
-                              BorderSide(color: Colors.green.shade700)),
-                          suffixIcon:  GestureDetector(onTap: (){
-                            setState(() {
-
-                              isobsecure=!isobsecure;
-                            });
-
-                          },child: Icon(isobsecure==true ?Icons.visibility_off:Icons.visibility)),
+                            borderSide: BorderSide(
+                              color: Colors.green.shade700,
+                            ),
+                          ),
+                          suffixIcon: GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                isobsecure = !isobsecure;
+                              });
+                            },
+                            child: Icon(
+                              isobsecure == true
+                                  ? Icons.visibility_off
+                                  : Icons.visibility,
+                            ),
+                          ),
                         ),
                         validator: (value) {
                           if (value == null || value.trim().isEmpty) {
@@ -110,12 +123,20 @@ bool isobsecure=true;
                       Align(
                         alignment: Alignment.centerRight,
                         child: TextButton(
-                          onPressed: () =>
-                              Navigator.pushNamed(context, Routes.forgetPassword),
+                          onPressed:
+                              () => Navigator.pushNamed(
+                                context,
+                                Routes.forgetPassword,
+                              ),
                           child: Text(
-                           AppLocalizations.of(context)?.did_you_forget_your_password ?? "هل نسيت كلمة السر ؟",
+                            AppLocalizations.of(
+                                  context,
+                                )?.did_you_forget_your_password ??
+                                "هل نسيت كلمة السر ؟",
                             style: TextStyle(
-                                fontFamily: Fonts.font, color: Colors.red),
+                              fontFamily: Fonts.font,
+                              color: Colors.red,
+                            ),
                           ),
                         ),
                       ),
@@ -123,24 +144,44 @@ bool isobsecure=true;
                       BlocConsumer<AuthCubit, AuthState>(
                         listener: (context, state) {
                           if (state is AuthSuccess) {
-                            showCustomSnackBar(
-                              context,
-                              AppLocalizations.of(
-                                context,
-                              )?.login_successfully ?? "تم تسجيل الدخول بنجاح",
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                behavior: SnackBarBehavior.floating,
+                                content: Row(
+                                  children: [
+                                    Icon(
+                                      Icons.check_circle,
+                                      color: Colors.white,
+                                    ),
+                                    SizedBox(width: 12),
+                                    Text(
+                                      "تم تسجيل الدخول بنجاح",
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 20,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                backgroundColor: Colors.red,
+                                duration: Duration(seconds: 2),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                margin: EdgeInsets.all(16),
+                              ),
                             );
                             Navigator.pushAndRemoveUntil(
                               context,
-                              MaterialPageRoute(builder: (_) => const SidebarMenu()),
-                                  (route) => false,
+                              MaterialPageRoute(
+                                builder: (_) => const SidebarMenu(),
+                              ),
+                              (route) => false,
                             );
                           }
 
                           if (state is AuthFailure) {
-                            showCustomSnackBar(
-                              context,
-                              state.message
-                            );
+                            showCustomSnackBar(context, state.message);
                           }
                         },
 
@@ -154,13 +195,12 @@ bool isobsecure=true;
                           return SizedBox(
                             width: double.infinity,
                             child: CustomButton(
-                              name:AppLocalizations.of(context)?.login ?? '',
+                              name: AppLocalizations.of(context)?.login ?? '',
                               textcolor: Appcolors.kprimary,
                               onTap: () {
                                 if (_formKey.currentState!.validate()) {
                                   auth.login(
-                                    email:
-                                    widget.emailController.text.trim(),
+                                    email: widget.emailController.text.trim(),
                                     password: widget.passwordController.text,
                                   );
                                 }
@@ -181,6 +221,7 @@ bool isobsecure=true;
     );
   }
 }
+
 class CustomShapeClipper extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
@@ -206,7 +247,7 @@ class TriangleContainer extends StatelessWidget {
       clipper: CustomShapeClipper(),
       child: Container(
         height: MediaQuery.of(context).size.height / 2,
-        color: Appcolors.kprimary.withValues( alpha:0.30),
+        color: Appcolors.kprimary.withValues(alpha: 0.30),
         child: Center(
           child: Padding(
             padding: const EdgeInsets.all(20.0),

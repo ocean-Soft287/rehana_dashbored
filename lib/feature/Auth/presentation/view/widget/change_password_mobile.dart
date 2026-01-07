@@ -154,6 +154,13 @@ class _ChangePasswordMobileState extends State<ChangePasswordMobile> {
                         // Handle state changes (show success/error message, etc.)
                       },
                       builder: (context, state) {
+                         if (state is AuthLoading) {
+                            return const Center(
+                              child: CircularProgressIndicator(
+                                
+                              ),
+                            );
+                          }
                         final auth = context.read<AuthCubit>();
                         return SizedBox(
                           width: double.infinity,

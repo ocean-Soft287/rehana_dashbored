@@ -142,6 +142,13 @@ class _ForgetpasswordTabletState extends State<ForgetpasswordTablet> {
                                 }
                               },
                               builder: (context, state) {
+                                 if (state is AuthLoading) {
+                            return const Center(
+                              child: CircularProgressIndicator(
+                               
+                              ),
+                            );
+                          }
                                 final auth = context.read<AuthCubit>();
                                 return SizedBox(
                                   width: double.infinity,

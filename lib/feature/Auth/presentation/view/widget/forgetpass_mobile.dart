@@ -134,6 +134,13 @@ class _ForgetpassMobileState extends State<ForgetpassMobile> {
                           }
                         },
                         builder: (context, state) {
+                          if (state is AuthLoading) {
+                            return const Center(
+                              child: CircularProgressIndicator(
+                                
+                              ),
+                            );
+                          }
                           final auth = context.read<AuthCubit>();
 
                           return SizedBox(

@@ -201,11 +201,32 @@ class _TabletLoginScreenState extends State<TabletLoginScreen> {
                             BlocConsumer<AuthCubit, AuthState>(
                               listener: (context, state) {
                                 if (state is AuthSuccess) {
-                                  showCustomSnackBar(
-                                    context,
-                                    AppLocalizations.of(
-                                      context,
-                                    )!.login_successfully,
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      behavior: SnackBarBehavior.floating,
+                                      content: Row(
+                                        children: [
+                                          Icon(
+                                            Icons.check_circle,
+                                            color: Colors.white,
+                                          ),
+                                          SizedBox(width: 12),
+                                          Text(
+                                            "تم تسجيل الدخول بنجاح",
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 10,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      backgroundColor: Appcolors.bIcon,
+                                      duration: Duration(seconds: 2),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(12),
+                                      ),
+                                      margin: EdgeInsets.all(16),
+                                    ),
                                   );
                                   Navigator.pushAndRemoveUntil(
                                     context,
@@ -219,9 +240,7 @@ class _TabletLoginScreenState extends State<TabletLoginScreen> {
                                 if (state is AuthFailure) {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
-                                      content: Text(
-                                        state.message
-                                      ),
+                                      content: Text(state.message),
                                       backgroundColor: Colors.red,
                                     ),
                                   );

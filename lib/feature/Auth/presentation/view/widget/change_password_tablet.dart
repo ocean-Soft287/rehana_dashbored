@@ -165,6 +165,13 @@ class _ConfirmResetPasswordTabletState extends State<ConfirmResetPasswordTablet>
                                 // يمكن إضافة إشعار هنا في حال النجاح أو الخطأ
                               },
                               builder: (context, state) {
+                                 if (state is AuthLoading) {
+                            return const Center(
+                              child: CircularProgressIndicator(
+                                
+                              ),
+                            );
+                          }
                                 final auth = context.read<AuthCubit>();
                                 return SizedBox(
                                   width: double.infinity,

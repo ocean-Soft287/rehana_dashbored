@@ -95,7 +95,7 @@ class _SplashscreenState extends State<Splashscreen>
 
     _controller.forward();
 
-    Future.delayed(const Duration(milliseconds: 500), () async {
+    Future.delayed(const Duration(seconds: 3), () async {
       final token = await CacheManager.getAccessToken();
       final role = await CacheManager().getData(key: "role");
       // final token = await SecureStorageService.read(SecureStorageService.token);
