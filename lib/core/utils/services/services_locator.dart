@@ -7,6 +7,7 @@ import 'package:rehana_dashboared/feature/Home/data/repo/invitation_repo_imp.dar
 import 'package:rehana_dashboared/feature/add_users/data/repo/adduserrepoimp.dart';
 import '../../../feature/Account_Management/data/repo/accountmangmentrepo.dart';
 import '../../../feature/Account_Management/presentation/manger/person_cubit.dart';
+import '../../../feature/Account_Management/presentation/manger/bulk_disbursement_cubit.dart';
 import '../../../feature/Auth/data/repo/auth_repo.dart';
 import '../../../feature/Auth/data/repo/auth_repo_imp.dart';
 import '../../../feature/Auth/presentation/manger/auth_cubit.dart';
@@ -98,6 +99,11 @@ void setup() {
 
   // ثم نسجل الكيوبت
   sl.registerFactory<PersonCubit>(() => PersonCubit(sl<AccountMangmentrepo>()));
+
+  // Register BulkDisbursementCubit
+  sl.registerFactory<BulkDisbursementCubit>(
+    () => BulkDisbursementCubit(sl<AccountMangmentrepo>()),
+  );
 
   sl.registerLazySingleton<UserMangmentRepo>(
     () => Usermangmentrepoimp(dioConsumer: sl<DioConsumer>()),

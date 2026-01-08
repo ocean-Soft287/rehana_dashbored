@@ -145,13 +145,13 @@ class AccountMangmentrepoimp implements AccountMangmentrepo {
   }
 
   @override
-  Future<Either<Failure, BondPageModel>>       getallMemberdisbursementBonds(
+  Future<Either<Failure, BondPageModel>> getallMemberdisbursementBonds(
     int page,
     int pagesize,
   ) async {
     try {
       final response = await dioConsumer.get(
-        "${EndPoint.      getallMemberdisbursementBonds}$page&pageSize=$pagesize",
+        "${EndPoint.getallMemberdisbursementBonds}$page&pageSize=$pagesize",
       );
 
       final json = response as Map<String, dynamic>;
@@ -211,7 +211,9 @@ class AccountMangmentrepoimp implements AccountMangmentrepo {
   getbondssummarybyyearbyvillanumber(int villaNumber) async {
     try {
       final rawList =
-          await dioConsumer.get("${EndPoint.getbondssummarybyyearbyvillanumber}$villaNumber")
+          await dioConsumer.get(
+                "${EndPoint.getbondssummarybyyearbyvillanumber}$villaNumber",
+              )
               as List<dynamic>;
 
       final bpmdsummarybyyearmodel =
@@ -228,6 +230,47 @@ class AccountMangmentrepoimp implements AccountMangmentrepo {
       return left(_handleDioError(e));
     } catch (e) {
       return left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<dynamic>>> getVillasList() async {
+    try {
+      final response = await dioConsumer.get(EndPoint.villasList);
+      final list = response as List<dynamic>;
+      return right(list);
+    } on DioException catch (e) {
+      return left(_handleDioError(e));
+    } catch (e) {
+      return left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, String>> bulkDisbursement({
+    required List<int> villaNumbers,
+    required double pricePerMeter,
+    required String date,
+    required String currency,
+    required String bondDescription,
+  }) async {
+    try {
+      final response = await dioConsumer.post(
+        EndPoint.bulkDisbursement,
+        data: {
+          "villaNumbers": villaNumbers,
+          "pricePerMeter": pricePerMeter,
+          "date": date,
+          "currency": currency,
+          "bondDescription": bondDescription,
+        },
+      );
+
+      return Right(response.toString());
+    } on DioException catch (e) {
+      return left(_handleDioError(e));
+    } catch (e) {
+      return left(ServerFailure("Bulk disbursement failed: ${e.toString()}"));
     }
   }
 }

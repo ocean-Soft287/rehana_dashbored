@@ -34,7 +34,7 @@ abstract class AccountMangmentrepo {
     int page,
     int pagesize,
   );
-  Future<Either<Failure, BondPageModel>>       getallMemberdisbursementBonds(
+  Future<Either<Failure, BondPageModel>> getallMemberdisbursementBonds(
     int page,
     int pagesize,
   );
@@ -47,4 +47,13 @@ abstract class AccountMangmentrepo {
   getCompoundDisbursementBonds(int page, int pagesize);
   Future<Either<Failure, List<BondsSummaryByYearModel>>>
   getbondssummarybyyearbyvillanumber(int villaNumber);
+
+  Future<Either<Failure, List<dynamic>>> getVillasList();
+  Future<Either<Failure, String>> bulkDisbursement({
+    required List<int> villaNumbers,
+    required double pricePerMeter,
+    required String date,
+    required String currency,
+    required String bondDescription,
+  });
 }

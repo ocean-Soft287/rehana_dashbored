@@ -15,7 +15,7 @@ import '../../Account_Management/presentation/view/screen/summarybondbyyear_stat
     show SummarybondbyyearStatementResponsive;
 import '../../Account_Management/presentation/view/screen/responsive_create_abond.dart';
 import '../../Account_Management/presentation/view/screen/responsive_members_account_statement.dart';
-import '../../Account_Management/presentation/view/screen/responsive_add_bond.dart';
+import '../../Account_Management/presentation/view/screen/bulk_disbursement_screen_wrapper.dart';
 
 import '../../UserManagement/presentation/view/screen/responsive_usermangment.dart';
 import '../../add_users/presentaion/screen/add_account_mangment_responsive.dart';
@@ -98,8 +98,8 @@ class BottomCubit extends Cubit<BottomState> {
             return finance == 0
                 ? ReceiptsResponsive()
                 : CreateReceiptBondForCompoundResponsive();
-          case 1: // Expenses Management
-            return const ResponsiveAddBond();
+          case 1: // Expenses Management - NEW SCREEN
+            return const BulkDisbursementScreenWrapper();
           case 2: // Create Account
             return finance == 0
                 ? const AddAccountMangment()
