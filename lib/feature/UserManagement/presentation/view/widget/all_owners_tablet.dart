@@ -8,6 +8,7 @@ import '../../../../../core/widgets/custom_snack_bar.dart';
 import '../../../../../l10n/app_localizations.dart';
 import '../../manger/user_cubit.dart';
 import 'owner_edit_alert_dialog.dart';
+import 'all_owners_table_shimmer.dart';
 
 class AllOwnersTablet extends StatefulWidget {
   const AllOwnersTablet({super.key});
@@ -32,7 +33,6 @@ class _AllOwnersTabletState extends State<AllOwnersTablet> {
           },
           builder: (context, state) {
             if (state is Getallmemebersuccful) {
-
               return CustomScrollView(
                 slivers: [
                   SliverToBoxAdapter(
@@ -77,7 +77,9 @@ class _AllOwnersTabletState extends State<AllOwnersTablet> {
                     itemCount: state.userModel.length,
                     itemBuilder: (_, index) {
                       final item = state.userModel[index];
-                      print("http://78.89.159.126:9393/TheOneAPIRehana${item.pictureUrl}");
+                      print(
+                        "http://78.89.159.126:9393/TheOneAPIRehana${item.pictureUrl}",
+                      );
                       final bgColor =
                           index.isOdd ? const Color(0xFFF6F9ED) : Colors.white;
 
@@ -105,15 +107,26 @@ class _AllOwnersTabletState extends State<AllOwnersTablet> {
                                       width: 40,
                                       height: 40,
                                       fit: BoxFit.cover,
-                                      loadingBuilder: (context, child, loadingProgress) {
-                                        if (loadingProgress == null) return child;
+                                      loadingBuilder: (
+                                        context,
+                                        child,
+                                        loadingProgress,
+                                      ) {
+                                        if (loadingProgress == null)
+                                          return child;
                                         return const SizedBox(
                                           width: 20,
                                           height: 20,
-                                          child: CircularProgressIndicator(strokeWidth: 2),
+                                          child: CircularProgressIndicator(
+                                            strokeWidth: 2,
+                                          ),
                                         );
                                       },
-                                      errorBuilder: (context, error, stackTrace) {
+                                      errorBuilder: (
+                                        context,
+                                        error,
+                                        stackTrace,
+                                      ) {
                                         return const Icon(Icons.error);
                                       },
                                     ),
@@ -129,11 +142,16 @@ class _AllOwnersTabletState extends State<AllOwnersTablet> {
                                 onAccept: () {
                                   showDialog(
                                     context: context,
-                                    builder: (context) => OwnerEditAlertDialog(ownerModel: item),
+                                    builder:
+                                        (context) => OwnerEditAlertDialog(
+                                          ownerModel: item,
+                                        ),
                                   );
                                 },
                                 onReject: () {
-                                  context.read<UserCubit>().deleteOwner(item.id);
+                                  context.read<UserCubit>().deleteOwner(
+                                    item.id,
+                                  );
                                 },
                               ),
                             ),
@@ -141,16 +159,15 @@ class _AllOwnersTabletState extends State<AllOwnersTablet> {
                         ),
                       );
                     },
-                    separatorBuilder: (_, __) => const Divider(
-                      height: 0,
-                      color: Color(0xFFE2E2E2),
-                    ),
+                    separatorBuilder:
+                        (_, __) =>
+                            const Divider(height: 0, color: Color(0xFFE2E2E2)),
                   ),
                   SliverToBoxAdapter(child: SizedBox(height: 50)),
                 ],
               );
             }
-            return const Center(child: CircularProgressIndicator());
+            return const AllOwnersTableShimmer();
           },
         ),
       ),

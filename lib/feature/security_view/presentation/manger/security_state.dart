@@ -25,6 +25,8 @@ class Securitydelete extends SecurityState {
   Securitydelete(this.message);
 }
 
+class SecurityLoading extends SecurityState {}
+
 class SecurityUpdate extends SecurityState {
   final SecurityGuardModel securityGuardModel;
 

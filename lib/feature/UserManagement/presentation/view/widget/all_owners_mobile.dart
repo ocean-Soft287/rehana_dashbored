@@ -5,6 +5,7 @@ import '../../../../../core/utils/appstyle/app_styles.dart';
 import '../../../../../l10n/app_localizations.dart';
 import '../../manger/user_cubit.dart';
 import 'owner_edit_alert_dialog.dart';
+import 'all_owners_mobile_shimmer.dart';
 
 class AllOwnersMobile extends StatelessWidget {
   const AllOwnersMobile({super.key});
@@ -17,7 +18,7 @@ class AllOwnersMobile extends StatelessWidget {
           child: BlocBuilder<UserCubit, UserState>(
             builder: (context, state) {
               if (state is GetallmemeberLoading || state is UserInitial) {
-                return const Center(child: CircularProgressIndicator());
+                return const AllOwnersMobileShimmer();
               } else if (state is Getallmemeberfailure) {
                 return Center(child: Text(state.message));
               } else if (state is Getallmemebersuccful) {
@@ -31,7 +32,10 @@ class AllOwnersMobile extends StatelessWidget {
                   slivers: [
                     SliverToBoxAdapter(
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 16,
+                          vertical: 8,
+                        ),
                         child: Text(
                           "كل الملاك", // All Owners
                           style: AppStyles.styleLogin(context),
@@ -45,16 +49,21 @@ class AllOwnersMobile extends StatelessWidget {
                         separatorBuilder: (_, __) => const SizedBox(height: 10),
                         itemBuilder: (context, index) {
                           return OwnerCardMobile(
-                            ownerModel:  owners[index],
+                            ownerModel: owners[index],
                             isButtons: true,
                             onAccept: () {
                               showDialog(
                                 context: context,
-                                builder: (context) => OwnerEditAlertDialog(ownerModel: owners[index]),
+                                builder:
+                                    (context) => OwnerEditAlertDialog(
+                                      ownerModel: owners[index],
+                                    ),
                               );
                             },
                             onReject: () {
-                              context.read<UserCubit>().deleteOwner(owners[index].id);
+                              context.read<UserCubit>().deleteOwner(
+                                owners[index].id,
+                              );
                             },
                           );
                         },

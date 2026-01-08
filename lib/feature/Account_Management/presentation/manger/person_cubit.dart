@@ -137,6 +137,7 @@ class PersonCubit extends Cubit<PersonState> {
   }
 
   Future<void> getAllReceiptBonds(int page) async {
+    emit(PersonLoading());
     final response = await accountMangmentrepo.getallmemberreceiptbonds(currentPage, pageSize);
 
     response.fold(

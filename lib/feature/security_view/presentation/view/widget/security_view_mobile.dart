@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:rehana_dashboared/feature/security_view/presentation/view/widget/secirtycardmobile.dart';
 import 'package:rehana_dashboared/feature/security_view/presentation/view/widget/security_show_alert_dialoug.dart';
+import 'package:rehana_dashboared/feature/security_view/presentation/view/widget/security_view_shimmer.dart';
 import '../../manger/security_cubit.dart';
 
 class SecurityViewMobile extends StatefulWidget {
@@ -29,15 +30,14 @@ class _SecurityViewMobileState extends State<SecurityViewMobile> {
       child: BlocConsumer<SecurityCubit, SecurityState>(
         listener: (context, state) {
           if (state is SecurityFailure) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text(state.error)),
-            );
+            ScaffoldMessenger.of(
+              context,
+            ).showSnackBar(SnackBar(content: Text(state.error)));
           }
         },
         builder: (context, state) {
           // ❌ REMOVED: securityCubit.getallSecurity(); - No more duplicate calls!
-
-          if (state is SecuritySuccful) {
+         if (state is SecuritySuccful) {
             return CustomScrollView(
               slivers: [
                 SliverPadding(
@@ -53,7 +53,10 @@ class _SecurityViewMobileState extends State<SecurityViewMobile> {
                         onAccept: () {
                           showDialog(
                             context: context,
-                            builder: (context) => SecurityEditAlertDialog(securityGuardModel: row),
+                            builder:
+                                (context) => SecurityEditAlertDialog(
+                                  securityGuardModel: row,
+                                ),
                           );
                         },
                         onReject: () {
@@ -67,8 +70,7 @@ class _SecurityViewMobileState extends State<SecurityViewMobile> {
             );
           }
 
-
-          return const Center(child: CircularProgressIndicator());
+          return const Center(child: SecurityViewTableShimmer());
         },
       ),
     );

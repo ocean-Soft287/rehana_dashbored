@@ -2,21 +2,27 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart'
     show BoxDecoration, Center, Padding, SizedBox, ClipRRect, Icon, Expanded;
 import 'package:flutter/material.dart'
-    show CircularProgressIndicator, Colors, Divider, Material, Icons, showDialog;
+    show
+        CircularProgressIndicator,
+        Colors,
+        Divider,
+        Material,
+        Icons,
+        showDialog;
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart'
     show
-    BuildContext,
-    Color,
-    Container,
-    CustomScrollView,
-    Radius,
-    Row,
-    SliverList,
-    SliverToBoxAdapter,
-    State,
-    StatefulWidget,
-    Widget;
+        BuildContext,
+        Color,
+        Container,
+        CustomScrollView,
+        Radius,
+        Row,
+        SliverList,
+        SliverToBoxAdapter,
+        State,
+        StatefulWidget,
+        Widget;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:rehana_dashboared/core/const/widget/table/data_cell.dart'
@@ -26,6 +32,7 @@ import 'package:rehana_dashboared/core/const/widget/table/headercell.dart'
 import 'package:rehana_dashboared/core/utils/colors/colors.dart' show Appcolors;
 import 'package:rehana_dashboared/core/widgets/custom_snack_bar.dart';
 import 'package:rehana_dashboared/feature/security_view/presentation/view/widget/security_show_alert_dialoug.dart';
+import 'package:rehana_dashboared/feature/security_view/presentation/view/widget/security_view_shimmer.dart';
 import 'package:rehana_dashboared/l10n/app_localizations.dart';
 
 import '../../../../../core/const/widget/table/status_cell.dart';
@@ -115,9 +122,9 @@ class _SecurityViewTabletState extends State<SecurityViewTablet> {
                       itemBuilder: (_, index) {
                         final item = state.securityguard[index];
                         final bgColor =
-                        index.isOdd
-                            ? const Color(0xFFF6F9ED)
-                            : Colors.white;
+                            index.isOdd
+                                ? const Color(0xFFF6F9ED)
+                                : Colors.white;
 
                         return Container(
                           color: bgColor,
@@ -142,15 +149,15 @@ class _SecurityViewTabletState extends State<SecurityViewTablet> {
                                         fit: BoxFit.cover,
                                         placeholder:
                                             (context, url) => const SizedBox(
-                                          width: 20,
-                                          height: 20,
-                                          child: CircularProgressIndicator(
-                                            strokeWidth: 2,
-                                          ),
-                                        ),
+                                              width: 20,
+                                              height: 20,
+                                              child: CircularProgressIndicator(
+                                                strokeWidth: 2,
+                                              ),
+                                            ),
                                         errorWidget:
                                             (context, url, error) =>
-                                        const Icon(Icons.error),
+                                                const Icon(Icons.error),
                                       ),
                                     ),
                                   ],
@@ -166,13 +173,15 @@ class _SecurityViewTabletState extends State<SecurityViewTablet> {
                                       context: context,
                                       builder:
                                           (context) => SecurityEditAlertDialog(
-                                        securityGuardModel:
-                                        state.securityguard[index],
-                                      ),
+                                            securityGuardModel:
+                                                state.securityguard[index],
+                                          ),
                                     );
                                   },
                                   onReject: () {
-                                    _securityCubit.deleteMember(item.id.toInt());
+                                    _securityCubit.deleteMember(
+                                      item.id.toInt(),
+                                    );
                                   },
                                 ),
                               ),
@@ -182,17 +191,15 @@ class _SecurityViewTabletState extends State<SecurityViewTablet> {
                       },
                       separatorBuilder:
                           (_, __) => const Divider(
-                        height: 0,
-                        color: Color(0xFFE2E2E2),
-                      ),
+                            height: 0,
+                            color: Color(0xFFE2E2E2),
+                          ),
                     ),
                     SliverToBoxAdapter(child: SizedBox(height: 50)),
                   ],
                 );
               }
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
+              return const Center(child: SecurityViewTableShimmer());
             },
           ),
         ),
