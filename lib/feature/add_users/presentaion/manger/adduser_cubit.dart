@@ -94,7 +94,7 @@ class AdduserCubit extends Cubit<AdduserState> {
     required String phoneNumber,
     required String villaAddress,
     required String villaLocation,
-    required int    villaNumber,
+    required String villaNumber,
     required String villaSpace,
     required String villaStreet,
     required int    villaFloorsNumber,

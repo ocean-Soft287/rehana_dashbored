@@ -50,7 +50,7 @@ abstract class AccountMangmentrepo {
 
   Future<Either<Failure, List<dynamic>>> getVillasList();
   Future<Either<Failure, String>> bulkDisbursement({
-    required List<int> villaNumbers,
+    required List<String> villaNumbers,
     required double pricePerMeter,
     required String date,
     required String currency,

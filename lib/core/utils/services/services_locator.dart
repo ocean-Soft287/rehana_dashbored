@@ -5,6 +5,12 @@ import 'package:rehana_dashboared/core/utils/firebase/firebase.dart';
 import 'package:rehana_dashboared/feature/Account_Management/data/repo/accountmangmentrepoimp.dart';
 import 'package:rehana_dashboared/feature/Home/data/repo/invitation_repo_imp.dart';
 import 'package:rehana_dashboared/feature/add_users/data/repo/adduserrepoimp.dart';
+import 'package:rehana_dashboared/feature/collections/data/repo/collections_repo.dart';
+import 'package:rehana_dashboared/feature/collections/data/repo/collections_repo_impl.dart';
+import 'package:rehana_dashboared/feature/collections/presentation/manger/collections_cubit.dart';
+import 'package:rehana_dashboared/feature/users_management/data/repo/users_management_repo.dart';
+import 'package:rehana_dashboared/feature/users_management/data/repo/users_management_repo_impl.dart';
+import 'package:rehana_dashboared/feature/users_management/presentation/manger/users_management_cubit.dart';
 import '../../../feature/Account_Management/data/repo/accountmangmentrepo.dart';
 import '../../../feature/Account_Management/presentation/manger/person_cubit.dart';
 import '../../../feature/Account_Management/presentation/manger/bulk_disbursement_cubit.dart';
@@ -109,6 +115,22 @@ void setup() {
     () => Usermangmentrepoimp(dioConsumer: sl<DioConsumer>()),
   );
   sl.registerFactory<UserCubit>(() => UserCubit(sl<UserMangmentRepo>()));
+
+  /// Collections Feature (مقبوضات)
+  sl.registerLazySingleton<CollectionsRepo>(
+    () => CollectionsRepoImpl(dioConsumer: sl<DioConsumer>()),
+  );
+  sl.registerFactory<CollectionsCubit>(
+    () => CollectionsCubit(sl<CollectionsRepo>()),
+  );
+
+  /// Users Management Feature (إدارة المستخدمين)
+  sl.registerLazySingleton<UsersManagementRepo>(
+    () => UsersManagementRepoImpl(dioConsumer: sl<DioConsumer>()),
+  );
+  sl.registerFactory<UsersManagementCubit>(
+    () => UsersManagementCubit(sl<UsersManagementRepo>()),
+  );
 
   /// Chat Feature
   sl.registerLazySingleton<ChatRepository>(

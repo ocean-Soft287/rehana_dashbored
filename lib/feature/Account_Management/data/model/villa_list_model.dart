@@ -1,12 +1,12 @@
 class VillaListModel {
-  final int villaNumber;
+  final String villaNumber;
   final String memberName;
 
   VillaListModel({required this.villaNumber, required this.memberName});
 
   factory VillaListModel.fromJson(Map<String, dynamic> json) {
     return VillaListModel(
-      villaNumber: json['villaNumber'] as int,
+      villaNumber: json['villaNumber'] as String,
       memberName: json['memberName'] as String,
     );
   }

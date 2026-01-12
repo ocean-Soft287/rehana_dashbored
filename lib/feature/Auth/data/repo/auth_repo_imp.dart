@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:rehana_dashboared/feature/Auth/data/repo/auth_repo.dart';
 
 import '../../../../core/utils/Failure/failure.dart';
@@ -9,7 +10,6 @@ import '../../../../core/utils/Network/local/cache_manager.dart';
 import '../../../../core/utils/api/dio_consumer.dart';
 import '../../../../core/utils/api/endpoint.dart';
 import '../model/login_model.dart';
-
 
 class Loginrepoimp implements LoginRepo {
   final DioConsumer dioConsumer;
@@ -22,9 +22,20 @@ class Loginrepoimp implements LoginRepo {
     required String password,
   }) async {
     try {
+      final fcmToken = await FirebaseMessaging.instance.getToken(
+        vapidKey:
+            "BF4pFQe9Hn3uvUQvIxdcu1CKhF-B3knjSggQE30Vut-wy_YtvELbn5LCIwIP4_jMYEOVTnLgIxlxVT2nm_Poiuo",
+      );
+
+      print("FCM Token => $fcmToken");
       final response = await dioConsumer.post(
         EndPoint.login,
-        data: {'email': email, 'password': password, 'rememberMe': true},
+        data: {
+          'email': email,
+          'password': password,
+          'rememberMe': true,
+          "deviceToken": fcmToken ?? '',
+        },
       );
 
       final json = response as Map<String, dynamic>;
@@ -40,13 +51,9 @@ class Loginrepoimp implements LoginRepo {
       await CacheManager().saveData(key: "name", value: model.userName);
 
       // ✅ حفظ الدور (بأمان)
-      final role =
-      model.roles.isNotEmpty ? model.roles.first : 'user';
+      final role = model.roles.isNotEmpty ? model.roles.first : 'user';
 
-      await CacheManager().saveData(
-        key: 'role',
-        value: role,
-      );
+      await CacheManager().saveData(key: 'role', value: role);
 
       // (اختياري للتأكد)
       final savedToken = await CacheManager.getAccessToken();
@@ -63,23 +70,13 @@ class Loginrepoimp implements LoginRepo {
     } catch (e, stackTrace) {
       print("Unexpected error: $e");
       print("StackTrace: $stackTrace");
-      return left(
-        ServerFailure("Login failed: ${e.toString()}"),
-      );
+      return left(ServerFailure("Login failed: ${e.toString()}"));
     }
   }
 
   Failure _handleDioError(DioException error) {
-    return ServerFailure(
-      error.message ?? "Unknown error occurred",
-    );
+    return ServerFailure(error.message ?? "Unknown error occurred");
   }
-
-
-
-
-
-
 
   @override
   Future<Either<Failure, String>> forgetpassword({
@@ -105,9 +102,6 @@ class Loginrepoimp implements LoginRepo {
       return left(ServerFailure("Forget password failed: ${e.toString()}"));
     }
   }
-
-
-
 
   @override
   Future<Either<Failure, String>> resetpassword({

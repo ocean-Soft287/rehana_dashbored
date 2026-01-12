@@ -21,25 +21,13 @@ class DefaultFirebaseOptions {
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for android - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return android;
       case TargetPlatform.iOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for ios - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return ios;
       case TargetPlatform.macOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for macos - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return macos;
       case TargetPlatform.windows:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for windows - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return windows;
       case TargetPlatform.linux:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for linux - '
@@ -61,4 +49,41 @@ class DefaultFirebaseOptions {
     storageBucket: 'rehana-dc092.firebasestorage.app',
     measurementId: 'G-PBDQGE12L8',
   );
+
+  static const FirebaseOptions macos = FirebaseOptions(
+    apiKey: 'AIzaSyD7EQA91kuiZcqXuHFOpsKNG7tSSif97I4',
+    appId: '1:987914961227:ios:4cdc6c3f922a78f61568ce',
+    messagingSenderId: '987914961227',
+    projectId: 'rehana-dc092',
+    storageBucket: 'rehana-dc092.firebasestorage.app',
+    iosBundleId: 'com.example.rehanaDashboared',
+  );
+
+  static const FirebaseOptions ios = FirebaseOptions(
+    apiKey: 'AIzaSyD7EQA91kuiZcqXuHFOpsKNG7tSSif97I4',
+    appId: '1:987914961227:ios:4cdc6c3f922a78f61568ce',
+    messagingSenderId: '987914961227',
+    projectId: 'rehana-dc092',
+    storageBucket: 'rehana-dc092.firebasestorage.app',
+    iosBundleId: 'com.example.rehanaDashboared',
+  );
+
+  static const FirebaseOptions android = FirebaseOptions(
+    apiKey: 'AIzaSyBiqh9r7YgyG8OgFAe9TbkSWHEpVhqT3Mw',
+    appId: '1:987914961227:android:36ac38ca9125a9fb1568ce',
+    messagingSenderId: '987914961227',
+    projectId: 'rehana-dc092',
+    storageBucket: 'rehana-dc092.firebasestorage.app',
+  );
+
+  static const FirebaseOptions windows = FirebaseOptions(
+    apiKey: 'AIzaSyCbnm3X57a3JMaQtXHYglcsXFCHSUyTWMw',
+    appId: '1:987914961227:web:7d72654db56603be1568ce',
+    messagingSenderId: '987914961227',
+    projectId: 'rehana-dc092',
+    authDomain: 'rehana-dc092.firebaseapp.com',
+    storageBucket: 'rehana-dc092.firebasestorage.app',
+    measurementId: 'G-XZLYV0NP52',
+  );
+
 }

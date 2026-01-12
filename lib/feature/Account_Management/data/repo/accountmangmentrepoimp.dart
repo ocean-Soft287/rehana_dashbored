@@ -248,7 +248,7 @@ class AccountMangmentrepoimp implements AccountMangmentrepo {
 
   @override
   Future<Either<Failure, String>> bulkDisbursement({
-    required List<int> villaNumbers,
+    required List<String> villaNumbers,
     required double pricePerMeter,
     required String date,
     required String currency,

@@ -17,7 +17,7 @@ abstract class Adduserrepo {
     required MultipartFile? image,
     required String villaAddress,
     required String villaLocation,
-    required int villaNumber,
+    required String villaNumber,
     required String villaSpace,
     required String villaStreet,
     required int villaFloorsNumber,

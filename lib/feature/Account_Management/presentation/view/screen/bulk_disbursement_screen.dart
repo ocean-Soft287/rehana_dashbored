@@ -6,7 +6,7 @@ import 'package:rehana_dashboared/feature/Account_Management/presentation/manger
 import 'package:rehana_dashboared/feature/Account_Management/presentation/manger/bulk_disbursement_state.dart';
 
 class BulkDisbursementScreen extends StatefulWidget {
-  const BulkDisbursementScreen({Key? key}) : super(key: key);
+  const BulkDisbursementScreen({super.key});
 
   @override
   State<BulkDisbursementScreen> createState() => _BulkDisbursementScreenState();
@@ -19,7 +19,7 @@ class _BulkDisbursementScreenState extends State<BulkDisbursementScreen> {
 
   DateTime selectedDate = DateTime.now();
   List<VillaListModel> allVillas = [];
-  Set<int> selectedVillaNumbers = {};
+  Set<String> selectedVillaNumbers = {};
   bool selectAll = false;
 
   @override
@@ -72,7 +72,7 @@ class _BulkDisbursementScreenState extends State<BulkDisbursementScreen> {
     });
   }
 
-  void _toggleVillaSelection(int villaNumber) {
+  void _toggleVillaSelection(String villaNumber) {
     setState(() {
       if (selectedVillaNumbers.contains(villaNumber)) {
         selectedVillaNumbers.remove(villaNumber);
@@ -120,7 +120,7 @@ class _BulkDisbursementScreenState extends State<BulkDisbursementScreen> {
     context.read<BulkDisbursementCubit>().submitBulkDisbursement(
       villaNumbers: selectedVillaNumbers.toList(),
       pricePerMeter: double.parse(pricePerMeterController.text),
-      date: selectedDate.toIso8601String(),
+      date: DateFormat('yyyy-MM-dd').format(selectedDate),
       bondDescription: bondDescriptionController.text,
     );
   }
@@ -171,11 +171,7 @@ class _BulkDisbursementScreenState extends State<BulkDisbursementScreen> {
                   // Header
                   Row(
                     children: [
-                      Icon(
-                        Icons.dashboard,
-                        color: Color(0xFF9DC65D),
-                        size: 32,
-                      ),
+                      Icon(Icons.dashboard, color: Color(0xFF9DC65D), size: 32),
                       SizedBox(width: 16),
                       Text(
                         'إدارة المصروفات',
@@ -188,7 +184,7 @@ class _BulkDisbursementScreenState extends State<BulkDisbursementScreen> {
                     ],
                   ),
                   SizedBox(height: 32),
-    
+
                   // Price per meter input
                   _buildSectionTitle('سعر المتر'),
                   SizedBox(height: 12),
@@ -199,7 +195,7 @@ class _BulkDisbursementScreenState extends State<BulkDisbursementScreen> {
                     keyboardType: TextInputType.number,
                   ),
                   SizedBox(height: 24),
-    
+
                   // Date picker
                   _buildSectionTitle('التاريخ'),
                   SizedBox(height: 12),
@@ -224,10 +220,7 @@ class _BulkDisbursementScreenState extends State<BulkDisbursementScreen> {
                       ),
                       child: Row(
                         children: [
-                          Icon(
-                            Icons.calendar_today,
-                            color: Color(0xFF9DC65D),
-                          ),
+                          Icon(Icons.calendar_today, color: Color(0xFF9DC65D)),
                           SizedBox(width: 12),
                           Text(
                             DateFormat('yyyy-MM-dd').format(selectedDate),
@@ -241,7 +234,7 @@ class _BulkDisbursementScreenState extends State<BulkDisbursementScreen> {
                     ),
                   ),
                   SizedBox(height: 24),
-    
+
                   // Bond description
                   _buildSectionTitle('وصف السند'),
                   SizedBox(height: 12),
@@ -252,15 +245,12 @@ class _BulkDisbursementScreenState extends State<BulkDisbursementScreen> {
                     maxLines: 3,
                   ),
                   SizedBox(height: 24),
-    
+
                   // Currency (fixed to EGP)
                   _buildSectionTitle('العملة'),
                   SizedBox(height: 12),
                   Container(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 16,
-                    ),
+                    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                     decoration: BoxDecoration(
                       color: Color(0xFF9DC65D).withOpacity(0.1),
                       borderRadius: BorderRadius.circular(12),
@@ -282,7 +272,7 @@ class _BulkDisbursementScreenState extends State<BulkDisbursementScreen> {
                     ),
                   ),
                   SizedBox(height: 32),
-    
+
                   // Select all button
                   _buildSectionTitle('اختيار الفلل'),
                   SizedBox(height: 12),
@@ -296,10 +286,7 @@ class _BulkDisbursementScreenState extends State<BulkDisbursementScreen> {
                       decoration: BoxDecoration(
                         color: selectAll ? Color(0xFF9DC65D) : Colors.white,
                         borderRadius: BorderRadius.circular(12),
-                        border: Border.all(
-                          color: Color(0xFF9DC65D),
-                          width: 2,
-                        ),
+                        border: Border.all(color: Color(0xFF9DC65D), width: 2),
                       ),
                       child: Row(
                         children: [
@@ -310,9 +297,7 @@ class _BulkDisbursementScreenState extends State<BulkDisbursementScreen> {
                             checkColor: Color(0xFF9DC65D),
                             side: BorderSide(
                               color:
-                                  selectAll
-                                      ? Colors.white
-                                      : Color(0xFF9DC65D),
+                                  selectAll ? Colors.white : Color(0xFF9DC65D),
                               width: 2,
                             ),
                           ),
@@ -322,9 +307,7 @@ class _BulkDisbursementScreenState extends State<BulkDisbursementScreen> {
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
                               color:
-                                  selectAll
-                                      ? Colors.white
-                                      : Color(0xFF2C3E50),
+                                  selectAll ? Colors.white : Color(0xFF2C3E50),
                             ),
                           ),
                         ],
@@ -332,7 +315,7 @@ class _BulkDisbursementScreenState extends State<BulkDisbursementScreen> {
                     ),
                   ),
                   SizedBox(height: 16),
-    
+
                   // Villas list
                   if (state is VillasListLoading)
                     Center(
@@ -409,9 +392,10 @@ class _BulkDisbursementScreenState extends State<BulkDisbursementScreen> {
                                 (context, index) => Divider(height: 1),
                             itemBuilder: (context, index) {
                               final villa = allVillas[index];
-                              final isSelected = selectedVillaNumbers
-                                  .contains(villa.villaNumber);
-    
+                              final isSelected = selectedVillaNumbers.contains(
+                                villa.villaNumber,
+                              );
+
                               return InkWell(
                                 onTap:
                                     () => _toggleVillaSelection(
@@ -470,7 +454,7 @@ class _BulkDisbursementScreenState extends State<BulkDisbursementScreen> {
                       ),
                     ),
                   SizedBox(height: 32),
-    
+
                   // Submit button
                   if (state is BulkDisbursementLoading)
                     Center(

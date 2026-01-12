@@ -25,7 +25,7 @@ class BulkDisbursementCubit extends Cubit<BulkDisbursementState> {
   }
 
   Future<void> submitBulkDisbursement({
-    required List<int> villaNumbers,
+    required List<String> villaNumbers,
     required double pricePerMeter,
     required String date,
     required String bondDescription,

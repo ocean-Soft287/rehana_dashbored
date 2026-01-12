@@ -1,5 +1,5 @@
 class BulkDisbursementModel {
-  final List<int> villaNumbers;
+  final List<String> villaNumbers;
   final double pricePerMeter;
   final String date;
   final String currency;

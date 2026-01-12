@@ -4,7 +4,7 @@ class BondModel {
   final String bondDescription;
   final String type;
   final double amount;
-  final int villaNumber;
+  final String villaNumber;
   final String memberName;
 
   BondModel({
@@ -24,7 +24,7 @@ class BondModel {
       bondDescription: json['bondDescription'] as String,
       type: json['type'] as String,
       amount: (json['amount'] as num).toDouble(),
-      villaNumber: json['villaNumber'] as int,
+      villaNumber: json['villaNumber'] as String,
       memberName: json['memberName'] as String,
     );
   }

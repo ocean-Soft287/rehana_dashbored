@@ -1,6 +1,7 @@
 import 'dart:ui' as ui;
 
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:rehana_dashboared/core/utils/Network/local/cache_manager.dart';
 import 'firebase_options.dart';
@@ -21,8 +22,12 @@ import 'l10n/app_localizations.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   // WidgetsFlutterBinding.ensureInitialized();
+  // if (kIsWeb) {
+  // }
   await CacheManager.init();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await FirebaseMessaging.instance.requestPermission();
+
   ui.channelBuffers.setListener('flutter/lifecycle', (data, _) {});
   setup();
   await Hive.initFlutter();

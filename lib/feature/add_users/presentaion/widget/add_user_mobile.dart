@@ -183,11 +183,11 @@ class AddUserMobile extends StatelessWidget {
                     context,
                   )!.please_enter_villa_number;
                 }
-                if (!RegExp(r'^\d+$').hasMatch(value)) {
-                  return AppLocalizations.of(
-                    context,
-                  )!.villa_number_must_be_numeric;
-                }
+                // if (!RegExp(r'^\d+$').hasMatch(value)) {
+                //   return AppLocalizations.of(
+                //     context,
+                //   )!.villa_number_must_be_numeric;
+                // }
                 return null;
               },
             ),
@@ -307,10 +307,9 @@ class AddUserMobile extends StatelessWidget {
                         email: email.text,
                         password: password.text,
                         phoneNumber: phone.text,
-
                         villaAddress: villaAddress.text,
                         villaLocation: villaLocation.text,
-                        villaNumber: int.tryParse(villaNumber.text) ?? 0,
+                        villaNumber: villaNumber.text,
                         villaSpace: villaspace.text,
                         villaStreet: street.text,
                         villaFloorsNumber: int.tryParse(numOfFloors.text) ?? 0,

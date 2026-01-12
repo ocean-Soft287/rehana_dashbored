@@ -5,6 +5,9 @@ import 'package:rehana_dashboared/feature/Account_Management/presentation/view/s
 import 'package:rehana_dashboared/feature/add_users/presentaion/screen/responsive_add_security.dart';
 import 'package:rehana_dashboared/feature/add_users/presentaion/screen/responsive_add_user.dart';
 import 'package:rehana_dashboared/feature/UserManagement/presentation/view/screen/responsive_all_owners.dart';
+import 'package:rehana_dashboared/feature/collections/presentation/view/screen/responsive_collections_screen.dart';
+import 'package:rehana_dashboared/feature/users_management/presentation/view/screen/responsive_add_user_screen.dart';
+import 'package:rehana_dashboared/feature/users_management/presentation/view/screen/responsive_view_users_screen.dart';
 
 import 'package:rehana_dashboared/feature/bar_navigation/manger/bar_state.dart';
 import '../../../l10n/app_localizations.dart';
@@ -13,12 +16,9 @@ import '../../Account_Management/presentation/view/screen/account_mangment_choos
 import '../../Account_Management/presentation/view/screen/create_receipt_bond_for_compound_responsive.dart';
 import '../../Account_Management/presentation/view/screen/summarybondbyyear_statement_responsive.dart'
     show SummarybondbyyearStatementResponsive;
-import '../../Account_Management/presentation/view/screen/responsive_create_abond.dart';
 import '../../Account_Management/presentation/view/screen/responsive_members_account_statement.dart';
 import '../../Account_Management/presentation/view/screen/bulk_disbursement_screen_wrapper.dart';
 
-import '../../UserManagement/presentation/view/screen/responsive_usermangment.dart';
-import '../../add_users/presentaion/screen/add_account_mangment_responsive.dart';
 import '../../security_view/presentation/view/responsive_security_view.dart';
 import '../../Chat/presentation/view/screen/responsive_chat.dart';
 import '../data/model/menu_entry.dart';
@@ -98,12 +98,10 @@ class BottomCubit extends Cubit<BottomState> {
             return finance == 0
                 ? ReceiptsResponsive()
                 : CreateReceiptBondForCompoundResponsive();
-          case 1: // Expenses Management - NEW SCREEN
+          case 1: // Expenses Management
             return const BulkDisbursementScreenWrapper();
-          case 2: // Create Account
-            return finance == 0
-                ? const AddAccountMangment()
-                : ResponsiveCreateAbond();
+          case 2: // Collections (مقبوضات) - NEW SCREEN
+            return const ResponsiveCollectionsScreen();
           case 3: // All Members Statement
             return finance == 0
                 ? ResponsiveMembersAccountStatement()
@@ -121,7 +119,14 @@ class BottomCubit extends Cubit<BottomState> {
             return const ResponsiveAddUser();
         }
       case 3: // User Management
-        return const ResponsiveUserManagement();
+        switch (selectedSubIndex) {
+          case 0:
+            return const ResponsiveAddUserScreen(); // Add User
+          case 1:
+            return const ResponsiveViewUsersScreen(); // View Users
+          default:
+            return const ResponsiveAddUserScreen();
+        }
       case 4: // Chat
         return const ResponsiveChat();
       default:
@@ -130,6 +135,21 @@ class BottomCubit extends Cubit<BottomState> {
   }
 
   List<dynamic> menuItems(BuildContext context) => [
+    // Owners - Expansion item (Index 2)
+    ExpansionMenuEntry("الملاك", Icons.people, [
+      SidebarSubItem(
+        title: "اضافة مالك",
+        icon: Icons.person_add,
+        isSelected: selectedMainIndex == 2 && selectedSubIndex == 0,
+        onTap: () => changeSubItem(2, 0),
+      ),
+      SidebarSubItem(
+        title: "كل الملاك",
+        icon: Icons.people,
+        isSelected: selectedMainIndex == 2 && selectedSubIndex == 1,
+        onTap: () => changeSubItem(2, 1),
+      ),
+    ]),
     // Security - Expansion item (Index 0)
     ExpansionMenuEntry(AppLocalizations.of(context)!.security, Icons.security, [
       SidebarSubItem(
@@ -145,6 +165,26 @@ class BottomCubit extends Cubit<BottomState> {
         onTap: () => changeSubItem(0, 1),
       ),
     ]),
+
+    // User Management - Expansion item (Index 3)
+    ExpansionMenuEntry(
+      AppLocalizations.of(context)!.user_management,
+      Icons.supervised_user_circle,
+      [
+        SidebarSubItem(
+          title: "إضافة مستخدم",
+          icon: Icons.person_add,
+          isSelected: selectedMainIndex == 3 && selectedSubIndex == 0,
+          onTap: () => changeSubItem(3, 0),
+        ),
+        SidebarSubItem(
+          title: "عرض جميع المستخدمين",
+          icon: Icons.people,
+          isSelected: selectedMainIndex == 3 && selectedSubIndex == 1,
+          onTap: () => changeSubItem(3, 1),
+        ),
+      ],
+    ),
 
     // Account Management - Expansion item (Index 1)
     ExpansionMenuEntry(
@@ -164,40 +204,18 @@ class BottomCubit extends Cubit<BottomState> {
           onTap: () => changeSubItem(1, 1),
         ),
         SidebarSubItem(
-          title: AppLocalizations.of(context)!.create_account,
-          icon: Icons.account_circle_outlined,
+          title: "مقبوضات",
+          icon: Icons.payments,
           isSelected: selectedMainIndex == 1 && selectedSubIndex == 2,
           onTap: () => changeSubItem(1, 2),
         ),
-        SidebarSubItem(
-          title: AppLocalizations.of(context)!.members_account_statement,
-          icon: Icons.people_outline,
-          isSelected: selectedMainIndex == 1 && selectedSubIndex == 3,
-          onTap: () => changeSubItem(1, 3),
-        ),
+        // SidebarSubItem(
+        //   title: AppLocalizations.of(context)!.members_account_statement,
+        //   icon: Icons.people_outline,
+        //   isSelected: selectedMainIndex == 1 && selectedSubIndex == 3,
+        //   onTap: () => changeSubItem(1, 3),
+        // ),
       ],
-    ),
-
-    // Owners - Expansion item (Index 2)
-    ExpansionMenuEntry("الملاك", Icons.people, [
-      SidebarSubItem(
-        title: "اضافة مالك",
-        icon: Icons.person_add,
-        isSelected: selectedMainIndex == 2 && selectedSubIndex == 0,
-        onTap: () => changeSubItem(2, 0),
-      ),
-      SidebarSubItem(
-        title: "كل الملاك",
-        icon: Icons.people,
-        isSelected: selectedMainIndex == 2 && selectedSubIndex == 1,
-        onTap: () => changeSubItem(2, 1),
-      ),
-    ]),
-
-    // User Management - Simple item (Index 3)
-    MenuEntry(
-      AppLocalizations.of(context)!.user_management,
-      Icons.supervised_user_circle,
     ),
 
     // Chat - Simple item (Index 4)

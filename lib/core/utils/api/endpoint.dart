@@ -30,7 +30,7 @@ class EndPoint {
 
   ///bond
 
-  static String createBondForMember = "$baseUrl/Dashboard/createBondForMember";
+  static String createBondForMember = "$baseUrl/Dashboard/memberReceipt";
   static String addCompoundDisbursementBond =
       "$baseUrl/Dashboard/addCompoundDisbursementBond";
   static String compounddisbursementbonds =
@@ -49,6 +49,9 @@ class EndPoint {
   ///Dashboard
   static String villasList = "$baseUrl/Dashboard/list";
   static String bulkDisbursement = "$baseUrl/Dashboard/bulkDisbursement";
+
+  ///Collections (مقبوضات)
+  static String createCollection = "$baseUrl/Dashboard/memberReceipt";
 
   //chat
 

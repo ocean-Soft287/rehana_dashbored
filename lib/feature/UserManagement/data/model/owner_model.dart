@@ -7,7 +7,7 @@ class OwnerModel extends Equatable {
   final String phoneNumber;
   final String pictureUrl;
   final String villaAddress;
-  final int villaNumber;
+  final String villaNumber;
   final String villaLocation;
   final String villaSpace;
   final String villaStreet;
@@ -35,7 +35,7 @@ class OwnerModel extends Equatable {
       phoneNumber: json['phoneNumber'] ?? '',
       pictureUrl: json['pictureUrl'] ?? '',
       villaAddress: json['villaAddress'] ?? '',
-      villaNumber: json['villaNumber'] ?? 0,
+      villaNumber: json['villaNumber'] ?? '',
       villaLocation: json['villaLocation'] ?? '',
       villaSpace: json['villaSpace'] ?? '',
       villaStreet: json['villaStreet'] ?? '',
