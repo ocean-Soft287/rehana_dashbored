@@ -31,8 +31,8 @@ class BottomCubit extends Cubit<BottomState> {
 
   int finance = 0;
   int villaNumber = 0;
-  int selectedMainIndex = 0;
-  int selectedSubIndex = 0;
+  int selectedMainIndex = 2;
+  int selectedSubIndex = 1;
 
   void changeItem(int index) {
     selectedMainIndex = index;

@@ -219,7 +219,7 @@ class _TabletLoginScreenState extends State<TabletLoginScreen> {
                                           ),
                                         ],
                                       ),
-                                      backgroundColor: Appcolors.bIcon,
+                                      backgroundColor: Colors.green,
                                       duration: Duration(seconds: 2),
                                       shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(12),
