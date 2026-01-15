@@ -32,12 +32,20 @@ abstract class AccountMangmentrepo {
   });
   Future<Either<Failure, BondPageModel>> getallmemberreceiptbonds(
     int page,
-    int pagesize,
-  );
+    int pagesize, {
+    String? villaNumber,
+    String? memberName,
+    String? fromDate,
+    String? toDate,
+  });
   Future<Either<Failure, BondPageModel>> getallMemberdisbursementBonds(
     int page,
-    int pagesize,
-  );
+    int pagesize, {
+    String? villaNumber,
+    String? memberName,
+    String? fromDate,
+    String? toDate,
+  });
   Future<Either<Failure, String>> createBondcompound({
     required String date,
     required String currency,

@@ -35,9 +35,10 @@ class EndPoint {
       "$baseUrl/Dashboard/addCompoundDisbursementBond";
   static String compounddisbursementbonds =
       "$baseUrl/Dashboard/CompoundDisbursementBonds?page=";
-  static String getallmemberreceiptbonds = "$baseUrl/Dashboard/bonds?page=";
+  static String getallmemberreceiptbonds =
+      "$baseUrl/Dashboard/bonds?type=Receipt&page=";
   static String getallMemberdisbursementBonds =
-      "$baseUrl/Dashboard/getallMemberdisbursementBonds?page=";
+      "$baseUrl/Dashboard/bonds?type=Disbursement&page=";
   static String getMemberAccountByVillaNumber =
       "$baseUrl/Dashboard/getMemberAccountByVillaNumber/";
   static String getbondssummarybyyearbyvillanumber =

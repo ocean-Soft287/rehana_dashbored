@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rehana_dashboared/feature/Account_Management/presentation/view/screen/receipts_responsive.dart'
     show ReceiptsResponsive;
+import 'package:rehana_dashboared/feature/Account_Management/presentation/view/screen/disbursement_vouchers_responsive.dart'
+    show DisbursementVouchersResponsive;
 import 'package:rehana_dashboared/feature/add_users/presentaion/screen/responsive_add_security.dart';
 import 'package:rehana_dashboared/feature/add_users/presentaion/screen/responsive_add_user.dart';
 import 'package:rehana_dashboared/feature/UserManagement/presentation/view/screen/responsive_all_owners.dart';
@@ -102,7 +104,9 @@ class BottomCubit extends Cubit<BottomState> {
             return const BulkDisbursementScreenWrapper();
           case 2: // Collections (مقبوضات) - NEW SCREEN
             return const ResponsiveCollectionsScreen();
-          case 3: // All Members Statement
+          case 3: // Disbursement Vouchers (سندات الصرف) - NEW SCREEN
+            return const DisbursementVouchersResponsive();
+          case 4: // All Members Statement
             return finance == 0
                 ? ResponsiveMembersAccountStatement()
                 : SummarybondbyyearStatementResponsive();
@@ -198,22 +202,30 @@ class BottomCubit extends Cubit<BottomState> {
           onTap: () => changeSubItem(1, 0),
         ),
         SidebarSubItem(
-          title: "إدارة المصروفات",
-          icon: Icons.account_balance_wallet,
-          isSelected: selectedMainIndex == 1 && selectedSubIndex == 1,
-          onTap: () => changeSubItem(1, 1),
-        ),
-        SidebarSubItem(
           title: "مقبوضات",
           icon: Icons.payments,
           isSelected: selectedMainIndex == 1 && selectedSubIndex == 2,
           onTap: () => changeSubItem(1, 2),
         ),
+        SidebarSubItem(
+          title: AppLocalizations.of(context)!.payment_vouchers,
+          icon: Icons.receipt_long,
+          isSelected: selectedMainIndex == 1 && selectedSubIndex == 3,
+          onTap: () => changeSubItem(1, 3),
+        ),
+        SidebarSubItem(
+          title: "إدارة المصروفات",
+          icon: Icons.account_balance_wallet,
+          isSelected: selectedMainIndex == 1 && selectedSubIndex == 1,
+          onTap: () => changeSubItem(1, 1),
+        ),
+        
+        
         // SidebarSubItem(
         //   title: AppLocalizations.of(context)!.members_account_statement,
         //   icon: Icons.people_outline,
-        //   isSelected: selectedMainIndex == 1 && selectedSubIndex == 3,
-        //   onTap: () => changeSubItem(1, 3),
+        //   isSelected: selectedMainIndex == 1 && selectedSubIndex == 4,
+        //   onTap: () => changeSubItem(1, 4),
         // ),
       ],
     ),

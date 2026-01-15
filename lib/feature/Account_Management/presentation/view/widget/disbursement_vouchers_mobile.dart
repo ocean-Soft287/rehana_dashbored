@@ -14,19 +14,21 @@ import 'package:rehana_dashboared/l10n/app_localizations.dart';
 import '../../manger/person_cubit.dart';
 import 'bonds_search_filter.dart';
 
-class ReceiptsMobile extends StatefulWidget {
-  const ReceiptsMobile({super.key});
+class DisbursementVouchersMobile extends StatefulWidget {
+  const DisbursementVouchersMobile({super.key});
 
   @override
-  State<ReceiptsMobile> createState() => _ReceiptsMobileState();
+  State<DisbursementVouchersMobile> createState() =>
+      _DisbursementVouchersMobileState();
 }
 
-class _ReceiptsMobileState extends State<ReceiptsMobile> {
+class _DisbursementVouchersMobileState
+    extends State<DisbursementVouchersMobile> {
   @override
   void initState() {
     super.initState();
     final personCubit = context.read<PersonCubit>();
-    personCubit.getAllReceiptBonds(personCubit.pageSize);
+    personCubit.getAllDisbursementBonds(personCubit.pageSize);
   }
 
   @override
@@ -48,12 +50,12 @@ class _ReceiptsMobileState extends State<ReceiptsMobile> {
                     toDate: toDate,
                   );
                   personCubit.currentPage = 1;
-                  personCubit.getAllReceiptBonds(1);
+                  personCubit.getAllDisbursementBonds(1);
                 },
                 onClear: () {
                   personCubit.clearSearchFilters();
                   personCubit.currentPage = 1;
-                  personCubit.getAllReceiptBonds(1);
+                  personCubit.getAllDisbursementBonds(1);
                 },
               ),
               Expanded(
@@ -67,7 +69,7 @@ class _ReceiptsMobileState extends State<ReceiptsMobile> {
                     ),
                     child: CustomScrollView(
                       slivers: [
-                        if (state is ReceiptBondSuccess)
+                        if (state is DisbursementBondSuccess)
                           SliverList.separated(
                             itemCount: state.data.items.length,
                             itemBuilder: (context, index) {
@@ -133,10 +135,10 @@ class _ReceiptsMobileState extends State<ReceiptsMobile> {
                                         label:
                                             AppLocalizations.of(context)!.type,
                                         value:
-                                            row.type == "Receipt"
+                                            row.type == "Disbursement"
                                                 ? AppLocalizations.of(
                                                   context,
-                                                )!.receipt
+                                                )!.payment_bond
                                                 : row.type,
                                       ),
                                       RowItem(
@@ -156,13 +158,15 @@ class _ReceiptsMobileState extends State<ReceiptsMobile> {
                             separatorBuilder: (context, index) => SizedBox(),
                           ),
 
-                        if (state is ReceiptBondSuccess)
+                        if (state is DisbursementBondSuccess)
                           PaginationControls(
                             currentPage: personCubit.currentPage,
                             totalPages: state.data.totalPages,
-                            onNext: personCubit.nextPagegetAllReceiptBonds,
+                            onNext:
+                                personCubit.nextPagegetgetAllDisbursementBonds,
                             onPrevious:
-                                personCubit.previousPagegetAllReceiptBonds,
+                                personCubit
+                                    .previousPagegetgetAllDisbursementBonds,
                           ),
                       ],
                     ),

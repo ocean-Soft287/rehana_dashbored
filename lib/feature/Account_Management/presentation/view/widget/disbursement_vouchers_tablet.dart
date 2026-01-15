@@ -10,19 +10,21 @@ import 'package:rehana_dashboared/l10n/app_localizations.dart';
 import '../../manger/person_cubit.dart';
 import 'bonds_search_filter.dart';
 
-class ReceiptsTablet extends StatefulWidget {
-  const ReceiptsTablet({super.key});
+class DisbursementVouchersTablet extends StatefulWidget {
+  const DisbursementVouchersTablet({super.key});
 
   @override
-  State<ReceiptsTablet> createState() => _ReceiptsTabletState();
+  State<DisbursementVouchersTablet> createState() =>
+      _DisbursementVouchersTabletState();
 }
 
-class _ReceiptsTabletState extends State<ReceiptsTablet> {
+class _DisbursementVouchersTabletState
+    extends State<DisbursementVouchersTablet> {
   @override
   void initState() {
     super.initState();
     final personCubit = context.read<PersonCubit>();
-    personCubit.getAllReceiptBonds(personCubit.pageSize);
+    personCubit.getAllDisbursementBonds(personCubit.pageSize);
   }
 
   @override
@@ -44,12 +46,12 @@ class _ReceiptsTabletState extends State<ReceiptsTablet> {
                     toDate: toDate,
                   );
                   personCubit.currentPage = 1;
-                  personCubit.getAllReceiptBonds(1);
+                  personCubit.getAllDisbursementBonds(1);
                 },
                 onClear: () {
                   personCubit.clearSearchFilters();
                   personCubit.currentPage = 1;
-                  personCubit.getAllReceiptBonds(1);
+                  personCubit.getAllDisbursementBonds(1);
                 },
               ),
               Expanded(
@@ -113,7 +115,7 @@ class _ReceiptsTabletState extends State<ReceiptsTablet> {
                             hasScrollBody: false,
                             child: Center(child: CircularProgressIndicator()),
                           ),
-                        if (state is ReceiptBondSuccess)
+                        if (state is DisbursementBondSuccess)
                           // Data rows
                           SliverList.separated(
                             itemCount: state.data.items.length,
@@ -136,13 +138,11 @@ class _ReceiptsTabletState extends State<ReceiptsTablet> {
                                     DataCell(text: row.bondDescription),
                                     DataCell(
                                       text:
-                                          row.type == "Receipt"
+                                          row.type == "Disbursement"
                                               ? AppLocalizations.of(
                                                 context,
-                                              )!.receipt
-                                              : AppLocalizations.of(
-                                                context,
-                                              )!.receipt,
+                                              )!.payment_bond
+                                              : row.type,
                                     ),
                                   ],
                                 ),
@@ -157,13 +157,15 @@ class _ReceiptsTabletState extends State<ReceiptsTablet> {
 
                         SliverToBoxAdapter(child: SizedBox(height: 50)),
 
-                        if (state is ReceiptBondSuccess)
+                        if (state is DisbursementBondSuccess)
                           PaginationControls(
                             currentPage: personCubit.currentPage,
                             totalPages: state.data.totalPages,
-                            onNext: personCubit.nextPagegetAllReceiptBonds,
+                            onNext:
+                                personCubit.nextPagegetgetAllDisbursementBonds,
                             onPrevious:
-                                personCubit.previousPagegetAllReceiptBonds,
+                                personCubit
+                                    .previousPagegetgetAllDisbursementBonds,
                           ),
                       ],
                     ),

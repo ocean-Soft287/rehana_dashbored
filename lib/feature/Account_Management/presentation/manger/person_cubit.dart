@@ -1,5 +1,3 @@
-
-
 import 'package:bloc/bloc.dart';
 import 'package:rehana_dashboared/core/utils/Failure/failure.dart';
 import 'package:rehana_dashboared/feature/Account_Management/data/model/bonds_summary_by_year_model.dart';
@@ -12,12 +10,36 @@ import '../../data/repo/accountmangmentrepo.dart';
 
 part 'person_state.dart';
 
-
 class PersonCubit extends Cubit<PersonState> {
   PersonCubit(this.accountMangmentrepo) : super(PersonInitial());
   final AccountMangmentrepo accountMangmentrepo;
   int currentPage = 1;
   final int pageSize = 20;
+
+  // Search filters
+  String? searchVillaNumber;
+  String? searchMemberName;
+  String? searchFromDate;
+  String? searchToDate;
+
+  void updateSearchFilters({
+    String? villaNumber,
+    String? memberName,
+    String? fromDate,
+    String? toDate,
+  }) {
+    searchVillaNumber = villaNumber;
+    searchMemberName = memberName;
+    searchFromDate = fromDate;
+    searchToDate = toDate;
+  }
+
+  void clearSearchFilters() {
+    searchVillaNumber = null;
+    searchMemberName = null;
+    searchFromDate = null;
+    searchToDate = null;
+  }
 
   void nextPage() {
     currentPage++;
@@ -37,10 +59,10 @@ class PersonCubit extends Cubit<PersonState> {
       pageSize,
     );
     response.fold(
-          (failure) {
+      (failure) {
         emit(Allmembersfailure(message: failure.message));
       },
-          (paginatedVisitInvitations) {
+      (paginatedVisitInvitations) {
         emit(Allmemberssuccful(personPageSize: paginatedVisitInvitations));
       },
     );
@@ -49,16 +71,15 @@ class PersonCubit extends Cubit<PersonState> {
   Future<void> deleteid(int id) async {
     final response = await accountMangmentrepo.deleteaccountmember(id);
     response.fold(
-          (failure) {
+      (failure) {
         emit(Deletefailure(failure: failure));
       },
-          (message) {
+      (message) {
         emit(DeleteSuccess(message: message));
         getallmemberaccounts(currentPage);
       },
     );
   }
-
 
   Future<void> update({
     required String id,
@@ -79,14 +100,15 @@ class PersonCubit extends Cubit<PersonState> {
       villaNumber: villaNumber,
     );
     response.fold(
-          (failure) {
+      (failure) {
         emit(UpdateUserFail(message: failure.message));
       },
-          (person) {
+      (person) {
         emit(UpdateSuccessful(person: person));
       },
     );
   }
+
   Future<void> createBondcompounds({
     required String date,
     required String currency,
@@ -99,15 +121,14 @@ class PersonCubit extends Cubit<PersonState> {
     );
 
     response.fold(
-          (failure) {
+      (failure) {
         emit(CreateBondcompoundFail(message: failure.message));
       },
-          (message) {
+      (message) {
         emit(CreateBoncompounddSuccess(message: message));
       },
     );
   }
-
 
   Future<void> createBond({
     required String date,
@@ -127,10 +148,10 @@ class PersonCubit extends Cubit<PersonState> {
     );
 
     response.fold(
-          (failure) {
+      (failure) {
         emit(CreateBondFail(message: failure.message));
       },
-          (message) {
+      (message) {
         emit(CreateBondSuccess(message: message));
       },
     );
@@ -138,17 +159,25 @@ class PersonCubit extends Cubit<PersonState> {
 
   Future<void> getAllReceiptBonds(int page) async {
     emit(PersonLoading());
-    final response = await accountMangmentrepo.getallmemberreceiptbonds(currentPage, pageSize);
+    final response = await accountMangmentrepo.getallmemberreceiptbonds(
+      currentPage,
+      pageSize,
+      villaNumber: searchVillaNumber,
+      memberName: searchMemberName,
+      fromDate: searchFromDate,
+      toDate: searchToDate,
+    );
 
     response.fold(
-          (failure) {
+      (failure) {
         emit(ReceiptBondFail(message: failure.message));
       },
-          (bonds) {
+      (bonds) {
         emit(ReceiptBondSuccess(data: bonds));
       },
     );
   }
+
   void nextPagegetAllReceiptBonds() {
     currentPage++;
     getAllReceiptBonds(currentPage);
@@ -162,13 +191,20 @@ class PersonCubit extends Cubit<PersonState> {
   }
 
   Future<void> getAllDisbursementBonds(int page) async {
-    final response = await accountMangmentrepo.      getallMemberdisbursementBonds(currentPage, pageSize);
+    final response = await accountMangmentrepo.getallMemberdisbursementBonds(
+      currentPage,
+      pageSize,
+      villaNumber: searchVillaNumber,
+      memberName: searchMemberName,
+      fromDate: searchFromDate,
+      toDate: searchToDate,
+    );
 
     response.fold(
-          (failure) {
+      (failure) {
         emit(DisbursementBondFail(message: failure.message));
       },
-          (bonds) {
+      (bonds) {
         emit(DisbursementBondSuccess(data: bonds));
       },
     );
@@ -186,20 +222,26 @@ class PersonCubit extends Cubit<PersonState> {
     }
   }
 
-
-  Future<void> getCompoundDisbursementBonds(int page)async{
-    final response = await accountMangmentrepo.getCompoundDisbursementBonds(currentPage, pageSize);
-
-    response.fold(
-          (failure) {
-        emit(CompoundDisbursementBondsPageFail(message: failure.message));
-      },
-          (compounddisbursementbondspagemodel) {
-        emit(CompoundDisbursementBondsPageSuccess(data: compounddisbursementbondspagemodel));
-      },
+  Future<void> getCompoundDisbursementBonds(int page) async {
+    final response = await accountMangmentrepo.getCompoundDisbursementBonds(
+      currentPage,
+      pageSize,
     );
 
+    response.fold(
+      (failure) {
+        emit(CompoundDisbursementBondsPageFail(message: failure.message));
+      },
+      (compounddisbursementbondspagemodel) {
+        emit(
+          CompoundDisbursementBondsPageSuccess(
+            data: compounddisbursementbondspagemodel,
+          ),
+        );
+      },
+    );
   }
+
   void nextPagegetCompoundDisbursementBonds() {
     currentPage++;
     getCompoundDisbursementBonds(currentPage);
@@ -211,14 +253,18 @@ class PersonCubit extends Cubit<PersonState> {
       getCompoundDisbursementBonds(currentPage);
     }
   }
-  Future<void>getsummarybondbyvillanumber(int villa_number)async{
-    final response=await accountMangmentrepo.getbondssummarybyyearbyvillanumber(villa_number);
 
-    response.fold(  (failure) {
-      emit(SummarybondbyvillanumberFail(message: failure.message));
-    },
-        (boundsummary){
-      emit(Summarybondbyvillanumbersuccful(data: boundsummary));
-        });
+  Future<void> getsummarybondbyvillanumber(int villa_number) async {
+    final response = await accountMangmentrepo
+        .getbondssummarybyyearbyvillanumber(villa_number);
+
+    response.fold(
+      (failure) {
+        emit(SummarybondbyvillanumberFail(message: failure.message));
+      },
+      (boundsummary) {
+        emit(Summarybondbyvillanumbersuccful(data: boundsummary));
+      },
+    );
   }
 }

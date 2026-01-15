@@ -127,12 +127,30 @@ class AccountMangmentrepoimp implements AccountMangmentrepo {
   @override
   Future<Either<Failure, BondPageModel>> getallmemberreceiptbonds(
     int page,
-    int pagesize,
-  ) async {
+    int pagesize, {
+    String? villaNumber,
+    String? memberName,
+    String? fromDate,
+    String? toDate,
+  }) async {
     try {
-      final response = await dioConsumer.get(
-        "${EndPoint.getallmemberreceiptbonds}$page&pageSize=$pagesize",
-      );
+      String url =
+          "${EndPoint.getallmemberreceiptbonds}$page&pageSize=$pagesize";
+
+      if (villaNumber != null && villaNumber.isNotEmpty) {
+        url += "&villaNumber=$villaNumber";
+      }
+      if (memberName != null && memberName.isNotEmpty) {
+        url += "&memberName=$memberName";
+      }
+      if (fromDate != null && fromDate.isNotEmpty) {
+        url += "&fromDate=$fromDate";
+      }
+      if (toDate != null && toDate.isNotEmpty) {
+        url += "&toDate=$toDate";
+      }
+
+      final response = await dioConsumer.get(url);
 
       final json = response as Map<String, dynamic>;
       final model = BondPageModel.fromJson(json);
@@ -147,12 +165,30 @@ class AccountMangmentrepoimp implements AccountMangmentrepo {
   @override
   Future<Either<Failure, BondPageModel>> getallMemberdisbursementBonds(
     int page,
-    int pagesize,
-  ) async {
+    int pagesize, {
+    String? villaNumber,
+    String? memberName,
+    String? fromDate,
+    String? toDate,
+  }) async {
     try {
-      final response = await dioConsumer.get(
-        "${EndPoint.getallMemberdisbursementBonds}$page&pageSize=$pagesize",
-      );
+      String url =
+          "${EndPoint.getallMemberdisbursementBonds}$page&pageSize=$pagesize";
+
+      if (villaNumber != null && villaNumber.isNotEmpty) {
+        url += "&villaNumber=$villaNumber";
+      }
+      if (memberName != null && memberName.isNotEmpty) {
+        url += "&memberName=$memberName";
+      }
+      if (fromDate != null && fromDate.isNotEmpty) {
+        url += "&fromDate=$fromDate";
+      }
+      if (toDate != null && toDate.isNotEmpty) {
+        url += "&toDate=$toDate";
+      }
+
+      final response = await dioConsumer.get(url);
 
       final json = response as Map<String, dynamic>;
       final model = BondPageModel.fromJson(json);
