@@ -24,7 +24,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get account_management => 'إدارة الحساب';
 
   @override
-  String get user_management => 'المستخدمين';
+  String get user_management => 'إدارة المستخدمين';
 
   @override
   String get chat => 'الدردشات';
