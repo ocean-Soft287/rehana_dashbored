@@ -11,7 +11,7 @@ class Imageuser extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return                   BlocBuilder<AdduserCubit, AdduserState>(
+    return BlocBuilder<AdduserCubit, AdduserState>(
       builder: (context, state) {
         final cubit = context.read<AdduserCubit>();
 
@@ -56,9 +56,7 @@ class Imageuser extends StatelessWidget {
           child: Container(
             width: 60,
             height: 60,
-            decoration: const BoxDecoration(
-              shape: BoxShape.circle,
-            ),
+            decoration: const BoxDecoration(shape: BoxShape.circle),
             clipBehavior: Clip.hardEdge, // يخلّي الصورة جوّه الدائرة
             child: thumbnail,
           ),

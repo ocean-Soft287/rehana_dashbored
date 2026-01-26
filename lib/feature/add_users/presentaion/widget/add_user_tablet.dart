@@ -1,5 +1,8 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rehana_dashboared/core/widgets/loading_widget.dart';
 import '../../../../core/const/widget/custom_button.dart';
 import '../../../../core/const/widget/textformcrud.dart';
 import '../../../../core/utils/colors/colors.dart';
@@ -284,7 +287,7 @@ class AddUserTablet extends StatelessWidget {
                 children: [
                   Expanded(
                     child: Textformcrud(
-                      controller: area,
+                      controller: villaspace,
                       name: AppLocalizations.of(context)!.area,
                       nameinfo: AppLocalizations.of(context)!.enter_area,
                       validator: (value) {
@@ -348,29 +351,43 @@ class AddUserTablet extends StatelessWidget {
                     builder: (context, state) {
                       final adduser = context.read<AdduserCubit>();
 
-                      return CustomButton(
-                        name: AppLocalizations.of(context)!.save,
-                        colors: Appcolors.kBlack,
-                        width: MediaQuery.of(context).size.width * 0.15,
-                        onTap: () {
-                          if (_formKey.currentState!.validate()) {
-                            adduser.addOwner(
-                              name: name.text,
-                              email: email.text,
-                              password: password.text,
-                              phoneNumber: phone.text,
-
-                              villaAddress: villaAddress.text,
-                              villaLocation: villaLocation.text,
-                              villaNumber: villaNumber.text,
-                              villaSpace: villaspace.text,
-                              villaStreet: street.text,
-                              villaFloorsNumber:
-                                  int.tryParse(numOfFloors.text) ?? 0,
-                            );
-                          }
-                        },
-                      );
+                      return state is AdduserLoading
+                          ? const Center(child: LoadingButton())
+                          : CustomButton(
+                            name: AppLocalizations.of(context)!.save,
+                            colors: Appcolors.kBlack,
+                            width: MediaQuery.of(context).size.width * 0.15,
+                            onTap: () {
+                              log(
+                                "Adding user with data: "
+                                "name: ${name.text}, "
+                                "email: ${email.text}, "
+                                "password: ${password.text}, "
+                                "phoneNumber: ${phone.text}, "
+                                "villaAddress: ${villaAddress.text}, "
+                                "villaLocation: ${villaLocation.text}, "
+                                "villaNumber: ${villaNumber.text}, "
+                                "villaSpace: ${villaspace.text}, "
+                                "villaStreet: ${street.text}, "
+                                "villaFloorsNumber: ${numOfFloors.text}",
+                              );
+                              if (_formKey.currentState!.validate()) {
+                                adduser.addOwner(
+                                  name: name.text,
+                                  email: email.text,
+                                  password: password.text,
+                                  phoneNumber: phone.text,
+                                  villaAddress: villaAddress.text,
+                                  villaLocation: villaLocation.text,
+                                  villaNumber: villaNumber.text,
+                                  villaSpace: villaspace.text,
+                                  villaStreet: street.text,
+                                  villaFloorsNumber:
+                                      int.tryParse(numOfFloors.text) ?? 0,
+                                );
+                              }
+                            },
+                          );
                     },
                   ),
                 ],

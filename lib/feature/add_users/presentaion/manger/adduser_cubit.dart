@@ -15,16 +15,14 @@ import '../../data/model/securitygardmodel.dart';
 
 part 'adduser_state.dart';
 
-
-
 class AdduserCubit extends Cubit<AdduserState> {
   final Adduserrepo _repo;
   AdduserCubit(this._repo) : super(AdduserInitial());
 
-  XFile?   _pickedXFile;  // للموبايل
+  XFile? _pickedXFile; // للموبايل
   Uint8List? _pickedBytes; // للويب
 
-  XFile?   get imageEditProfilePhoto  => _pickedXFile;
+  XFile? get imageEditProfilePhoto => _pickedXFile;
   Uint8List? get imageEditProfileBytes => _pickedBytes;
 
   final _picker = ImagePicker();
@@ -47,8 +45,8 @@ class AdduserCubit extends Cubit<AdduserState> {
         _pickedBytes = await picked.readAsBytes();
         _pickedXFile = null;
       } else {
-        _pickedXFile  = picked;
-        _pickedBytes  = null;
+        _pickedXFile = picked;
+        _pickedBytes = null;
       }
 
       emit(EditImagePickerProfileViewSuccess());
@@ -56,6 +54,7 @@ class AdduserCubit extends Cubit<AdduserState> {
       emit(EditImagePickerProfileViewError());
     }
   }
+
   Future<void> adduserperson({
     required String fullName,
     required String phoneNumber,
@@ -76,13 +75,13 @@ class AdduserCubit extends Cubit<AdduserState> {
     );
 
     res.fold(
-          (f) {
+      (f) {
         emit(AdduserFailure(f.message));
       },
-          (person) {
-            _pickedXFile = null;
-            _pickedBytes = null;
-        emit(AdduserpersonSuccess( person: person));
+      (person) {
+        _pickedXFile = null;
+        _pickedBytes = null;
+        emit(AdduserpersonSuccess(person: person));
       },
     );
   }
@@ -97,7 +96,7 @@ class AdduserCubit extends Cubit<AdduserState> {
     required String villaNumber,
     required String villaSpace,
     required String villaStreet,
-    required int    villaFloorsNumber,
+    required int villaFloorsNumber,
   }) async {
     emit(AdduserLoading());
 
@@ -116,72 +115,72 @@ class AdduserCubit extends Cubit<AdduserState> {
     }
 
     final Either<Failure, OwnerModel> res = await _repo.addOwner(
-      name              : name,
-      email             : email,
-      password          : password,
-      phoneNumber       : phoneNumber,
-      image             : imagePart,
-      villaAddress      : villaAddress,
-      villaLocation     : villaLocation,
-      villaNumber       : villaNumber,
-      villaSpace        : villaSpace,
-      villaStreet       : villaStreet,
-      villaFloorsNumber : villaFloorsNumber,
+      name: name,
+      email: email,
+      password: password,
+      phoneNumber: phoneNumber,
+      image: imagePart,
+      villaAddress: villaAddress,
+      villaLocation: villaLocation,
+      villaNumber: villaNumber,
+      villaSpace: villaSpace,
+      villaStreet: villaStreet,
+      villaFloorsNumber: villaFloorsNumber,
     );
 
     res.fold(
-          (f) {emit(AdduserFailure(f.message));
-
-          },
-          (o) {
-            _pickedXFile = null;
-            _pickedBytes = null;
-            emit(AdduserSuccess(o));
-          },
+      (f) {
+        emit(AdduserFailure(f.message));
+      },
+      (o) {
+        _pickedXFile = null;
+        _pickedBytes = null;
+        emit(AdduserSuccess(o));
+      },
     );
   }
- Future<void>addsecurity({
-   required String name,
-   required String email,
-   required String password,
-   required String phoneNumber,
-   required String gateNumber,
- })async{
+
+  Future<void> addsecurity({
+    required String name,
+    required String email,
+    required String password,
+    required String phoneNumber,
+    required String gateNumber,
+  }) async {
     emit(AdduserLoading());
-   MultipartFile? imagePart;
-   if (kIsWeb && _pickedBytes != null) {
-     imagePart = MultipartFile.fromBytes(
-       _pickedBytes!,
-       filename: 'profile_${DateTime.now().millisecondsSinceEpoch}.png',
-       contentType: MediaType('image', 'png'),
-     );
-   } else if (!kIsWeb && _pickedXFile != null) {
-     imagePart = await MultipartFile.fromFile(
-       _pickedXFile!.path,
-       filename: path.basename(_pickedXFile!.path),
-     );
-   }
+    MultipartFile? imagePart;
+    if (kIsWeb && _pickedBytes != null) {
+      imagePart = MultipartFile.fromBytes(
+        _pickedBytes!,
+        filename: 'profile_${DateTime.now().millisecondsSinceEpoch}.png',
+        contentType: MediaType('image', 'png'),
+      );
+    } else if (!kIsWeb && _pickedXFile != null) {
+      imagePart = await MultipartFile.fromFile(
+        _pickedXFile!.path,
+        filename: path.basename(_pickedXFile!.path),
+      );
+    }
 
-   final Either<Failure, SecurityGuardModel> res = await _repo.addsecurity(
-     name              : name,
-     email             : email,
-     password          : password,
-     phoneNumber       : phoneNumber,
-     image             : imagePart,
-     gateNumber: gateNumber,
+    final Either<Failure, SecurityGuardModel> res = await _repo.addsecurity(
+      name: name,
+      email: email,
+      password: password,
+      phoneNumber: phoneNumber,
+      image: imagePart,
+      gateNumber: gateNumber,
+    );
 
-   );
-
-   res.fold(
-         (f) {emit(AddsecurityFailure(f.message));
-     print(f.message);
-
-     },
-         (o) {
-           _pickedXFile = null;
-           _pickedBytes = null;
-           emit(Addsecuritysucces( securityGuardModel: o));
-         }
-   );
- }
+    res.fold(
+      (f) {
+        emit(AddsecurityFailure(f.message));
+        print(f.message);
+      },
+      (o) {
+        _pickedXFile = null;
+        _pickedBytes = null;
+        emit(Addsecuritysucces(securityGuardModel: o));
+      },
+    );
+  }
 }
