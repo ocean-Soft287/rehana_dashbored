@@ -331,7 +331,7 @@ class AddUserTablet extends StatelessWidget {
 
               // Save button
               Row(
-                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   BlocConsumer<AdduserCubit, AdduserState>(
                     listener: (context, state) {
@@ -346,7 +346,20 @@ class AddUserTablet extends StatelessWidget {
                         villaspace.clear();
                         street.clear();
                         numOfFloors.clear();
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                              "تم إضافة المستخدم بنجاح",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                            ),
+                            backgroundColor: Colors.green,
+                          ),
+                        );
                       }
+
                     },
                     builder: (context, state) {
                       final adduser = context.read<AdduserCubit>();

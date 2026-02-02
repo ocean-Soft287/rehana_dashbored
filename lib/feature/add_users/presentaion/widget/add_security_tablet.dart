@@ -1,13 +1,15 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rehana_dashboared/core/widgets/loading_widget.dart';
 
 import '../../../../core/const/widget/custom_button.dart';
 import '../../../../core/const/widget/textformcrud.dart';
 import '../../../../core/utils/colors/colors.dart';
 import '../../../../core/utils/font/fonts.dart';
 
-
-import '../../../../l10n/app_localizations.dart';import '../manger/adduser_cubit.dart';
+import '../../../../l10n/app_localizations.dart';
+import '../manger/adduser_cubit.dart';
 import 'imageuser.dart';
 
 class AddSecurityTablet extends StatelessWidget {
@@ -39,7 +41,7 @@ class AddSecurityTablet extends StatelessWidget {
           borderRadius: BorderRadius.circular(16),
           boxShadow: [
             BoxShadow(
-              color: CupertinoColors.systemGrey.withValues( alpha:0.1),
+              color: CupertinoColors.systemGrey.withValues(alpha: 0.1),
               blurRadius: 12,
               spreadRadius: 2,
               offset: const Offset(0, 4),
@@ -54,7 +56,7 @@ class AddSecurityTablet extends StatelessWidget {
 
               const SizedBox(height: 16),
               Text(
-               AppLocalizations.of(context)!.security_guard_photo_upload,
+                AppLocalizations.of(context)!.security_guard_photo_upload,
                 style: const TextStyle(
                   fontFamily: Fonts.font,
                   fontWeight: FontWeight.w600,
@@ -70,14 +72,18 @@ class AddSecurityTablet extends StatelessWidget {
                   Expanded(
                     child: Textformcrud(
                       controller: name,
-                      name:AppLocalizations.of(context)!.name,
-                      nameinfo:AppLocalizations.of(context)!.please_enter_name,
+                      name: AppLocalizations.of(context)!.name,
+                      nameinfo: AppLocalizations.of(context)!.please_enter_name,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return AppLocalizations.of(context)!.please_enter_name;
+                          return AppLocalizations.of(
+                            context,
+                          )!.please_enter_name;
                         }
                         if (value.length < 2) {
-                          return AppLocalizations.of(context)!.name_must_be_at_least_2_characters;
+                          return AppLocalizations.of(
+                            context,
+                          )!.name_must_be_at_least_2_characters;
                         }
                         return null;
                       },
@@ -87,14 +93,19 @@ class AddSecurityTablet extends StatelessWidget {
                   Expanded(
                     child: Textformcrud(
                       controller: phone,
-                      name:AppLocalizations.of(context)!.phone,
-                      nameinfo:AppLocalizations.of(context)!.enter_phone_number,
+                      name: AppLocalizations.of(context)!.phone,
+                      nameinfo:
+                          AppLocalizations.of(context)!.enter_phone_number,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return AppLocalizations.of(context)!.enter_phone_number;
+                          return AppLocalizations.of(
+                            context,
+                          )!.enter_phone_number;
                         }
                         if (!RegExp(r'^\d{10,}$').hasMatch(value)) {
-                          return AppLocalizations.of(context)!.enter_valid_phone_number;
+                          return AppLocalizations.of(
+                            context,
+                          )!.enter_valid_phone_number;
                         }
                         return null;
                       },
@@ -110,14 +121,21 @@ class AddSecurityTablet extends StatelessWidget {
                   Expanded(
                     child: Textformcrud(
                       controller: email,
-                      name:AppLocalizations.of(context)!.email,
-                      nameinfo:AppLocalizations.of(context)!.please_enter_your_email,
+                      name: AppLocalizations.of(context)!.email,
+                      nameinfo:
+                          AppLocalizations.of(context)!.please_enter_your_email,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return AppLocalizations.of(context)!.please_enter_your_email;
+                          return AppLocalizations.of(
+                            context,
+                          )!.please_enter_your_email;
                         }
-                        if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value)) {
-                          return AppLocalizations.of(context)!.enter_valid_email;
+                        if (!RegExp(
+                          r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$',
+                        ).hasMatch(value)) {
+                          return AppLocalizations.of(
+                            context,
+                          )!.enter_valid_email;
                         }
                         return null;
                       },
@@ -127,18 +145,24 @@ class AddSecurityTablet extends StatelessWidget {
                   Expanded(
                     child: Textformcrud(
                       controller: password,
-                      name:AppLocalizations.of(context)!.password,
-                      nameinfo:AppLocalizations.of(context)!.please_enter_your_password,
+                      name: AppLocalizations.of(context)!.password,
+                      nameinfo:
+                          AppLocalizations.of(
+                            context,
+                          )!.please_enter_your_password,
                       validator: (value) {
                         if (value == null || value.trim().isEmpty) {
-                          return AppLocalizations.of(context)!.please_enter_your_password;
+                          return AppLocalizations.of(
+                            context,
+                          )!.please_enter_your_password;
                         }
                         const pattern =
                             r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#\$&*~]).{8,}$';
 
                         if (!RegExp(pattern).hasMatch(value)) {
-                                                      return AppLocalizations.of(context)!.password_complexity_error;
-
+                          return AppLocalizations.of(
+                            context,
+                          )!.password_complexity_error;
                         }
 
                         return null;
@@ -155,14 +179,18 @@ class AddSecurityTablet extends StatelessWidget {
                   Expanded(
                     child: Textformcrud(
                       controller: numofgate,
-                      name:AppLocalizations.of(context)!.enter_gate_number,
-                      nameinfo:AppLocalizations.of(context)!.enter_gate_number,
+                      name: AppLocalizations.of(context)!.enter_gate_number,
+                      nameinfo: AppLocalizations.of(context)!.enter_gate_number,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return AppLocalizations.of(context)!.enter_gate_number;
+                          return AppLocalizations.of(
+                            context,
+                          )!.enter_gate_number;
                         }
                         if (!RegExp(r'^\d+$').hasMatch(value)) {
-                          return AppLocalizations.of(context)!.gate_number_must_be_numeric;
+                          return AppLocalizations.of(
+                            context,
+                          )!.gate_number_must_be_numeric;
                         }
                         return null;
                       },
@@ -176,40 +204,50 @@ class AddSecurityTablet extends StatelessWidget {
 
               // زر الحفظ
               Row(
-                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   BlocConsumer<AdduserCubit, AdduserState>(
-  listener: (context, state) {
-    if (state is Addsecuritysucces) {
-      name.clear();
-      email.clear();
-      password.clear();
-      phone.clear();
-      numofgate.clear();
-    }
-
-  },
-  builder: (context, state) {
-    final adduser=context.read<AdduserCubit>();
-
-    return CustomButton(
-                    name:AppLocalizations.of(context)!.save,
-                    colors: Appcolors.kBlack,
-                    width: MediaQuery.of(context).size.width * 0.15,
-                    onTap: () {
-                      if (_formKey.currentState!.validate()) {
-                        adduser.addsecurity(
-                          name: name.text,
-                          email: email.text,
-                          password: password.text,
-                          phoneNumber: phone.text,  gateNumber: numofgate.text,
-
+                    listener: (context, state) {
+                      if (state is Addsecuritysucces) {
+                        name.clear();
+                        email.clear();
+                        password.clear();
+                        phone.clear();
+                        numofgate.clear();
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                              "تم اضافه فرد الامن بنجاح",
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            backgroundColor: Colors.green,
+                          ),
                         );
                       }
                     },
-                  );
-  },
-),
+                    builder: (context, state) {
+                      final adduser = context.read<AdduserCubit>();
+
+                      return state is AdduserLoading
+                          ? const Center(child: LoadingButton())
+                          : CustomButton(
+                            name: AppLocalizations.of(context)!.save,
+                            colors: Appcolors.kBlack,
+                            width: MediaQuery.of(context).size.width * 0.15,
+                            onTap: () {
+                              if (_formKey.currentState!.validate()) {
+                                adduser.addsecurity(
+                                  name: name.text,
+                                  email: email.text,
+                                  password: password.text,
+                                  phoneNumber: phone.text,
+                                  gateNumber: numofgate.text,
+                                );
+                              }
+                            },
+                          );
+                    },
+                  ),
                 ],
               ),
             ],
