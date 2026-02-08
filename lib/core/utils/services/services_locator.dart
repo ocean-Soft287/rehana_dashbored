@@ -88,7 +88,7 @@ void setup() {
     () => SecurityonetimeCubit(sl<InvitationsecurityRepo>()),
   );
   //adduser
-  sl.registerLazySingleton<Adduserrepo>(
+  sl.registerFactory<Adduserrepo>(
     () => AddUserRepoImpl(dioConsumer: sl<DioConsumer>()),
   );
   sl.registerFactory<AdduserCubit>(() => AdduserCubit(sl<Adduserrepo>()));

@@ -33,9 +33,9 @@ class OwnerModel {
     phoneNumber: json['phoneNumber'] as String,
     pictureUrl: json['pictureUrl'] as String?,
     villaAddress: json['villaAddress'] as String,
-    villaNumber: json['villaNumber'] as int,
+    villaNumber: json['VillaNumber'] as int,
     villaLocation: json['villaLocation'] as String,
-    villaSpace: json['villaSpace'] as String?,
+    villaSpace: json['VillaSpace'] as String?,
     villaStreet: json['villaStreet'] as String,
     villaFloorsNumber: json['villaFloorsNumber'] as int,
     token: json['token'] as String,
@@ -48,9 +48,9 @@ class OwnerModel {
     'phoneNumber': phoneNumber,
     'pictureUrl': pictureUrl,
     'villaAddress': villaAddress,
-    'villaNumber': villaNumber,
+    'VillaSpace': villaNumber,
     'villaLocation': villaLocation,
-    'villaSpace': villaSpace,
+    'VillaNumber': villaSpace,
     'villaStreet': villaStreet,
     'villaFloorsNumber': villaFloorsNumber,
     'token': token,
@@ -63,29 +63,29 @@ class OwnerModel {
     String? phoneNumber,
     String? pictureUrl,
     String? villaAddress,
-    int?    villaNumber,
+    int? villaNumber,
     String? villaLocation,
     String? villaSpace,
     String? villaStreet,
-    int?    villaFloorsNumber,
+    int? villaFloorsNumber,
     String? token,
-  }) =>
-      OwnerModel(
-        email: email ?? this.email,
-        userName: userName ?? this.userName,
-        phoneNumber: phoneNumber ?? this.phoneNumber,
-        pictureUrl: pictureUrl ?? this.pictureUrl,
-        villaAddress: villaAddress ?? this.villaAddress,
-        villaNumber: villaNumber ?? this.villaNumber,
-        villaLocation: villaLocation ?? this.villaLocation,
-        villaSpace: villaSpace ?? this.villaSpace,
-        villaStreet: villaStreet ?? this.villaStreet,
-        villaFloorsNumber: villaFloorsNumber ?? this.villaFloorsNumber,
-        token: token ?? this.token,
-      );
+  }) => OwnerModel(
+    email: email ?? this.email,
+    userName: userName ?? this.userName,
+    phoneNumber: phoneNumber ?? this.phoneNumber,
+    pictureUrl: pictureUrl ?? this.pictureUrl,
+    villaAddress: villaAddress ?? this.villaAddress,
+    villaNumber: villaNumber ?? this.villaNumber,
+    villaLocation: villaLocation ?? this.villaLocation,
+    villaSpace: villaSpace ?? this.villaSpace,
+    villaStreet: villaStreet ?? this.villaStreet,
+    villaFloorsNumber: villaFloorsNumber ?? this.villaFloorsNumber,
+    token: token ?? this.token,
+  );
 
   @override
-  String toString() => 'OwnerModel(email: $email, userName: $userName, '
+  String toString() =>
+      'OwnerModel(email: $email, userName: $userName, '
       'phoneNumber: $phoneNumber, pictureUrl: $pictureUrl, '
       'villaAddress: $villaAddress, villaNumber: $villaNumber, '
       'villaLocation: $villaLocation, villaSpace: $villaSpace, '

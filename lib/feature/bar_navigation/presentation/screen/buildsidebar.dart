@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rehana_dashboared/core/utils/Network/local/cache_manager.dart';
-import 'package:rehana_dashboared/core/utils/colors/colors.dart';
-
 import '../../../../core/const/widget/expansion_sidebar_item.dart';
 import '../../../../core/const/widget/side_bar_item.dart';
 import '../../../../core/utils/font/fonts.dart';
 import '../../../../core/utils/image/images.dart';
 import '../../../Auth/presentation/view/screen/login.dart';
-import '../../../localization/localizationmodel/localizationmodel.dart';
-import '../../../localization/manger/localization_cubit.dart';
 import '../../data/model/menu_entry.dart';
 import '../../manger/bar_cubit.dart';
 import '../../manger/bar_state.dart';

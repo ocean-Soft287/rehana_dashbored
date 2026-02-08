@@ -34,8 +34,8 @@ class AddUserRepoImpl implements Adduserrepo {
         'phoneNumber': phoneNumber,
         'villaAddress': villaAddress,
         'villaLocation': villaLocation,
-        'villaNumber': villaNumber,
-        'villaSpace': villaSpace,
+        'VillaNumber': villaNumber,
+        'VillaSpace': villaSpace,
         'villaStreet': villaStreet,
         'villaFloorsNumber': villaFloorsNumber,
         if (image != null) 'Image': image, // غيّر اسم الحقل لو الـ API مختلف
@@ -68,19 +68,17 @@ class AddUserRepoImpl implements Adduserrepo {
     required String address,
     required String date, // هنا غيّر النوع لـ String
     required int villaNumber,
-  }) async{
+  }) async {
     try {
-
-
       final res = await dioConsumer.post(
         EndPoint.createMemberAccount,
         data: {
-          "fullName":fullName,
+          "fullName": fullName,
           "phoneNumber": phoneNumber,
-          "isMarried":isMarried,
+          "isMarried": isMarried,
           "address": address,
           "date": date,
-          "villaNumber": villaNumber
+          "villaNumber": villaNumber,
         },
       );
       final dynamic raw = res is Response ? res.data : res;
@@ -93,7 +91,8 @@ class AddUserRepoImpl implements Adduserrepo {
       return Left(_handleDioError(e));
     } catch (e) {
       return Left(ServerFailure(e.toString()));
-    }  }
+    }
+  }
 
   @override
   Future<Either<Failure, SecurityGuardModel>> addsecurity({
