@@ -24,7 +24,9 @@ class AddUserRepoImpl implements Adduserrepo {
     required String villaNumber,
     required String villaSpace,
     required String villaStreet,
-    required int villaFloorsNumber,
+    // required int villaFloorsNumber,
+    required String memberType,
+    required String villaType,
   }) async {
     try {
       final form = FormData.fromMap({
@@ -37,7 +39,9 @@ class AddUserRepoImpl implements Adduserrepo {
         'VillaNumber': villaNumber,
         'VillaSpace': villaSpace,
         'villaStreet': villaStreet,
-        'villaFloorsNumber': villaFloorsNumber,
+        // 'villaFloorsNumber': villaFloorsNumber,
+        'MemberType': memberType,
+        'VillaType': villaType,
         if (image != null) 'Image': image, // غيّر اسم الحقل لو الـ API مختلف
       });
 

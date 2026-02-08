@@ -557,4 +557,31 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get view_all_members => 'View All Members';
+
+  @override
+  String get member_type => 'Member Type';
+
+  @override
+  String get select_member_type => 'Select member type';
+
+  @override
+  String get owner => 'Owner';
+
+  @override
+  String get tenant => 'Tenant';
+
+  @override
+  String get authorized => 'Authorized';
+
+  @override
+  String get villa_type => 'Villa Type';
+
+  @override
+  String get select_villa_type => 'Select villa type';
+
+  @override
+  String get finished => 'Finished';
+
+  @override
+  String get unfinished => 'Unfinished';
 }

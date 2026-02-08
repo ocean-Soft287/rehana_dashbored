@@ -61,6 +61,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "area_must_be_valid_number": MessageLookupByLibrary.simpleMessage(
       "Area must be a valid number",
     ),
+    "authorized": MessageLookupByLibrary.simpleMessage("Authorized"),
     "bond_created_successfully": MessageLookupByLibrary.simpleMessage(
       "Bond created successfully",
     ),
@@ -153,6 +154,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "enter_villa_number": MessageLookupByLibrary.simpleMessage(
       "Enter villa number",
     ),
+    "finished": MessageLookupByLibrary.simpleMessage("Finished"),
     "form_valid": MessageLookupByLibrary.simpleMessage("Form is valid"),
     "from": MessageLookupByLibrary.simpleMessage("From"),
     "from_before_to": MessageLookupByLibrary.simpleMessage(
@@ -187,6 +189,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Login successfully",
     ),
     "married": MessageLookupByLibrary.simpleMessage("Married"),
+    "member_type": MessageLookupByLibrary.simpleMessage("Member Type"),
     "members_account_statement": MessageLookupByLibrary.simpleMessage(
       "Members Account Statement",
     ),
@@ -202,6 +205,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "number_of_floors_must_be_numeric": MessageLookupByLibrary.simpleMessage(
       "Number of floors must be numeric",
     ),
+    "owner": MessageLookupByLibrary.simpleMessage("Owner"),
     "owner_disbursement_bond_created": MessageLookupByLibrary.simpleMessage(
       "Owner Disbursement Bond Created Successfully",
     ),
@@ -321,7 +325,13 @@ class MessageLookup extends MessageLookupByLibrary {
     "security_guard_photo_upload": MessageLookupByLibrary.simpleMessage(
       "Upload Security Guard Photo",
     ),
+    "select_member_type": MessageLookupByLibrary.simpleMessage(
+      "Select member type",
+    ),
     "select_street": MessageLookupByLibrary.simpleMessage("Select street"),
+    "select_villa_type": MessageLookupByLibrary.simpleMessage(
+      "Select villa type",
+    ),
     "send_reset_password": MessageLookupByLibrary.simpleMessage(
       "Send Reset Password",
     ),
@@ -335,6 +345,7 @@ class MessageLookup extends MessageLookupByLibrary {
         MessageLookupByLibrary.simpleMessage(
           "Street must be at least 3 characters",
         ),
+    "tenant": MessageLookupByLibrary.simpleMessage("Tenant"),
     "time": MessageLookupByLibrary.simpleMessage("Time"),
     "to": MessageLookupByLibrary.simpleMessage("To"),
     "to_after_from": MessageLookupByLibrary.simpleMessage(
@@ -351,6 +362,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Verification code is required",
     ),
     "type": MessageLookupByLibrary.simpleMessage("Type"),
+    "unfinished": MessageLookupByLibrary.simpleMessage("Unfinished"),
     "update_success": MessageLookupByLibrary.simpleMessage(
       "Member account updated successfully",
     ),
@@ -392,6 +404,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "villa_number_not_found": MessageLookupByLibrary.simpleMessage(
       "Villa number not found",
     ),
+    "villa_type": MessageLookupByLibrary.simpleMessage("Villa Type"),
     "voucher_date": MessageLookupByLibrary.simpleMessage("Voucher Date"),
     "we_send_you_reset_link": MessageLookupByLibrary.simpleMessage(
       "We send you Reset link",

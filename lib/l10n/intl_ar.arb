@@ -161,7 +161,7 @@
   "invalid_email_password": "البريد الإلكتروني أو كلمة المرور غير صحيحة",
   "hello": "مرحبا",
   "enter_villa_number": "أدخل رقم الفيلا",
-  "login_successfully":"تم تسجيل الدخول بنجاح",
+  "login_successfully": "تم تسجيل الدخول بنجاح",
   "add_user_successfully": "تم إضافة المستخدم بنجاح",
   "no_users_found": "لم يتم العثور على مستخدمين",
   "add_invitation": "إضافة دعوة",
@@ -175,5 +175,14 @@
   "add_account": "إضافة حساب",
   "view_accounts": "عرض الحسابات",
   "add_member_statement": "إضافة كشف عضو",
-  "view_all_members": "عرض جميع الأعضاء"
+  "view_all_members": "عرض جميع الأعضاء",
+  "member_type": "نوع المالك",
+  "select_member_type": "اختر نوع المالك",
+  "owner": "مالك",
+  "tenant": "مستأجر",
+  "authorized": "مفوض",
+  "villa_type": "نوع الفيلا",
+  "select_villa_type": "اختر نوع الفيلا",
+  "finished": "مشطبة",
+  "unfinished": "غير مشطبة"
 }

@@ -96,7 +96,9 @@ class AdduserCubit extends Cubit<AdduserState> {
     required String villaNumber,
     required String villaSpace,
     required String villaStreet,
-    required int villaFloorsNumber,
+    // required int villaFloorsNumber,
+    required String memberType,
+    required String villaType,
   }) async {
     emit(AdduserLoading());
 
@@ -125,7 +127,9 @@ class AdduserCubit extends Cubit<AdduserState> {
       villaNumber: villaNumber,
       villaSpace: villaSpace,
       villaStreet: villaStreet,
-      villaFloorsNumber: villaFloorsNumber,
+      // villaFloorsNumber: villaFloorsNumber,
+      memberType: memberType,
+      villaType: villaType,
     );
 
     res.fold(

@@ -20,7 +20,9 @@ abstract class Adduserrepo {
     required String villaNumber,
     required String villaSpace,
     required String villaStreet,
-    required int villaFloorsNumber,
+    // required int villaFloorsNumber,
+    required String memberType,
+    required String villaType,
   });
   Future<Either<Failure, SecurityGuardModel>> addsecurity({
     required String name,

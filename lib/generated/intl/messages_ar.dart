@@ -59,6 +59,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "area_must_be_valid_number": MessageLookupByLibrary.simpleMessage(
       "المساحة يجب أن تكون رقمًا صحيحًا",
     ),
+    "authorized": MessageLookupByLibrary.simpleMessage("مفوض"),
     "bond_created_successfully": MessageLookupByLibrary.simpleMessage(
       "تم إنشاء السند بنجاح",
     ),
@@ -151,6 +152,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "enter_villa_number": MessageLookupByLibrary.simpleMessage(
       "أدخل رقم الفيلا",
     ),
+    "finished": MessageLookupByLibrary.simpleMessage("مشطبة"),
     "form_valid": MessageLookupByLibrary.simpleMessage("النموذج صالح"),
     "from": MessageLookupByLibrary.simpleMessage("من"),
     "from_before_to": MessageLookupByLibrary.simpleMessage(
@@ -187,6 +189,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "تم تسجيل الدخول بنجاح",
     ),
     "married": MessageLookupByLibrary.simpleMessage("متزوج"),
+    "member_type": MessageLookupByLibrary.simpleMessage("نوع المالك"),
     "members_account_statement": MessageLookupByLibrary.simpleMessage(
       "كشف حساب الأعضاء",
     ),
@@ -202,6 +205,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "number_of_floors_must_be_numeric": MessageLookupByLibrary.simpleMessage(
       "عدد الأدوار يجب أن يكون رقمًا",
     ),
+    "owner": MessageLookupByLibrary.simpleMessage("مالك"),
     "owner_disbursement_bond_created": MessageLookupByLibrary.simpleMessage(
       "تم إنشاء سند صرف المالك بنجاح",
     ),
@@ -311,7 +315,13 @@ class MessageLookup extends MessageLookupByLibrary {
     "security_guard_photo_upload": MessageLookupByLibrary.simpleMessage(
       "تحميل صورة حارس الأمن",
     ),
+    "select_member_type": MessageLookupByLibrary.simpleMessage(
+      "اختر نوع المالك",
+    ),
     "select_street": MessageLookupByLibrary.simpleMessage("اختر الشارع"),
+    "select_villa_type": MessageLookupByLibrary.simpleMessage(
+      "اختر نوع الفيلا",
+    ),
     "send_reset_password": MessageLookupByLibrary.simpleMessage(
       "إرسال كلمة المرور الجديدة",
     ),
@@ -325,6 +335,7 @@ class MessageLookup extends MessageLookupByLibrary {
         MessageLookupByLibrary.simpleMessage(
           "يجب أن يحتوي الشارع على 3 أحرف على الأقل",
         ),
+    "tenant": MessageLookupByLibrary.simpleMessage("مستأجر"),
     "time": MessageLookupByLibrary.simpleMessage("الوقت"),
     "to": MessageLookupByLibrary.simpleMessage("إلى"),
     "to_after_from": MessageLookupByLibrary.simpleMessage(
@@ -341,6 +352,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "رمز التحقق مطلوب",
     ),
     "type": MessageLookupByLibrary.simpleMessage("النوع"),
+    "unfinished": MessageLookupByLibrary.simpleMessage("غير مشطبة"),
     "update_success": MessageLookupByLibrary.simpleMessage(
       "تم تحديث بيانات العضو بنجاح",
     ),
@@ -380,6 +392,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "villa_number_not_found": MessageLookupByLibrary.simpleMessage(
       "رقم الفيلا غير موجود",
     ),
+    "villa_type": MessageLookupByLibrary.simpleMessage("نوع الفيلا"),
     "voucher_date": MessageLookupByLibrary.simpleMessage("تاريخ السند"),
     "we_send_you_reset_link": MessageLookupByLibrary.simpleMessage(
       "تم إرسال رابط إعادة التعيين إلى بريدك الإلكتروني",

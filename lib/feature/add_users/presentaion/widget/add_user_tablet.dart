@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:rehana_dashboared/core/widgets/loading_widget.dart';
 import '../../../../core/const/widget/custom_button.dart';
 import '../../../../core/const/widget/textformcrud.dart';
@@ -11,7 +12,7 @@ import '../../../../l10n/app_localizations.dart';
 import '../manger/adduser_cubit.dart';
 import 'imageuser.dart';
 
-class AddUserTablet extends StatelessWidget {
+class AddUserTablet extends StatefulWidget {
   final TextEditingController name;
   final TextEditingController phone;
   final TextEditingController email;
@@ -24,9 +25,7 @@ class AddUserTablet extends StatelessWidget {
   final TextEditingController numOfFloors;
   final TextEditingController villaspace;
 
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
-  AddUserTablet({
+  const AddUserTablet({
     super.key,
     required this.name,
     required this.phone,
@@ -40,6 +39,16 @@ class AddUserTablet extends StatelessWidget {
     required this.numOfFloors,
     required this.villaspace,
   });
+
+  @override
+  State<AddUserTablet> createState() => _AddUserTabletState();
+}
+
+class _AddUserTabletState extends State<AddUserTablet> {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  String? selectedMemberType;
+  String? selectedVillaType;
+  String completePhoneNumber = '';
 
   @override
   Widget build(BuildContext context) {
@@ -83,7 +92,7 @@ class AddUserTablet extends StatelessWidget {
                 children: [
                   Expanded(
                     child: Textformcrud(
-                      controller: name,
+                      controller: widget.name,
                       name: AppLocalizations.of(context)!.name,
                       nameinfo: AppLocalizations.of(context)!.please_enter_name,
                       validator: (value) {
@@ -103,21 +112,40 @@ class AddUserTablet extends StatelessWidget {
                   ),
                   const SizedBox(width: 12),
                   Expanded(
-                    child: Textformcrud(
-                      controller: phone,
-                      name: AppLocalizations.of(context)!.phone,
-                      nameinfo:
-                          AppLocalizations.of(context)!.enter_phone_number,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
+                    child: IntlPhoneField(
+                      decoration: InputDecoration(
+                        labelText: AppLocalizations.of(context)!.phone,
+                        hintText:
+                            AppLocalizations.of(context)!.enter_phone_number,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8),
+                          borderSide: BorderSide(color: Colors.grey.shade300),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8),
+                          borderSide: BorderSide(color: Colors.grey.shade300),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8),
+                          borderSide: const BorderSide(
+                            color: Appcolors.kprimary,
+                            width: 2,
+                          ),
+                        ),
+                        contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 16,
+                          vertical: 12,
+                        ),
+                      ),
+                      initialCountryCode: 'EG',
+                      onChanged: (phone) {
+                        completePhoneNumber = phone.completeNumber;
+                      },
+                      validator: (phone) {
+                        if (phone == null || phone.number.isEmpty) {
                           return AppLocalizations.of(
                             context,
                           )!.enter_phone_number;
-                        }
-                        if (!RegExp(r'^\d{10,}$').hasMatch(value)) {
-                          return AppLocalizations.of(
-                            context,
-                          )!.enter_valid_phone_number;
                         }
                         return null;
                       },
@@ -132,7 +160,7 @@ class AddUserTablet extends StatelessWidget {
                 children: [
                   Expanded(
                     child: Textformcrud(
-                      controller: email,
+                      controller: widget.email,
                       name: AppLocalizations.of(context)!.email,
                       nameinfo:
                           AppLocalizations.of(context)!.please_enter_your_email,
@@ -156,7 +184,7 @@ class AddUserTablet extends StatelessWidget {
                   const SizedBox(width: 12),
                   Expanded(
                     child: Textformcrud(
-                      controller: password,
+                      controller: widget.password,
                       name: AppLocalizations.of(context)!.password,
                       nameinfo:
                           AppLocalizations.of(
@@ -190,7 +218,7 @@ class AddUserTablet extends StatelessWidget {
                 children: [
                   Expanded(
                     child: Textformcrud(
-                      controller: villaAddress,
+                      controller: widget.villaAddress,
                       name: AppLocalizations.of(context)!.villa_address,
                       nameinfo:
                           AppLocalizations.of(context)!.enter_villa_address,
@@ -212,7 +240,7 @@ class AddUserTablet extends StatelessWidget {
                   const SizedBox(width: 12),
                   Expanded(
                     child: Textformcrud(
-                      controller: villaNumber,
+                      controller: widget.villaNumber,
                       name: AppLocalizations.of(context)!.villa_number,
                       nameinfo:
                           AppLocalizations.of(
@@ -224,9 +252,6 @@ class AddUserTablet extends StatelessWidget {
                             context,
                           )!.please_enter_villa_number;
                         }
-                        // if (!RegExp(r'^\d+$').hasMatch(value)) {
-                        //   return AppLocalizations.of(context)!.villa_number_must_be_numeric;
-                        // }
                         return null;
                       },
                     ),
@@ -240,7 +265,7 @@ class AddUserTablet extends StatelessWidget {
                 children: [
                   Expanded(
                     child: Textformcrud(
-                      controller: villaLocation,
+                      controller: widget.villaLocation,
                       name: AppLocalizations.of(context)!.villa_location,
                       nameinfo:
                           AppLocalizations.of(context)!.enter_villa_location,
@@ -262,7 +287,7 @@ class AddUserTablet extends StatelessWidget {
                   const SizedBox(width: 12),
                   Expanded(
                     child: Textformcrud(
-                      controller: street,
+                      controller: widget.street,
                       name: AppLocalizations.of(context)!.street,
                       nameinfo: AppLocalizations.of(context)!.select_street,
                       validator: (value) {
@@ -282,14 +307,15 @@ class AddUserTablet extends StatelessWidget {
               ),
               const SizedBox(height: 16),
 
-              // Area and Number of floors fields
+              // Area and Member Type dropdown
               Row(
                 children: [
                   Expanded(
                     child: Textformcrud(
-                      controller: villaspace,
+                      controller: widget.villaspace,
                       name: AppLocalizations.of(context)!.area,
                       nameinfo: AppLocalizations.of(context)!.enter_area,
+                      
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return AppLocalizations.of(context)!.enter_area;
@@ -304,28 +330,123 @@ class AddUserTablet extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(width: 12),
-                  
-                  // Expanded(
-                  //   child: Textformcrud(
-                  //     controller: numOfFloors,
-                  //     name: AppLocalizations.of(context)!.number_of_floors,
-                  //     nameinfo:
-                  //         AppLocalizations.of(context)!.enter_number_of_floors,
-                  //     validator: (value) {
-                  //       if (value == null || value.isEmpty) {
-                  //         return AppLocalizations.of(
-                  //           context,
-                  //         )!.enter_number_of_floors;
-                  //       }
-                  //       if (!RegExp(r'^\d+$').hasMatch(value)) {
-                  //         return AppLocalizations.of(
-                  //           context,
-                  //         )!.number_of_floors_must_be_numeric;
-                  //       }
-                  //       return null;
-                  //     },
-                  //   ),
-                  // ),
+                  Expanded(
+                    child: DropdownButtonFormField<String>(
+                      value: selectedMemberType,
+                      decoration: InputDecoration(
+                        labelText: AppLocalizations.of(context)!.member_type,
+                        hintText:
+                            AppLocalizations.of(context)!.select_member_type,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8),
+                          borderSide: BorderSide(color: Colors.grey.shade300),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8),
+                          borderSide: BorderSide(color: Colors.grey.shade300),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8),
+                          borderSide: const BorderSide(
+                            color: Appcolors.kprimary,
+                            width: 2,
+                          ),
+                        ),
+                        contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 16,
+                          vertical: 12,
+                        ),
+                      ),
+                      items: [
+                        DropdownMenuItem(
+                          value: 'مالك',
+                          child: Text(AppLocalizations.of(context)!.owner),
+                        ),
+                        DropdownMenuItem(
+                          value: 'مستأجر',
+                          child: Text(AppLocalizations.of(context)!.tenant),
+                        ),
+                        DropdownMenuItem(
+                          value: 'مفوض',
+                          child: Text(AppLocalizations.of(context)!.authorized),
+                        ),
+                      ],
+                      onChanged: (value) {
+                        setState(() {
+                          selectedMemberType = value;
+                        });
+                      },
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return AppLocalizations.of(
+                            context,
+                          )!.select_member_type;
+                        }
+                        return null;
+                      },
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 16),
+
+              // Villa Type dropdown
+              Row(
+                children: [
+                  Expanded(
+                    child: DropdownButtonFormField<String>(
+                      value: selectedVillaType,
+                      decoration: InputDecoration(
+                        labelText: AppLocalizations.of(context)!.villa_type,
+                        hintText:
+                            AppLocalizations.of(context)!.select_villa_type,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8),
+                          borderSide: BorderSide(color: Colors.grey.shade300),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8),
+                          borderSide: BorderSide(color: Colors.grey.shade300),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8),
+                          borderSide: const BorderSide(
+                            color: Appcolors.kprimary,
+                            width: 2,
+                          ),
+                        ),
+                        contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 16,
+                          vertical: 12,
+                        ),
+                      ),
+                      items: [
+                        DropdownMenuItem(
+                          value: 'مشطبة',
+                          child: Text(AppLocalizations.of(context)!.finished),
+                        ),
+                        DropdownMenuItem(
+                          value: 'غير مشطبة',
+                          child: Text(AppLocalizations.of(context)!.unfinished),
+                        ),
+                      ],
+                      onChanged: (value) {
+                        setState(() {
+                          selectedVillaType = value;
+                        });
+                      },
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return AppLocalizations.of(
+                            context,
+                          )!.select_villa_type;
+                        }
+                        return null;
+                      },
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  const Expanded(child: SizedBox()),
                 ],
               ),
               const SizedBox(height: 50),
@@ -337,16 +458,21 @@ class AddUserTablet extends StatelessWidget {
                   BlocConsumer<AdduserCubit, AdduserState>(
                     listener: (context, state) {
                       if (state is AdduserSuccess) {
-                        name.clear();
-                        email.clear();
-                        password.clear();
-                        phone.clear();
-                        villaAddress.clear();
-                        villaLocation.clear();
-                        villaNumber.clear();
-                        villaspace.clear();
-                        street.clear();
-                        numOfFloors.clear();
+                        widget.name.clear();
+                        widget.email.clear();
+                        widget.password.clear();
+                        widget.phone.clear();
+                        widget.villaAddress.clear();
+                        widget.villaLocation.clear();
+                        widget.villaNumber.clear();
+                        widget.villaspace.clear();
+                        widget.street.clear();
+                        widget.numOfFloors.clear();
+                        setState(() {
+                          selectedMemberType = null;
+                          selectedVillaType = null;
+                          completePhoneNumber = '';
+                        });
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
                             content: Text(
@@ -360,7 +486,6 @@ class AddUserTablet extends StatelessWidget {
                           ),
                         );
                       }
-
                     },
                     builder: (context, state) {
                       final adduser = context.read<AdduserCubit>();
@@ -374,30 +499,34 @@ class AddUserTablet extends StatelessWidget {
                             onTap: () {
                               log(
                                 "Adding user with data: "
-                                "name: ${name.text}, "
-                                "email: ${email.text}, "
-                                "password: ${password.text}, "
-                                "phoneNumber: ${phone.text}, "
-                                "villaAddress: ${villaAddress.text}, "
-                                "villaLocation: ${villaLocation.text}, "
-                                "villaNumber: ${villaNumber.text}, "
-                                "villaSpace: ${villaspace.text}, "
-                                "villaStreet: ${street.text}, "
-                                "villaFloorsNumber: ${numOfFloors.text}",
+                                "name: ${widget.name.text}, "
+                                "email: ${widget.email.text}, "
+                                "password: ${widget.password.text}, "
+                                "phoneNumber: $completePhoneNumber, "
+                                "villaAddress: ${widget.villaAddress.text}, "
+                                "villaLocation: ${widget.villaLocation.text}, "
+                                "villaNumber: ${widget.villaNumber.text}, "
+                                "villaSpace: ${widget.villaspace.text}, "
+                                "villaStreet: ${widget.street.text}, "
+                                "villaFloorsNumber: ${widget.numOfFloors.text}, "
+                                "memberType: $selectedMemberType, "
+                                "villaType: $selectedVillaType",
                               );
                               if (_formKey.currentState!.validate()) {
                                 adduser.addOwner(
-                                  name: name.text,
-                                  email: email.text,
-                                  password: password.text,
-                                  phoneNumber: phone.text,
-                                  villaAddress: villaAddress.text,
-                                  villaLocation: villaLocation.text,
-                                  villaNumber: villaNumber.text,
-                                  villaSpace: villaspace.text,
-                                  villaStreet: street.text,
-                                  villaFloorsNumber:
-                                      int.tryParse(numOfFloors.text) ?? 0,
+                                  name: widget.name.text,
+                                  email: widget.email.text,
+                                  password: widget.password.text,
+                                  phoneNumber: completePhoneNumber,
+                                  villaAddress: widget.villaAddress.text,
+                                  villaLocation: widget.villaLocation.text,
+                                  villaNumber: widget.villaNumber.text,
+                                  villaSpace: widget.villaspace.text,
+                                  villaStreet: widget.street.text,
+                                  // villaFloorsNumber:
+                                  //     int.tryParse(widget.numOfFloors.text) ?? 0,
+                                  memberType: selectedMemberType ?? '',
+                                  villaType: selectedVillaType ?? '',
                                 );
                               }
                             },

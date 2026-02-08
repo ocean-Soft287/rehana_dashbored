@@ -1563,6 +1563,61 @@ class S {
       args: [],
     );
   }
+
+  /// `Member Type`
+  String get member_type {
+    return Intl.message('Member Type', name: 'member_type', desc: '', args: []);
+  }
+
+  /// `Select member type`
+  String get select_member_type {
+    return Intl.message(
+      'Select member type',
+      name: 'select_member_type',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Owner`
+  String get owner {
+    return Intl.message('Owner', name: 'owner', desc: '', args: []);
+  }
+
+  /// `Tenant`
+  String get tenant {
+    return Intl.message('Tenant', name: 'tenant', desc: '', args: []);
+  }
+
+  /// `Authorized`
+  String get authorized {
+    return Intl.message('Authorized', name: 'authorized', desc: '', args: []);
+  }
+
+  /// `Villa Type`
+  String get villa_type {
+    return Intl.message('Villa Type', name: 'villa_type', desc: '', args: []);
+  }
+
+  /// `Select villa type`
+  String get select_villa_type {
+    return Intl.message(
+      'Select villa type',
+      name: 'select_villa_type',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Finished`
+  String get finished {
+    return Intl.message('Finished', name: 'finished', desc: '', args: []);
+  }
+
+  /// `Unfinished`
+  String get unfinished {
+    return Intl.message('Unfinished', name: 'unfinished', desc: '', args: []);
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -1159,6 +1159,60 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'View All Members'**
   String get view_all_members;
+
+  /// No description provided for @member_type.
+  ///
+  /// In en, this message translates to:
+  /// **'Member Type'**
+  String get member_type;
+
+  /// No description provided for @select_member_type.
+  ///
+  /// In en, this message translates to:
+  /// **'Select member type'**
+  String get select_member_type;
+
+  /// No description provided for @owner.
+  ///
+  /// In en, this message translates to:
+  /// **'Owner'**
+  String get owner;
+
+  /// No description provided for @tenant.
+  ///
+  /// In en, this message translates to:
+  /// **'Tenant'**
+  String get tenant;
+
+  /// No description provided for @authorized.
+  ///
+  /// In en, this message translates to:
+  /// **'Authorized'**
+  String get authorized;
+
+  /// No description provided for @villa_type.
+  ///
+  /// In en, this message translates to:
+  /// **'Villa Type'**
+  String get villa_type;
+
+  /// No description provided for @select_villa_type.
+  ///
+  /// In en, this message translates to:
+  /// **'Select villa type'**
+  String get select_villa_type;
+
+  /// No description provided for @finished.
+  ///
+  /// In en, this message translates to:
+  /// **'Finished'**
+  String get finished;
+
+  /// No description provided for @unfinished.
+  ///
+  /// In en, this message translates to:
+  /// **'Unfinished'**
+  String get unfinished;
 }
 
 class _AppLocalizationsDelegate

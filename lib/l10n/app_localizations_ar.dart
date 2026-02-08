@@ -554,4 +554,31 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get view_all_members => 'عرض جميع الأعضاء';
+
+  @override
+  String get member_type => 'نوع المالك';
+
+  @override
+  String get select_member_type => 'اختر نوع المالك';
+
+  @override
+  String get owner => 'مالك';
+
+  @override
+  String get tenant => 'مستأجر';
+
+  @override
+  String get authorized => 'مفوض';
+
+  @override
+  String get villa_type => 'نوع الفيلا';
+
+  @override
+  String get select_villa_type => 'اختر نوع الفيلا';
+
+  @override
+  String get finished => 'مشطبة';
+
+  @override
+  String get unfinished => 'غير مشطبة';
 }

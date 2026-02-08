@@ -175,5 +175,14 @@
   "add_account": "Add Account",
   "view_accounts": "View Accounts",
   "add_member_statement": "Add Member Statement",
-  "view_all_members": "View All Members"
+  "view_all_members": "View All Members",
+  "member_type": "Member Type",
+  "select_member_type": "Select member type",
+  "owner": "Owner",
+  "tenant": "Tenant",
+  "authorized": "Authorized",
+  "villa_type": "Villa Type",
+  "select_villa_type": "Select villa type",
+  "finished": "Finished",
+  "unfinished": "Unfinished"
 }
