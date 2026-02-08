@@ -301,27 +301,28 @@ class AddUserTablet extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(width: 12),
-                  Expanded(
-                    child: Textformcrud(
-                      controller: numOfFloors,
-                      name: AppLocalizations.of(context)!.number_of_floors,
-                      nameinfo:
-                          AppLocalizations.of(context)!.enter_number_of_floors,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return AppLocalizations.of(
-                            context,
-                          )!.enter_number_of_floors;
-                        }
-                        if (!RegExp(r'^\d+$').hasMatch(value)) {
-                          return AppLocalizations.of(
-                            context,
-                          )!.number_of_floors_must_be_numeric;
-                        }
-                        return null;
-                      },
-                    ),
-                  ),
+                  
+                  // Expanded(
+                  //   child: Textformcrud(
+                  //     controller: numOfFloors,
+                  //     name: AppLocalizations.of(context)!.number_of_floors,
+                  //     nameinfo:
+                  //         AppLocalizations.of(context)!.enter_number_of_floors,
+                  //     validator: (value) {
+                  //       if (value == null || value.isEmpty) {
+                  //         return AppLocalizations.of(
+                  //           context,
+                  //         )!.enter_number_of_floors;
+                  //       }
+                  //       if (!RegExp(r'^\d+$').hasMatch(value)) {
+                  //         return AppLocalizations.of(
+                  //           context,
+                  //         )!.number_of_floors_must_be_numeric;
+                  //       }
+                  //       return null;
+                  //     },
+                  //   ),
+                  // ),
                 ],
               ),
               const SizedBox(height: 50),
